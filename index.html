@@ -112,7 +112,7 @@
         </button>
         <button type="button" role="tab" data-tab="rules-wants" aria-selected="false"
           class="main-tab-btn shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all">
-          <i class="fa-solid fa-scale-balanced"></i>
+          <i class="fa-solid fa-clipboard-list"></i>
           <span>Rules &amp; Wants</span>
         </button>
         <button type="button" role="tab" data-tab="contact-sales" aria-selected="false"
@@ -267,7 +267,7 @@
         </button>
       </div>
 
-      <!-- Prominent Verbatim Notice Box (ONLY shown on ♔OUR MASTER sub-tab) -->
+      <!-- Verbatim Notice Box (ONLY shown on ♔OUR MASTER sub-tab) -->
       <div id="our-master-notice" class="hidden rounded-2xl bg-rose-50/90 dark:bg-rose-950/35 border border-rose-200/90 dark:border-rose-800/70 p-4 sm:p-5 shadow-sm space-y-2.5">
         <p class="text-sm sm:text-[15px] leading-relaxed font-medium text-[#c62828] dark:text-[#ff6b6b]">
           ※ That list isn't our master's full collection. lots of unlisted stuff that hasn't been added yet
@@ -277,6 +277,23 @@
         </p>
       </div>
 
+      <!-- Compact Soft-Blue Commission Banner (ONLY shown on ♔OUR MASTER sub-tab) -->
+      <div id="our-master-commission-banner" class="hidden rounded-2xl bg-blue-50/90 dark:bg-blue-950/40 border border-blue-200/90 dark:border-blue-800/70 px-4 py-3 sm:px-5 sm:py-3.5 shadow-sm flex items-center justify-between flex-wrap gap-3">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <span class="w-8 h-8 rounded-xl bg-blue-800 dark:bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+            <i class="fa-solid fa-clapperboard text-xs"></i>
+          </span>
+          <p class="text-xs sm:text-sm font-semibold text-blue-950 dark:text-blue-100 leading-snug">
+            <span class="inline-block px-2 py-0.5 mr-1 rounded-md bg-blue-800 dark:bg-blue-600 text-white text-[11px] font-extrabold tracking-wide uppercase align-middle">OPEN</span>
+            <span>for Large Theater Video Recording Commissions</span>
+          </p>
+        </div>
+        <button type="button" onclick="openCommissionTab()"
+          class="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-blue-800 hover:bg-blue-900 dark:bg-blue-600 dark:hover:bg-blue-500 text-white text-xs sm:text-sm font-bold shadow-sm transition-colors">
+          <span>Details &rarr;</span>
+        </button>
+      </div>
+      
       <!-- Search, Filters & Stats Card -->
       <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-4 shadow-sm space-y-3">
         <!-- Live Search Input -->
@@ -382,250 +399,322 @@
          TAB 4: RULES & WANTS (EXACT VERBATIM TEXT)
          --------------------------------------------------------- -->
     <section id="panel-rules-wants" class="tab-panel hidden space-y-4">
-      <!-- Card 1: Trade Ratio -->
-      <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-5 sm:p-6 shadow-sm space-y-3.5">
-        <h2 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
-          <i class="fa-solid fa-scale-balanced text-royal-600 dark:text-royal-300"></i>
-          <span>Trade Ratio</span>
-        </h2>
-        <ul class="space-y-2 text-sm text-slate-700 dark:text-slate-200 font-medium">
-          <li>◆ 1 Video = 1 video</li>
-          <li>◆ 1 Audio = 1 audio</li>
-          <li>◆ 1 Videos = 3 audios</li>
-          <li>◆ Limited Trade (4:1, 3:1, 2:1 ratio)</li>
-        </ul>
-        <p class="text-xs sm:text-sm italic text-amber-700 dark:text-amber-300 pt-1">
-          *Please see ratio and NFT before trading!
-        </p>
+      <!-- Sub-tab Switcher (Matching Audio | Script and Contact | Sales | Commission) -->
+      <div class="inline-flex p-1 rounded-xl bg-slate-200/70 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700" role="tablist" aria-label="Rules and Wants">
+        <button type="button" role="tab" data-rw-subtab="rules" onclick="switchRulesWantsSubTab('rules')"
+          class="rw-subtab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">
+          <i class="fa-solid fa-clipboard-list mr-1.5"></i>Rules
+        </button>
+        <button type="button" role="tab" data-rw-subtab="wants" onclick="switchRulesWantsSubTab('wants')"
+          class="rw-subtab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">
+          <i class="fa-solid fa-star mr-1.5"></i>Wants
+        </button>
       </div>
 
-      <!-- Card 2: Rules -->
-      <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-5 sm:p-6 shadow-sm space-y-3.5">
-        <h2 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
-          <i class="fa-solid fa-list-check text-royal-600 dark:text-royal-300"></i>
-          <span>Rules</span>
-        </h2>
-        <ul class="space-y-3 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-          <li>▶ OPEN for sales.</li>
-          <li>▶ Feel free to use English or Korean</li>
-          <li>▶ Please be nice!</li>
-          <li>▶ Most files are kept on Google Drive, some files on Mega. Please do not ask us to reupload files to different platforms!</li>
-          <li>▶ For trade, we only accept Google Drive links!</li>
-          <li>▶ We do NOT trade "YouTube Rips" (videos downloaded from YouTube/social media), as they suffer from heavy quality loss and are considered low-value in the trading community</li>
-          <li>▶ NFT means NOT FOR TRADE. I will ignore any trade requests for these files!</li>
-          <li>▶ '⚝' items Can trade them with SPECIFIC WANTS ONLY (please note: strictly ONLY want exact show listed under my "Show" wants. Having actors from "Favorite performer" list in other unlisted shows does not count towards our SPECIFIC WANTS!!). If you want that item but you don't have our wants you can purchase it!</li>
-          <li>▶ NFT Private Collection. 🚫NOT FOR SALE, We will not sell or trade them out. So please don't ask when that item will be released</li>
-          <li>▶ Our stuff is not for gifting! Don't ask us to share for free! (If you are kind, we don't mind sharing)</li>
-          <li>▶ Feel free to purchase as many items as you want from the general list!</li>
-          <li>▶ Please do not ask me to recommend, find, or provide contact information for other traders or masters. I strictly manage my own list and will not direct you to anyone else!</li>
-          <li>▶ Strictly DO NOT copy-paste our list formatting, descriptions, or notes to your own site/list. Respect time spent organizing this data and write your own!</li>
-          <li>▶ If you purchase or trade audios from us, you MUST NOT remove or alter the master credits. Keep the original formatting intact!</li>
-        </ul>
-      </div>
-
-      <!-- Card 3: Specific Wants -->
-      <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-5 sm:p-6 shadow-sm space-y-5">
-        <h2 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
-          <i class="fa-solid fa-star text-amber-500"></i>
-          <span>Specific Wants</span>
-        </h2>
-
-        <!-- Show (Video) -->
-        <div class="space-y-2.5">
-          <h3 class="text-sm font-bold text-royal-700 dark:text-royal-300">
-            ⸙ Show (Video):
-          </h3>
-          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-700 dark:text-slate-200">
-            <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Beetlejuice 2025-2026 (Kim Jun Su ⚝, Jung Won Young)</li>
-            <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Bonnie and Clyde 2025-2026 (Ock Joo Hyun)</li>
-            <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Death Note 2026 (Kim Jun Su ⚝)</li>
-            <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Dracula 2026</li>
-            <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Elisabeth 2026</li>
-            <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Frozen (Jeong Sun Ah)</li>
-            <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Hongryeon 2026 (Lee Ji Hye)</li>
-            <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">If/then 2024-2025</li>
-            <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Man In Hanbok 2025-2026</li>
-            <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Mata Hari 2024-2025</li>
-            <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Marie Curie 2025 (Ock Joo Hyun, Park Hye Na)</li>
-            <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Redbook 2025 (Ock Joo Hyun)</li>
-            <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Swingdays 2026</li>
-            <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">The Voice of Hamlet 2025</li>
+      <!-- SUB-PANEL 1: RULES (Trade Ratio + Rules) -->
+      <div id="subpanel-rules" class="space-y-4">
+        <!-- Card 1: Trade Ratio -->
+        <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-5 sm:p-6 shadow-sm space-y-3.5">
+          <h2 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+            <i class="fa-solid fa-clipboard-list text-blue-800 dark:text-blue-400"></i>
+            <span>Trade Ratio</span>
+          </h2>
+          <ul class="space-y-2 text-sm text-slate-700 dark:text-slate-200 font-medium">
+            <li>◆ 1 Video = 1 video</li>
+            <li>◆ 1 Audio = 1 audio</li>
+            <li>◆ 1 Videos = 3 audios</li>
+            <li>◆ Limited Trade (4:1, 3:1, 2:1 ratio)</li>
           </ul>
-        </div>
-
-        <!-- Favorite performer -->
-        <div class="space-y-2.5 pt-2 border-t border-slate-100 dark:border-slate-800">
-          <h3 class="text-sm font-bold text-royal-700 dark:text-royal-300">
-            ⸙ Favorite performer:
-          </h3>
-          <div class="flex flex-wrap gap-2">
-            <span class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-royal-50 dark:bg-royal-900/50 text-royal-700 dark:text-royal-200 border border-royal-200/70 dark:border-royal-700/60">Kim Jun Su</span>
-            <span class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-royal-50 dark:bg-royal-900/50 text-royal-700 dark:text-royal-200 border border-royal-200/70 dark:border-royal-700/60">Park Eun Tae</span>
-            <span class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-royal-50 dark:bg-royal-900/50 text-royal-700 dark:text-royal-200 border border-royal-200/70 dark:border-royal-700/60">Jeon Dong Seok</span>
-            <span class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-royal-50 dark:bg-royal-900/50 text-royal-700 dark:text-royal-200 border border-royal-200/70 dark:border-royal-700/60">Hong Kwang Ho</span>
-            <span class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-royal-50 dark:bg-royal-900/50 text-royal-700 dark:text-royal-200 border border-royal-200/70 dark:border-royal-700/60">Park Hyo Shin</span>
-            <span class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-royal-50 dark:bg-royal-900/50 text-royal-700 dark:text-royal-200 border border-royal-200/70 dark:border-royal-700/60">Ock Joo Hyun</span>
-            <span class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-royal-50 dark:bg-royal-900/50 text-royal-700 dark:text-royal-200 border border-royal-200/70 dark:border-royal-700/60">Lee Ji Hye</span>
-            <span class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-royal-50 dark:bg-royal-900/50 text-royal-700 dark:text-royal-200 border border-royal-200/70 dark:border-royal-700/60">Jeong Sun Ah</span>
-            <span class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-royal-50 dark:bg-royal-900/50 text-royal-700 dark:text-royal-200 border border-royal-200/70 dark:border-royal-700/60">Park Hye Na</span>
-            <span class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-royal-50 dark:bg-royal-900/50 text-royal-700 dark:text-royal-200 border border-royal-200/70 dark:border-royal-700/60">Cha Ji Yeon</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ---------------------------------------------------------
-         TAB 5: CONTACT & SALES
-         --------------------------------------------------------- -->
-    <section id="panel-contact-sales" class="tab-panel hidden space-y-5">
-      <!-- Card 1: CONTACTS -->
-      <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-5 sm:p-6 shadow-sm space-y-4">
-        <h2 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
-          <i class="fa-solid fa-paper-plane text-royal-600 dark:text-royal-300"></i>
-          <span>CONTACTS</span>
-        </h2>
-
-        <ul class="space-y-3 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-          <li>▶ If you contact us first, you must send your links first!</li>
-          <li>▶ Whoever initiates the trade sends their links first. No "this-for-that"—we want to see your whole list</li>
-          <li>
-            ▶ Please include show title and date of item you'd like to trade, purchase, or commission request.
-            <a href="https://form.jotform.com/chilhey3/contact-form" target="_blank" rel="noopener"
-              class="inline-flex items-center gap-1 mx-1 px-2.5 py-0.5 rounded-lg bg-royal-600 hover:bg-royal-700 text-white font-bold text-xs sm:text-sm shadow-sm transition-colors align-baseline">
-              <span>CONTACT US</span>
-              <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-            </a>
-            (*to inquire about your wants) 🙂
-          </li>
-          <li>▶ Please send a follow-up email if you don't receive a response after 2 days.</li>
-          <li>▶ Make sure to include your site/list and wants in your first email.</li>
-          <li>▶ If you're emailing directly, use subject line: "W Stuff". By sending an email, you agree to the terms &amp; conditions above</li>
-          <li>▶ We generally try to prepare links before you send payment; therefore, please be patient if we do not reply to your purchase request right away due to time zones and real-life commitments.</li>
-          <li>▶ Your personal data and privacy are always guaranteed!</li>
-        </ul>
-      </div>
-
-      <!-- Card 2: UNIFIED STYLED PRICE LIST -->
-      <div class="rounded-2xl bg-[#fbfaf7] dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-5 sm:p-7 shadow-sm space-y-7">
-        <!-- Price List Header -->
-        <div class="space-y-2.5">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-royal-600 to-royal-800 text-white flex items-center justify-center shadow-sm shrink-0">
-              <span class="font-extrabold text-lg tracking-tighter">W</span>
-            </div>
-            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-royal-600 dark:text-royal-300">
-              Price List
-            </h2>
-          </div>
-          <div class="h-[2.5px] w-full rounded-full bg-royal-600 dark:bg-royal-500"></div>
-          <p class="text-xs sm:text-sm font-bold text-royal-700 dark:text-royal-200 pt-1">
-            (All price are in USD (Base price))
+          <p class="text-xs sm:text-sm italic text-amber-700 dark:text-amber-300 pt-1">
+            *Please see ratio and NFT before trading!
           </p>
         </div>
 
-        <!-- 3 Styled Royal Blue Price Boxes -->
-        <div class="space-y-8 pt-1">
-
-          <!-- Box 1: AUDIO & SCRIPT -->
-          <div class="relative rounded-2xl border-2 border-royal-600 dark:border-royal-500 bg-white dark:bg-slate-950/60 px-4 sm:px-6 pt-7 pb-5 shadow-[5px_6px_0_0_#0f4c9c] dark:shadow-[5px_6px_0_0_#1d4ed8]">
-            <div class="absolute -top-4 left-4 sm:left-6 px-5 py-1.5 rounded-full bg-royal-600 dark:bg-royal-500 text-white text-xs sm:text-sm font-extrabold tracking-wide uppercase shadow-sm">
-              AUDIO &amp; SCRIPT
-            </div>
-            <ul class="space-y-2.5 text-sm sm:text-[15px] font-bold text-royal-700 dark:text-slate-100">
-              <li class="flex items-baseline justify-between gap-4">
-                <span class="flex items-baseline gap-2"><span class="text-royal-500">•</span><span>1 Audio</span></span>
-                <span class="shrink-0 tabular-nums text-royal-800 dark:text-royal-200">$ 3</span>
-              </li>
-              <li class="flex items-baseline justify-between gap-4">
-                <span class="flex items-baseline gap-2"><span class="text-royal-500">•</span><span>10 Audio</span></span>
-                <span class="shrink-0 tabular-nums text-royal-800 dark:text-royal-200">$ 7,5</span>
-              </li>
-              <li class="flex items-baseline justify-between gap-4">
-                <span class="flex items-baseline gap-2"><span class="text-royal-500">•</span><span>20 Audio</span></span>
-                <span class="shrink-0 tabular-nums text-royal-800 dark:text-royal-200">$ 10</span>
-              </li>
-              <li class="flex items-baseline justify-between gap-4">
-                <span class="flex items-baseline gap-2"><span class="text-royal-500">•</span><span>1 Script</span></span>
-                <span class="shrink-0 tabular-nums text-royal-800 dark:text-royal-200">from $ 5</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Box 2: VIDEO (KOREAN) -->
-          <div class="relative rounded-2xl border-2 border-royal-600 dark:border-royal-500 bg-white dark:bg-slate-950/60 px-4 sm:px-6 pt-7 pb-5 shadow-[5px_6px_0_0_#0f4c9c] dark:shadow-[5px_6px_0_0_#1d4ed8]">
-            <div class="absolute -top-4 left-4 sm:left-6 px-5 py-1.5 rounded-full bg-royal-600 dark:bg-royal-500 text-white text-xs sm:text-sm font-extrabold tracking-wide uppercase shadow-sm">
-              VIDEO (KOREAN)
-            </div>
-            <ul class="space-y-2.5 text-sm sm:text-[15px] font-bold text-royal-700 dark:text-slate-100">
-              <li class="flex items-baseline justify-between gap-4">
-                <span class="flex items-baseline gap-2"><span class="text-royal-500">•</span><span>2019 &amp; older / DVD / Stream / Pro-shot</span></span>
-                <span class="shrink-0 tabular-nums text-royal-800 dark:text-royal-200">$ 10</span>
-              </li>
-              <li class="flex items-baseline justify-between gap-4">
-                <span class="flex items-baseline gap-2"><span class="text-royal-500">•</span><span>2020-2023</span></span>
-                <span class="shrink-0 tabular-nums text-royal-800 dark:text-royal-200">$ 20-30</span>
-              </li>
-              <li class="flex items-baseline justify-between gap-4">
-                <span class="flex items-baseline gap-2"><span class="text-royal-500">•</span><span>2024 onwards</span></span>
-                <span class="shrink-0 tabular-nums text-royal-800 dark:text-royal-200">$ 30-40</span>
-              </li>
-              <li class="flex items-baseline justify-between gap-4">
-                <span class="flex items-baseline gap-2"><span class="text-royal-500">•</span><span>'⚝' items</span></span>
-                <span class="shrink-0 tabular-nums text-royal-800 dark:text-royal-200">$ 40-50</span>
-              </li>
-              <li class="flex items-baseline justify-between gap-4">
-                <span class="flex items-baseline gap-2"><span class="text-royal-500">•</span><span>'👑' items</span></span>
-                <span class="shrink-0 tabular-nums text-royal-800 dark:text-royal-200">from $ 65</span>
-              </li>
-            </ul>
-            <p class="mt-4 pt-3 border-t border-royal-100 dark:border-slate-800 text-xs sm:text-sm font-semibold text-royal-700 dark:text-royal-300">
-              ※ Notes: Price per-video
-            </p>
-          </div>
-
-          <!-- Box 3: VIDEO BUNDLE (KOREAN) -->
-          <div class="relative rounded-2xl border-2 border-royal-600 dark:border-royal-500 bg-white dark:bg-slate-950/60 px-4 sm:px-6 pt-7 pb-5 shadow-[5px_6px_0_0_#0f4c9c] dark:shadow-[5px_6px_0_0_#1d4ed8]">
-            <div class="absolute -top-4 left-4 sm:left-6 px-5 py-1.5 rounded-full bg-royal-600 dark:bg-royal-500 text-white text-xs sm:text-sm font-extrabold tracking-wide uppercase shadow-sm">
-              VIDEO BUNDLE (KOREAN)
-            </div>
-            <ul class="space-y-2.5 text-sm sm:text-[15px] font-bold text-royal-700 dark:text-slate-100">
-              <li class="flex items-baseline justify-between gap-4">
-                <span class="flex items-baseline gap-2"><span class="text-royal-500">•</span><span>5 Videos (2019 &amp; older / DVD / Stream / Pro-shot)</span></span>
-                <span class="shrink-0 tabular-nums text-royal-800 dark:text-royal-200">$ 40</span>
-              </li>
-              <li class="flex items-baseline justify-between gap-4">
-                <span class="flex items-baseline gap-2"><span class="text-royal-500">•</span><span>5 Videos (2020–2026)</span></span>
-                <span class="shrink-0 tabular-nums text-royal-800 dark:text-royal-200">$ 75</span>
-              </li>
-              <li class="flex items-baseline justify-between gap-4">
-                <span class="flex items-baseline gap-2"><span class="text-royal-500">•</span><span>10 Videos (2020–2026, can include 3 ⚝ items)</span></span>
-                <span class="shrink-0 tabular-nums text-royal-800 dark:text-royal-200">$ 105</span>
-              </li>
-            </ul>
-            <p class="mt-4 pt-3 border-t border-royal-100 dark:border-slate-800 text-xs sm:text-sm font-semibold leading-relaxed text-royal-700 dark:text-royal-300">
-              ※ Note: Bundles exclude '👑' tagged items. (videos without tag are eligible for bundle pricing!)
-            </p>
-          </div>
-
+        <!-- Card 2: Rules -->
+        <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-5 sm:p-6 shadow-sm space-y-3.5">
+          <h2 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+            <i class="fa-solid fa-list-check text-blue-800 dark:text-blue-400"></i>
+            <span>Rules</span>
+          </h2>
+          <ul class="space-y-3 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+            <li>▶ OPEN for sales. (Closed for general trades)</li>
+            <li>▶ Feel free to use English or Korean</li>
+            <li>▶ Please be nice!</li>
+            <li>▶ Most files are kept on Google Drive, some files on Mega. Please do not ask us to reupload files to different platforms!</li>
+            <li>▶ For trade, we only accept Google Drive links!</li>
+            <li>▶ We do NOT trade "YouTube Rips" (videos downloaded from YouTube/social media), as they suffer from heavy quality loss and are considered low-value in the trading community</li>
+            <li>▶ NFT means NOT FOR TRADE. I will ignore any trade requests for these files!</li>
+            <li>▶ '⚝' items Can trade them with SPECIFIC WANTS ONLY (please note: strictly ONLY want exact show listed under my "Show" wants. Having actors from "Favorite performer" list in other unlisted shows does not count towards our SPECIFIC WANTS!!). If you want that item but you don't have our wants you can purchase it!</li>
+            <li>▶ NFT Private Collection. 🚫NOT FOR SALE, We will not sell or trade them out. So please don't ask when that item will be released</li>
+            <li>▶ Our stuff is not for gifting! Don't ask us to share for free! (If you are kind, we don't mind sharing)</li>
+            <li>▶ Feel free to purchase as many items as you want from the general list!</li>
+            <li>▶ Please do not ask me to recommend, find, or provide contact information for other traders or masters. I strictly manage my own list and will not direct you to anyone else!</li>
+            <li>▶ Strictly DO NOT copy-paste our list formatting, descriptions, or notes to your own site/list. Respect time spent organizing this data and write your own!</li>
+            <li>▶ If you purchase or trade audios from us, you MUST NOT remove or alter the master credits. Keep the original formatting intact!</li>
+          </ul>
         </div>
       </div>
 
-      <!-- Card 3: PayPal Payment Notes -->
-      <div class="rounded-2xl bg-sky-50/90 dark:bg-sky-950/30 border border-sky-200/80 dark:border-sky-900/60 p-5 sm:p-6 shadow-sm space-y-3 text-xs sm:text-sm leading-relaxed text-sky-950 dark:text-sky-100">
-        <div class="flex items-center gap-2 font-extrabold text-royal-700 dark:text-sky-300 text-sm sm:text-base">
-          <i class="fa-brands fa-paypal text-lg"></i>
-          <span>PayPal Payment Notes</span>
+      <!-- SUB-PANEL 2: WANTS (Specific Wants) -->
+      <div id="subpanel-wants" class="hidden space-y-4">
+        <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-5 sm:p-6 shadow-sm space-y-5">
+          <h2 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+            <i class="fa-solid fa-star text-amber-500"></i>
+            <span>Specific Wants</span>
+          </h2>
+
+          <!-- Show (Video) -->
+          <div class="space-y-2.5">
+            <h3 class="text-sm font-bold text-blue-800 dark:text-blue-300">
+              ⸙ Show (Video):
+            </h3>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-slate-700 dark:text-slate-200">
+              <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Beetlejuice 2025-2026 (Kim Jun Su ⚝, Jung Won Young)</li>
+              <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Bonnie and Clyde 2025-2026 (Ock Joo Hyun)</li>
+              <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Death Note 2026 (Kim Jun Su ⚝)</li>
+              <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Dracula 2026</li>
+              <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Elisabeth 2026</li>
+              <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Frozen (Jeong Sun Ah)</li>
+              <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Hongryeon 2026 (Lee Ji Hye)</li>
+              <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">If/then 2024-2025</li>
+              <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Man In Hanbok 2025-2026</li>
+              <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Mata Hari 2024-2025</li>
+              <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Marie Curie 2025 (Ock Joo Hyun, Park Hye Na)</li>
+              <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Redbook 2025 (Ock Joo Hyun)</li>
+              <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">Swingdays 2026</li>
+              <li class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/60 dark:border-slate-700/60">The Voice of Hamlet 2025</li>
+            </ul>
+          </div>
+
+          <!-- Favorite performer -->
+          <div class="space-y-2.5 pt-2 border-t border-slate-100 dark:border-slate-800">
+            <h3 class="text-sm font-bold text-blue-800 dark:text-blue-300">
+              ⸙ Favorite performer:
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-800 dark:text-blue-200 border border-blue-200/70 dark:border-blue-800/60">Kim Jun Su</span>
+              <span class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-800 dark:text-blue-200 border border-blue-200/70 dark:border-blue-800/60">Park Eun Tae</span>
+              <span class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-800 dark:text-blue-200 border border-blue-200/70 dark:border-blue-800/60">Jeon Dong Seok</span>
+              <span class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-800 dark:text-blue-200 border border-blue-200/70 dark:border-blue-800/60">Hong Kwang Ho</span>
+              <span class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-800 dark:text-blue-200 border border-blue-200/70 dark:border-blue-800/60">Park Hyo Shin</span>
+              <span class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-800 dark:text-blue-200 border border-blue-200/70 dark:border-blue-800/60">Ock Joo Hyun</span>
+              <span class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-800 dark:text-blue-200 border border-blue-200/70 dark:border-blue-800/60">Lee Ji Hye</span>
+              <span class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-800 dark:text-blue-200 border border-blue-200/70 dark:border-blue-800/60">Jeong Sun Ah</span>
+              <span class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-800 dark:text-blue-200 border border-blue-200/70 dark:border-blue-800/60">Park Hye Na</span>
+              <span class="px-3 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-800 dark:text-blue-200 border border-blue-200/70 dark:border-blue-800/60">Cha Ji Yeon</span>
+            </div>
+          </div>
         </div>
-        <p>
-          ※ Note on PayPal Payments: All prices listed are base prices. All payments are processed via Goods &amp; Services (G&amp;S), and a standard PayPal handling fee will be added to your final total. Feel free to ask for the exact total before sending the payment!
-        </p>
-        <p>
-          ※ After sending payment, please send a screenshot of success page or your Transaction ID to our contact for instant verification. We will send links once payment is confirmed. [Please download your files as soon as possible after receiving links!]
-        </p>
+      </div>
+    </section>
+    
+    <!-- ---------------------------------------------------------
+         TAB 5: CONTACT & SALES
+         --------------------------------------------------------- -->
+     <section id="panel-contact-sales" class="tab-panel hidden space-y-4">
+      <!-- Sub-tab Switcher (Compact, mobile-friendly 3-way switcher) -->
+      <div class="inline-flex flex-wrap max-w-full gap-1 p-1 rounded-xl bg-slate-200/70 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700" role="tablist" aria-label="Contact, Sales, and Commission">
+        <button type="button" role="tab" data-cs-subtab="contact" onclick="switchContactSalesSubTab('contact')"
+          class="cs-subtab-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all whitespace-nowrap">
+          <i class="fa-solid fa-paper-plane mr-1.5"></i>Contact
+        </button>
+        <button type="button" role="tab" data-cs-subtab="sales" onclick="switchContactSalesSubTab('sales')"
+          class="cs-subtab-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all whitespace-nowrap">
+          <i class="fa-solid fa-tags mr-1.5"></i>Sales
+        </button>
+        <button type="button" role="tab" data-cs-subtab="commission" onclick="switchContactSalesSubTab('commission')"
+          class="cs-subtab-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all whitespace-nowrap">
+          <i class="fa-solid fa-clapperboard mr-1.5"></i>Commission
+        </button>
+      </div>
+
+      <!-- SUB-PANEL 1: CONTACT -->
+      <div id="subpanel-contact" class="space-y-4">
+        <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-5 sm:p-6 shadow-sm space-y-4">
+          <h2 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
+            <i class="fa-solid fa-paper-plane text-blue-800 dark:text-blue-400"></i>
+            <span>CONTACTS</span>
+          </h2>
+
+          <ul class="space-y-3 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+            <li>▶ If you contact us first, you must send your links first!</li>
+            <li>▶ Whoever initiates the trade sends their links first. No "this-for-that"—we want to see your whole list</li>
+            <li>
+              ▶ Please include show title and date of item you'd like to trade, purchase, or commission request.
+              <a href="https://form.jotform.com/chilhey3/contact-form" target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 mx-1 px-2.5 py-0.5 rounded-lg bg-blue-800 hover:bg-blue-900 text-white font-bold text-xs sm:text-sm shadow-sm transition-colors align-baseline">
+                <span>CONTACT US</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+              </a>
+              <span class="italic text-red-600 dark:text-red-400">(*to inquire about your wants)</span> 🙂
+            </li>
+            <li>▶ Please send a follow-up email if you don't receive a response after 2 days.</li>
+            <li>▶ Make sure to include your site/list and wants in your first email.</li>
+            <li>▶ If you're emailing directly, use subject line: "W Stuff". By sending an email, you agree to the terms &amp; conditions above</li>
+            <li>▶ We generally try to prepare links before you send payment; therefore, please be patient if we do not reply to your purchase request right away due to time zones and real-life commitments.</li>
+            <li>▶ Your personal data and privacy are always guaranteed!</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- SUB-PANEL 2: SALES (Price List + PayPal Notes) -->
+      <div id="subpanel-sales" class="hidden space-y-5">
+        <!-- Card 1: UNIFIED STYLED PRICE LIST -->
+        <div class="rounded-2xl bg-gradient-to-b from-blue-50/90 to-white dark:from-slate-900 dark:to-slate-900 border-2 border-blue-200 dark:border-blue-900/80 p-5 sm:p-6 shadow-sm space-y-7">
+          <div class="text-center space-y-1">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300 text-[11px] font-extrabold uppercase tracking-widest">
+              <i class="fa-solid fa-tags"></i>
+              <span>Sales Info</span>
+            </span>
+            <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight text-blue-900 dark:text-white uppercase">
+              PRICE LIST
+            </h2>
+          </div>
+
+          <div class="space-y-7">
+            <!-- Box 1: AUDIO & SCRIPT -->
+            <div class="relative rounded-2xl border-2 border-blue-800 dark:border-blue-500 bg-white dark:bg-slate-950/60 px-4 sm:px-6 pt-7 pb-5 shadow-[5px_6px_0_0_#1e40af] dark:shadow-[5px_6px_0_0_#1d4ed8]">
+              <div class="absolute -top-4 left-4 sm:left-6 px-5 py-1.5 rounded-full bg-blue-800 dark:bg-blue-600 text-white text-xs sm:text-sm font-extrabold tracking-wide uppercase shadow-sm">
+                AUDIO &amp; SCRIPT
+              </div>
+              <ul class="space-y-2.5 text-sm sm:text-[15px] font-bold text-blue-900 dark:text-slate-100">
+                <li class="flex items-baseline justify-between gap-4">
+                  <span class="flex items-baseline gap-2"><span class="text-blue-600">•</span><span>1 Audio</span></span>
+                  <span class="shrink-0 tabular-nums text-blue-950 dark:text-blue-200">$ 1</span>
+                </li>
+                <li class="flex items-baseline justify-between gap-4">
+                  <span class="flex items-baseline gap-2"><span class="text-blue-600">•</span><span>5 Audio</span></span>
+                  <span class="shrink-0 tabular-nums text-blue-950 dark:text-blue-200">$ 3</span>
+                </li>
+                <li class="flex items-baseline justify-between gap-4">
+                  <span class="flex items-baseline gap-2"><span class="text-blue-600">•</span><span>10 Audio</span></span>
+                  <span class="shrink-0 tabular-nums text-blue-950 dark:text-blue-200">$ 5</span>
+                </li>
+                <li class="flex items-baseline justify-between gap-4">
+                  <span class="flex items-baseline gap-2"><span class="text-blue-600">•</span><span>15 Audio</span></span>
+                  <span class="shrink-0 tabular-nums text-blue-950 dark:text-blue-200">$ 7,5</span>
+                </li>
+                <li class="flex items-baseline justify-between gap-4">
+                  <span class="flex items-baseline gap-2"><span class="text-blue-600">•</span><span>20 Audio</span></span>
+                  <span class="shrink-0 tabular-nums text-blue-950 dark:text-blue-200">$ 10</span>
+                </li>
+                <li class="flex items-baseline justify-between gap-4">
+                  <span class="flex items-baseline gap-2"><span class="text-blue-600">•</span><span>1 Script</span></span>
+                  <span class="shrink-0 tabular-nums text-blue-950 dark:text-blue-200">from $ 5</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Box 2: VIDEO (KOREAN) -->
+            <div class="relative rounded-2xl border-2 border-blue-800 dark:border-blue-500 bg-white dark:bg-slate-950/60 px-4 sm:px-6 pt-7 pb-5 shadow-[5px_6px_0_0_#1e40af] dark:shadow-[5px_6px_0_0_#1d4ed8]">
+              <div class="absolute -top-4 left-4 sm:left-6 px-5 py-1.5 rounded-full bg-blue-800 dark:bg-blue-600 text-white text-xs sm:text-sm font-extrabold tracking-wide uppercase shadow-sm">
+                VIDEO (KOREAN)
+              </div>
+              <ul class="space-y-2.5 text-sm sm:text-[15px] font-bold text-blue-900 dark:text-slate-100">
+                <li class="flex items-baseline justify-between gap-4">
+                  <span class="flex items-baseline gap-2"><span class="text-blue-600">•</span><span>2019 &amp; older / DVD / Stream / Pro-shot</span></span>
+                  <span class="shrink-0 tabular-nums text-blue-950 dark:text-blue-200">$ 10</span>
+                </li>
+                <li class="flex items-baseline justify-between gap-4">
+                  <span class="flex items-baseline gap-2"><span class="text-blue-600">•</span><span>2020-2023</span></span>
+                  <span class="shrink-0 tabular-nums text-blue-950 dark:text-blue-200">$ 20-30</span>
+                </li>
+                <li class="flex items-baseline justify-between gap-4">
+                  <span class="flex items-baseline gap-2"><span class="text-blue-600">•</span><span>2024 onwards</span></span>
+                  <span class="shrink-0 tabular-nums text-blue-950 dark:text-blue-200">$ 30-40</span>
+                </li>
+                <li class="flex items-baseline justify-between gap-4">
+                  <span class="flex items-baseline gap-2"><span class="text-blue-600">•</span><span>'⚝' items</span></span>
+                  <span class="shrink-0 tabular-nums text-blue-950 dark:text-blue-200">$ 40-50</span>
+                </li>
+                <li class="flex items-baseline justify-between gap-4">
+                  <span class="flex items-baseline gap-2"><span class="text-blue-600">•</span><span>'👑' items</span></span>
+                  <span class="shrink-0 tabular-nums text-blue-950 dark:text-blue-200">from $ 65</span>
+                </li>
+              </ul>
+              <p class="mt-4 pt-3 border-t border-blue-100 dark:border-slate-800 text-xs sm:text-sm font-semibold text-blue-800 dark:text-blue-300">
+                ※ Notes: Price per-video
+              </p>
+            </div>
+
+            <!-- Box 3: VIDEO BUNDLE (KOREAN) -->
+            <div class="relative rounded-2xl border-2 border-blue-800 dark:border-blue-500 bg-white dark:bg-slate-950/60 px-4 sm:px-6 pt-7 pb-5 shadow-[5px_6px_0_0_#1e40af] dark:shadow-[5px_6px_0_0_#1d4ed8]">
+              <div class="absolute -top-4 left-4 sm:left-6 px-5 py-1.5 rounded-full bg-blue-800 dark:bg-blue-600 text-white text-xs sm:text-sm font-extrabold tracking-wide uppercase shadow-sm">
+                VIDEO BUNDLE (KOREAN)
+              </div>
+              <ul class="space-y-2.5 text-sm sm:text-[15px] font-bold text-blue-900 dark:text-slate-100">
+                <li class="flex items-baseline justify-between gap-4">
+                  <span class="flex items-baseline gap-2"><span class="text-blue-600">•</span><span>5 Videos (2019 &amp; older / DVD / Stream / Pro-shot)</span></span>
+                  <span class="shrink-0 tabular-nums text-blue-950 dark:text-blue-200">$ 40</span>
+                </li>
+                <li class="flex items-baseline justify-between gap-4">
+                  <span class="flex items-baseline gap-2"><span class="text-blue-600">•</span><span>5 Videos (2020–2026)</span></span>
+                  <span class="shrink-0 tabular-nums text-blue-950 dark:text-blue-200">$ 75</span>
+                </li>
+                <li class="flex items-baseline justify-between gap-4">
+                  <span class="flex items-baseline gap-2"><span class="text-blue-600">•</span><span>10 Videos (2020–2026, can include 3 ⚝ items)</span></span>
+                  <span class="shrink-0 tabular-nums text-blue-950 dark:text-blue-200">$ 105</span>
+                </li>
+              </ul>
+              <p class="mt-4 pt-3 border-t border-blue-100 dark:border-slate-800 text-xs sm:text-sm font-semibold leading-relaxed text-blue-800 dark:text-blue-300">
+                ※ Note: Bundles exclude '👑' tagged items. (videos without tag are eligible for bundle pricing!)
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: PayPal Payment Notes -->
+        <div class="rounded-2xl bg-sky-50/90 dark:bg-sky-950/30 border border-sky-200/80 dark:border-sky-900/60 p-5 sm:p-6 shadow-sm space-y-3 text-xs sm:text-sm leading-relaxed text-sky-950 dark:text-sky-100">
+          <div class="flex items-center gap-2 font-extrabold text-blue-800 dark:text-sky-300 text-sm sm:text-base">
+            <i class="fa-brands fa-paypal text-lg"></i>
+            <span>PayPal Payment Notes</span>
+          </div>
+          <p>
+            ※ Note on PayPal Payments: All prices listed are base prices. All payments are processed via Goods &amp; Services (G&amp;S), and a standard PayPal handling fee will be added to your final total. Feel free to ask for the exact total before sending the payment!
+          </p>
+          <p>
+            ※ After sending payment, please send a screenshot of success page or your Transaction ID to our contact for instant verification. We will send links once payment is confirmed. [Please download your files as soon as possible after receiving links!]
+          </p>
+        </div>
+      </div>
+
+      <!-- SUB-PANEL 3: COMMISSION -->
+      <div id="subpanel-commission" class="hidden space-y-4">
+        <div class="rounded-2xl bg-white dark:bg-slate-900 border-2 border-blue-200 dark:border-blue-900/80 p-5 sm:p-6 shadow-sm space-y-4">
+          <div class="flex items-start gap-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-800 dark:text-blue-400 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-clapperboard text-lg"></i>
+            </div>
+            <h2 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white leading-snug pt-0.5">
+              Musical Recording Commission Order Form (Large Theater Only)
+            </h2>
+          </div>
+
+          <div class="space-y-3 text-sm sm:text-[15px] leading-relaxed text-slate-700 dark:text-slate-300">
+            <p>
+              <span class="inline-block px-2 py-0.5 mr-1 rounded-md bg-blue-100 dark:bg-blue-900/70 text-blue-800 dark:text-blue-300 text-xs font-extrabold tracking-wide uppercase align-middle">OPEN</span>
+              for <strong class="text-slate-900 dark:text-white">Video Recording Commissions</strong> exclusively for Large Theater musical productions.
+            </p>
+            <p>
+              Whether you need a full-stage view or a specific actor focus (e.g., Kim Jun-su, Ock Joo-hyun, etc.), we can help you capture the performance in high quality.
+            </p>
+            <p>
+              Please click the button below to fill out the order form. Once submitted, we will review your request and reach out to you directly to confirm the details and proceed with the payment.
+            </p>
+          </div>
+
+          <div class="pt-1">
+            <a href="https://form.jotform.com/260910356309051" target="_blank" rel="noopener noreferrer"
+              class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-3 rounded-xl bg-blue-800 hover:bg-blue-900 text-white text-sm font-bold shadow-sm transition-colors">
+              <span>Submit Commission Form Here!!</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   </main>
-
+  
   <!-- =========================================================
        FOOTER
        ========================================================= -->
