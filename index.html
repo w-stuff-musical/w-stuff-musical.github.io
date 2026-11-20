@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <!-- Prevent search engines from indexing this catalog -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>W STUFF Musical Trading</title>
+
+  <!-- Google Fonts: Inter & Noto Sans KR for crisp English + Korean typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6.4.0 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Configure Tailwind with class-based Dark Mode and deep royal blue accent palette
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans KR', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          colors: {
+            royal: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              500: '#1d4ed8',
+              600: '#0f4c9c',
+              700: '#0b3e82',
+              800: '#082f66',
+              900: '#06234d',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <!-- PapaParse 5.4.1 CDN for parsing Google Sheets CSV -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+  <!-- Apply saved Light/Dark theme before first paint (defaults to Light Mode) -->
+  <script>
+    (function () {
+      try {
+        const savedTheme = localStorage.getItem('wstuff_theme');
+        if (savedTheme === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (err) {
+        // Ignore storage restrictions in sandboxed environments
+      }
+    })();
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased min-h-screen flex flex-col overflow-x-hidden selection:bg-royal-600 selection:text-white transition-colors duration-200">
+
+  <!-- =========================================================
+       STICKY HEADER & 5-TAB NAVIGATION BAR
+       ========================================================= -->
+  <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800 shadow-sm">
+    <div class="max-w-4xl mx-auto px-3 sm:px-5 py-3 flex items-center justify-between gap-2">
+      <!-- Brand / Site Title -->
+      <button type="button" onclick="switchMainTab('home')" class="flex items-center gap-2.5 text-left group focus:outline-none min-w-0">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-royal-600 to-royal-800 text-white flex items-center justify-center shadow-sm shrink-0 group-hover:scale-105 transition-transform">
+          <i class="fa-solid fa-masks-theater text-base"></i>
+        </div>
+        <div class="leading-tight truncate">
+          <h1 class="font-extrabold text-sm sm:text-base tracking-tight text-slate-900 dark:text-white truncate">
+            W STUFF Musical Trading
+          </h1>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400 font-medium truncate">
+            Korean Musicals
+          </p>
+        </div>
+      </button>
+
+      <!-- Light/Dark Mode Toggle Button -->
+      <div class="flex items-center shrink-0">
+        <button id="theme-toggle" type="button" aria-label="Toggle Light/Dark Mode"
+          class="w-10 h-10 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100/80 dark:bg-slate-800 text-royal-700 dark:text-amber-300 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-royal-600">
+          <i id="theme-icon" class="fa-solid fa-moon text-sm"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- 5 Main Navigation Tabs -->
+    <nav aria-label="Main Navigation" class="border-t border-slate-100 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80">
+      <div class="max-w-4xl mx-auto px-3 sm:px-5 py-2 flex items-center gap-1.5 overflow-x-auto" role="tablist">
+        <button type="button" role="tab" data-tab="home" aria-selected="true"
+          class="main-tab-btn shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all">
+          <i class="fa-solid fa-house"></i>
+          <span>Home</span>
+        </button>
+        <button type="button" role="tab" data-tab="video" aria-selected="false"
+          class="main-tab-btn shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all">
+          <i class="fa-solid fa-video"></i>
+          <span>Video</span>
+        </button>
+        <button type="button" role="tab" data-tab="audio-script" aria-selected="false"
+          class="main-tab-btn shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all">
+          <i class="fa-solid fa-headphones"></i>
+          <span>Audio &amp; Script</span>
+        </button>
+        <button type="button" role="tab" data-tab="rules-wants" aria-selected="false"
+          class="main-tab-btn shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all">
+          <i class="fa-solid fa-scale-balanced"></i>
+          <span>Rules &amp; Wants</span>
+        </button>
+        <button type="button" role="tab" data-tab="contact-sales" aria-selected="false"
+          class="main-tab-btn shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all">
+          <i class="fa-solid fa-envelope"></i>
+          <span>Contact &amp; Sales</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- =========================================================
+       MAIN CONTENT PANELS
+       ========================================================= -->
+  <main class="flex-1 max-w-4xl w-full mx-auto px-3 sm:px-5 py-5 sm:py-6">
+
+    <!-- ---------------------------------------------------------
+         TAB 1: HOME
+         --------------------------------------------------------- -->
+    <section id="panel-home" class="tab-panel space-y-4">
+      <!-- Welcome Card -->
+      <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-5 sm:p-6 shadow-sm space-y-4">
+        <div class="space-y-1">
+          <h2 class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-widest text-royal-600 dark:text-royal-300">
+            <i class="fa-solid fa-masks-theater"></i>
+            <span>MUSICAL TRADING</span>
+          </h2>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            Hi and Welcome!
+          </h3>
+        </div>
+
+        <p class="text-sm sm:text-[15px] leading-relaxed text-slate-600 dark:text-slate-300">
+          This site run by people who loves musicals—especially Korean productions. We manage this website and curate an ever-growing collection of video and audio recordings. While our main focus is Korean musicals productions.
+        </p>
+
+        <!-- Quick Navigation Buttons -->
+        <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-wrap gap-2">
+          <button type="button" onclick="switchMainTab('video')"
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-royal-600 hover:bg-royal-700 text-white text-xs sm:text-sm font-semibold shadow-sm transition-colors">
+            <i class="fa-solid fa-video"></i>
+            <span>Browse Video List</span>
+          </button>
+          <button type="button" onclick="switchMainTab('rules-wants')"
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 text-xs sm:text-sm font-semibold transition-colors">
+            <i class="fa-solid fa-scale-balanced"></i>
+            <span>Rules &amp; Wants</span>
+          </button>
+          <button type="button" onclick="switchMainTab('contact-sales')"
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/50 dark:hover:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 border border-emerald-200/70 dark:border-emerald-800/60 text-xs sm:text-sm font-semibold transition-colors">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span>Contact &amp; Sales</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- STATUS Section -->
+      <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-5 sm:p-6 shadow-sm space-y-4">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <h3 class="text-sm sm:text-base font-extrabold uppercase tracking-wider text-slate-900 dark:text-white flex items-center gap-2">
+            <i class="fa-solid fa-signal text-royal-600 dark:text-royal-300"></i>
+            <span>STATUS</span>
+          </h3>
+          <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+            <i class="fa-regular fa-calendar"></i>
+            Last Update: Nov 2026
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <!-- CLOSED for trades -->
+          <div class="flex items-center gap-3 p-3.5 rounded-xl bg-rose-50/90 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/70">
+            <span class="w-9 h-9 rounded-xl bg-rose-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+              <i class="fa-solid fa-lock text-sm"></i>
+            </span>
+            <div>
+              <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-bold bg-rose-600 text-white">
+                CLOSED for trades
+              </span>
+            </div>
+          </div>
+
+          <!-- OPEN for sales -->
+          <div class="flex items-center gap-3 p-3.5 rounded-xl bg-emerald-50/90 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/70">
+            <span class="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+              <i class="fa-solid fa-bag-shopping text-sm"></i>
+            </span>
+            <div class="space-y-1">
+              <span class="inline-block px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-600 text-white">
+                OPEN for sales
+              </span>
+              <p class="text-xs font-semibold text-emerald-800 dark:text-emerald-200">
+                [Bundle purchases are welcome! 😉]
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Home Notes -->
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 text-sm text-slate-700 dark:text-slate-300 space-y-1">
+          <p class="flex items-start gap-2">
+            <i class="fa-solid fa-circle-info text-royal-600 dark:text-royal-300 mt-1 shrink-0 text-xs"></i>
+            <span>Please read our Trading Rules before emailing!</span>
+          </p>
+          <p class="flex items-start gap-2">
+            <i class="fa-regular fa-face-smile text-royal-600 dark:text-royal-300 mt-1 shrink-0 text-xs"></i>
+            <span>If you have any inquiries, do not hesitate to contact us. :)</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Disclaimer Box -->
+      <div class="rounded-2xl bg-amber-50/80 dark:bg-amber-950/25 border border-amber-200/80 dark:border-amber-900/60 p-5 sm:p-6 space-y-3">
+        <h3 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300 flex items-center gap-2">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <span>Disclaimer</span>
+        </h3>
+        <div class="space-y-3 text-xs sm:text-sm leading-relaxed text-amber-950/90 dark:text-amber-100/90">
+          <p>
+            ※ We do not own the copyright to any of the material listed on this site. These recordings are being offered on a collector-to-collector basis for entertainment purposes only and are not meant to infringe on anyone's copyright.
+          </p>
+          <p>
+            ※ We will not answer questions regarding source of files in our list. If you believe that file is yours and are looking for a source of leak, please understand that I cannot provide that information. As a reminder, never trade or sell your master to anyone if you don't want them to be leaked!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------------------------------------------------------
+         TAB 2: VIDEO (Unified 3-Subtab Catalog matching ★LIST (WEB))
+         --------------------------------------------------------- -->
+    <section id="panel-video" class="tab-panel hidden space-y-4">
+
+      <!-- 3 Clean Video Sub-tabs matching exact Google Sheets tab names -->
+      <div class="flex items-center gap-1.5 p-1.5 rounded-2xl bg-slate-200/75 dark:bg-slate-800/90 border border-slate-200/90 dark:border-slate-700/80 overflow-x-auto" role="tablist" aria-label="Video Categories">
+        <button type="button" role="tab" data-video-subtab="musical" onclick="switchVideoSubTab('musical')"
+          class="video-subtab-btn flex-1 min-w-fit px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap">
+          🎥Musical
+        </button>
+        <button type="button" role="tab" data-video-subtab="ourMaster" onclick="switchVideoSubTab('ourMaster')"
+          class="video-subtab-btn flex-1 min-w-fit px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap">
+          ♔OUR MASTER
+        </button>
+        <button type="button" role="tab" data-video-subtab="concert" onclick="switchVideoSubTab('concert')"
+          class="video-subtab-btn flex-1 min-w-fit px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap">
+          Concert
+        </button>
+      </div>
+
+      <!-- Prominent Verbatim Notice Box (ONLY shown on ♔OUR MASTER sub-tab) -->
+      <div id="our-master-notice" class="hidden rounded-2xl bg-rose-50/90 dark:bg-rose-950/35 border border-rose-200/90 dark:border-rose-800/70 p-4 sm:p-5 shadow-sm space-y-2.5">
+        <p class="text-sm sm:text-[15px] leading-relaxed font-medium text-[#c62828] dark:text-[#ff6b6b]">
+          ※ That list isn't our master's full collection. lots of unlisted stuff that hasn't been added yet
+        </p>
+        <p class="text-sm sm:text-[15px] leading-relaxed font-medium text-[#c62828] dark:text-[#ff6b6b]">
+          ※ <span class="italic font-semibold text-[#1b4965] dark:text-[#7dd3fc]">Private commission</span> videos are not to be sold / traded without commissioner's permission!!
+        </p>
+      </div>
+
+      <!-- Search, Filters & Stats Card -->
+      <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-4 shadow-sm space-y-3">
+        <!-- Live Search Input -->
+        <div class="relative">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+          <input id="video-search" type="text" autocomplete="off"
+            placeholder="Search by Show, Season, Date, Cast, Notes, Format, or Status..."
+            class="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-royal-600 focus:border-transparent transition">
+          <button id="video-clear-search" type="button" aria-label="Clear search"
+            class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-slate-700 flex items-center justify-center">
+            <i class="fa-solid fa-xmark text-xs"></i>
+          </button>
+        </div>
+
+        <!-- Tailored Filter Chips (Per Active Sub-tab) -->
+        <div id="video-filter-pills" class="flex items-center gap-1.5 flex-wrap"></div>
+
+        <!-- Stats Summary & Expand/Collapse All (Hidden on flat Concert list) -->
+        <div class="pt-2.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between flex-wrap gap-2 text-xs text-slate-500 dark:text-slate-400">
+          <div id="video-stats" class="font-medium flex items-center gap-1.5">
+            <i class="fa-solid fa-chart-simple text-royal-600 dark:text-royal-300"></i>
+            <span>Loading catalog...</span>
+          </div>
+          <button id="video-toggle-all" type="button"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold transition-colors">
+            <i class="fa-solid fa-angles-down text-[11px]"></i>
+            <span>Expand All</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div id="video-loading" class="hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-10 text-center">
+        <i class="fa-solid fa-spinner fa-spin text-2xl text-royal-600 dark:text-royal-300 mb-3"></i>
+        <p class="text-sm font-medium text-slate-600 dark:text-slate-300">Loading catalog data...</p>
+      </div>
+
+      <!-- Error State -->
+      <div id="video-error" class="hidden rounded-2xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800 p-5 text-center space-y-3">
+        <i class="fa-solid fa-circle-exclamation text-2xl text-rose-500"></i>
+        <p id="video-error-msg" class="text-sm font-semibold text-rose-800 dark:text-rose-200">Failed to load catalog data.</p>
+        <button id="video-retry-btn" type="button"
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs sm:text-sm font-semibold shadow-sm transition-colors">
+          <i class="fa-solid fa-rotate-right"></i>
+          <span>Retry</span>
+        </button>
+      </div>
+
+      <!-- Catalog Render Container -->
+      <div id="video-catalog" class="space-y-2.5"></div>
+    </section>
+
+    <!-- ---------------------------------------------------------
+         TAB 3: AUDIO & SCRIPT (Clean Sub-tabs: Audio & Script)
+         --------------------------------------------------------- -->
+    <section id="panel-audio-script" class="tab-panel hidden space-y-4">
+      <!-- Sub-tab Switcher -->
+      <div class="inline-flex p-1 rounded-xl bg-slate-200/70 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700">
+        <button type="button" data-as-subtab="audio" onclick="switchAudioScriptSubTab('audio')"
+          class="as-subtab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">
+          <i class="fa-solid fa-headphones mr-1.5"></i>Audio
+        </button>
+        <button type="button" data-as-subtab="script" onclick="switchAudioScriptSubTab('script')"
+          class="as-subtab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">
+          <i class="fa-solid fa-file-lines mr-1.5"></i>Script
+        </button>
+      </div>
+
+      <!-- Sub-panel: Audio -->
+      <div id="subpanel-
