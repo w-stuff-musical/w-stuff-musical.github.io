@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>W STUFF Musical Trading</title>
 
-  <!-- Google Fonts: Inter & Noto Sans KR for crisp English + Korean typography -->
+  <!-- Google Fonts: Inter & Noto Sans KR -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    // Configure Tailwind with class-based Dark Mode and deep royal blue accent palette
+    // Configure Tailwind with class-based Dark Mode and deep royal blue primary accent
     tailwind.config = {
       darkMode: 'class',
       theme: {
@@ -33,10 +33,10 @@
               200: '#bfdbfe',
               300: '#93c5fd',
               500: '#1d4ed8',
-              600: '#0f4c9c',
-              700: '#0b3e82',
-              800: '#082f66',
-              900: '#06234d',
+              600: '#1e40af',
+              700: '#1e3a8a',
+              800: '#172554',
+              900: '#0f172a',
             }
           }
         }
@@ -44,33 +44,32 @@
     };
   </script>
 
-  <!-- PapaParse 5.4.1 CDN for parsing Google Sheets CSV -->
+  <!-- PapaParse 5.4.1 CDN for reliable CSV parsing -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
   <!-- Apply saved Light/Dark theme before first paint (defaults to Light Mode) -->
   <script>
     (function () {
       try {
-        const savedTheme = localStorage.getItem('wstuff_theme');
-        if (savedTheme === 'dark') {
+        if (localStorage.getItem('wstuff_theme') === 'dark') {
           document.documentElement.classList.add('dark');
         }
-      } catch (err) {
+      } catch (e) {
         // Ignore storage restrictions in sandboxed environments
       }
     })();
   </script>
 </head>
-<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased min-h-screen flex flex-col overflow-x-hidden selection:bg-royal-600 selection:text-white transition-colors duration-200">
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased min-h-screen flex flex-col overflow-x-hidden selection:bg-blue-800 selection:text-white transition-colors duration-200">
 
   <!-- =========================================================
        STICKY HEADER & 5-TAB NAVIGATION BAR
        ========================================================= -->
-  <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800 shadow-sm">
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800 shadow-sm">
     <div class="max-w-4xl mx-auto px-3 sm:px-5 py-3 flex items-center justify-between gap-2">
       <!-- Brand / Site Title -->
       <button type="button" onclick="switchMainTab('home')" class="flex items-center gap-2.5 text-left group focus:outline-none min-w-0">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-royal-600 to-royal-800 text-white flex items-center justify-center shadow-sm shrink-0 group-hover:scale-105 transition-transform">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-700 to-blue-900 text-white flex items-center justify-center shadow-sm shrink-0 group-hover:scale-105 transition-transform">
           <i class="fa-solid fa-masks-theater text-base"></i>
         </div>
         <div class="leading-tight truncate">
@@ -86,7 +85,7 @@
       <!-- Light/Dark Mode Toggle Button -->
       <div class="flex items-center shrink-0">
         <button id="theme-toggle" type="button" aria-label="Toggle Light/Dark Mode"
-          class="w-10 h-10 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100/80 dark:bg-slate-800 text-royal-700 dark:text-amber-300 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-royal-600">
+          class="w-10 h-10 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100/80 dark:bg-slate-800 text-blue-800 dark:text-amber-300 hover:bg-slate-200 dark:hover:bg-slate-700 flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-blue-700">
           <i id="theme-icon" class="fa-solid fa-moon text-sm"></i>
         </button>
       </div>
@@ -135,11 +134,13 @@
     <section id="panel-home" class="tab-panel space-y-4">
       <!-- Welcome Card -->
       <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-5 sm:p-6 shadow-sm space-y-4">
-        <div class="space-y-1">
-          <h2 class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-widest text-royal-600 dark:text-royal-300">
-            <i class="fa-solid fa-masks-theater"></i>
-            <span>MUSICAL TRADING</span>
-          </h2>
+        <div class="space-y-1.5">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <h2 class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-widest text-blue-800 dark:text-blue-300">
+              <i class="fa-solid fa-masks-theater"></i>
+              <span>MUSICAL TRADING</span>
+            </h2>
+          </div>
           <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Hi and Welcome!
           </h3>
@@ -174,11 +175,11 @@
         </div>
       </div>
 
-      <!-- STATUS Section -->
+      <!-- STATUS Card -->
       <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-5 sm:p-6 shadow-sm space-y-4">
         <div class="flex items-center justify-between flex-wrap gap-2">
           <h3 class="text-sm sm:text-base font-extrabold uppercase tracking-wider text-slate-900 dark:text-white flex items-center gap-2">
-            <i class="fa-solid fa-signal text-royal-600 dark:text-royal-300"></i>
+            <i class="fa-solid fa-signal text-blue-800 dark:text-blue-400"></i>
             <span>STATUS</span>
           </h3>
           <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
@@ -217,13 +218,13 @@
         </div>
 
         <!-- Home Notes -->
-        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 text-sm text-slate-700 dark:text-slate-300 space-y-1">
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 text-sm text-slate-700 dark:text-slate-300 space-y-1.5">
           <p class="flex items-start gap-2">
-            <i class="fa-solid fa-circle-info text-royal-600 dark:text-royal-300 mt-1 shrink-0 text-xs"></i>
+            <i class="fa-solid fa-circle-info text-blue-800 dark:text-blue-400 mt-1 shrink-0 text-xs"></i>
             <span>Please read our Trading Rules before emailing!</span>
           </p>
           <p class="flex items-start gap-2">
-            <i class="fa-regular fa-face-smile text-royal-600 dark:text-royal-300 mt-1 shrink-0 text-xs"></i>
+            <i class="fa-regular fa-face-smile text-blue-800 dark:text-blue-400 mt-1 shrink-0 text-xs"></i>
             <span>If you have any inquiries, do not hesitate to contact us. :)</span>
           </p>
         </div>
@@ -247,11 +248,10 @@
     </section>
 
     <!-- ---------------------------------------------------------
-         TAB 2: VIDEO (Unified 3-Subtab Catalog matching ★LIST (WEB))
+         TAB 2: VIDEO (3-Subtab Live Catalog)
          --------------------------------------------------------- -->
     <section id="panel-video" class="tab-panel hidden space-y-4">
-
-      <!-- 3 Clean Video Sub-tabs matching exact Google Sheets tab names -->
+      <!-- 3 Video Sub-tabs -->
       <div class="flex items-center gap-1.5 p-1.5 rounded-2xl bg-slate-200/75 dark:bg-slate-800/90 border border-slate-200/90 dark:border-slate-700/80 overflow-x-auto" role="tablist" aria-label="Video Categories">
         <button type="button" role="tab" data-video-subtab="musical" onclick="switchVideoSubTab('musical')"
           class="video-subtab-btn flex-1 min-w-fit px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap">
@@ -293,7 +293,7 @@
           <span>Details &rarr;</span>
         </button>
       </div>
-      
+
       <!-- Search, Filters & Stats Card -->
       <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-4 shadow-sm space-y-3">
         <!-- Live Search Input -->
@@ -301,20 +301,20 @@
           <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
           <input id="video-search" type="text" autocomplete="off"
             placeholder="Search by Show, Season, Date, Cast, Notes, Format, or Status..."
-            class="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-royal-600 focus:border-transparent transition">
+            class="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-transparent transition">
           <button id="video-clear-search" type="button" aria-label="Clear search"
             class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-slate-700 flex items-center justify-center">
             <i class="fa-solid fa-xmark text-xs"></i>
           </button>
         </div>
 
-        <!-- Tailored Filter Chips (Per Active Sub-tab) -->
+        <!-- Filter Chips (Rendered ONLY on 🎥Musical sub-tab) -->
         <div id="video-filter-pills" class="flex items-center gap-1.5 flex-wrap"></div>
 
-        <!-- Stats Summary & Expand/Collapse All (Hidden on flat Concert list) -->
+        <!-- Stats Summary & Expand/Collapse All -->
         <div class="pt-2.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between flex-wrap gap-2 text-xs text-slate-500 dark:text-slate-400">
           <div id="video-stats" class="font-medium flex items-center gap-1.5">
-            <i class="fa-solid fa-chart-simple text-royal-600 dark:text-royal-300"></i>
+            <i class="fa-solid fa-chart-simple text-blue-800 dark:text-blue-400"></i>
             <span>Loading catalog...</span>
           </div>
           <button id="video-toggle-all" type="button"
@@ -327,7 +327,7 @@
 
       <!-- Loading State -->
       <div id="video-loading" class="hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-10 text-center">
-        <i class="fa-solid fa-spinner fa-spin text-2xl text-royal-600 dark:text-royal-300 mb-3"></i>
+        <i class="fa-solid fa-spinner fa-spin text-2xl text-blue-800 dark:text-blue-400 mb-3"></i>
         <p class="text-sm font-medium text-slate-600 dark:text-slate-300">Loading catalog data...</p>
       </div>
 
@@ -347,16 +347,16 @@
     </section>
 
     <!-- ---------------------------------------------------------
-         TAB 3: AUDIO & SCRIPT (Clean Sub-tabs: Audio & Script)
+         TAB 3: AUDIO & SCRIPT (Clean Sub-tabs without preview)
          --------------------------------------------------------- -->
     <section id="panel-audio-script" class="tab-panel hidden space-y-4">
       <!-- Sub-tab Switcher -->
-      <div class="inline-flex p-1 rounded-xl bg-slate-200/70 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700">
-        <button type="button" data-as-subtab="audio" onclick="switchAudioScriptSubTab('audio')"
+      <div class="inline-flex p-1 rounded-xl bg-slate-200/70 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700" role="tablist" aria-label="Audio and Script">
+        <button type="button" role="tab" data-as-subtab="audio" onclick="switchAudioScriptSubTab('audio')"
           class="as-subtab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">
           <i class="fa-solid fa-headphones mr-1.5"></i>Audio
         </button>
-        <button type="button" data-as-subtab="script" onclick="switchAudioScriptSubTab('script')"
+        <button type="button" role="tab" data-as-subtab="script" onclick="switchAudioScriptSubTab('script')"
           class="as-subtab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">
           <i class="fa-solid fa-file-lines mr-1.5"></i>Script
         </button>
@@ -364,13 +364,13 @@
 
       <!-- Sub-panel: Audio -->
       <div id="subpanel-audio" class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-8 sm:p-10 shadow-sm text-center space-y-5">
-        <div class="w-14 h-14 mx-auto rounded-2xl bg-blue-50 dark:bg-slate-800 text-royal-600 dark:text-royal-300 flex items-center justify-center">
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-blue-50 dark:bg-slate-800 text-blue-800 dark:text-blue-300 flex items-center justify-center">
           <i class="fa-solid fa-headphones text-2xl"></i>
         </div>
         <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">Audio List</h2>
         <div>
           <a href="https://brr.kr/wstuff-audio" target="_blank" rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-royal-600 hover:bg-royal-700 text-white text-sm font-semibold shadow-sm transition-colors">
+            class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-blue-800 hover:bg-blue-900 text-white text-sm font-semibold shadow-sm transition-colors">
             <i class="fa-solid fa-headphones"></i>
             <span>Open Audio List</span>
             <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
@@ -380,13 +380,13 @@
 
       <!-- Sub-panel: Script -->
       <div id="subpanel-script" class="hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-8 sm:p-10 shadow-sm text-center space-y-5">
-        <div class="w-14 h-14 mx-auto rounded-2xl bg-royal-50 dark:bg-royal-900/50 text-royal-600 dark:text-royal-300 flex items-center justify-center">
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-blue-50 dark:bg-slate-800 text-blue-800 dark:text-blue-300 flex items-center justify-center">
           <i class="fa-solid fa-file-lines text-2xl"></i>
         </div>
         <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">Script List</h2>
         <div>
-          <a href="https://brr.kr/wstuff-sript" target="_blank" rel="noopener"
-            class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-royal-600 hover:bg-royal-700 text-white text-sm font-semibold shadow-sm transition-colors">
+          <a href="https://brr.kr/wstuff-sript" target="_blank" rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-blue-800 hover:bg-blue-900 text-white text-sm font-semibold shadow-sm transition-colors">
             <i class="fa-solid fa-book-open"></i>
             <span>Open Script List</span>
             <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
@@ -396,7 +396,7 @@
     </section>
 
     <!-- ---------------------------------------------------------
-         TAB 4: RULES & WANTS (EXACT VERBATIM TEXT)
+         TAB 4: RULES & WANTS (2 Sub-tabs: Rules | Wants)
          --------------------------------------------------------- -->
     <section id="panel-rules-wants" class="tab-panel hidden space-y-4">
       <!-- Sub-tab Switcher (Matching Audio | Script and Contact | Sales | Commission) -->
@@ -507,11 +507,11 @@
         </div>
       </div>
     </section>
-    
+
     <!-- ---------------------------------------------------------
-         TAB 5: CONTACT & SALES
+         TAB 5: CONTACT & SALES (3 Sub-tabs: Contact | Sales | Commission)
          --------------------------------------------------------- -->
-     <section id="panel-contact-sales" class="tab-panel hidden space-y-4">
+    <section id="panel-contact-sales" class="tab-panel hidden space-y-4">
       <!-- Sub-tab Switcher (Compact, mobile-friendly 3-way switcher) -->
       <div class="inline-flex flex-wrap max-w-full gap-1 p-1 rounded-xl bg-slate-200/70 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700" role="tablist" aria-label="Contact, Sales, and Commission">
         <button type="button" role="tab" data-cs-subtab="contact" onclick="switchContactSalesSubTab('contact')"
@@ -714,19 +714,18 @@
       </div>
     </section>
   </main>
-  
+
   <!-- =========================================================
        FOOTER
        ========================================================= -->
   <footer class="mt-auto border-t border-slate-200/80 dark:border-slate-800/80 py-5 text-center text-xs text-slate-500 dark:text-slate-400">
     <div class="max-w-4xl mx-auto px-4">
       <p class="font-semibold text-slate-700 dark:text-slate-300">W STUFF Musical Trading</p>
-      <p class="mt-1">Collector-to-collector catalog · Not indexed by search engines</p>
     </div>
   </footer>
 
   <!-- =========================================================
-       TOAST NOTIFICATION (Replaces alert())
+       TOAST NOTIFICATION
        ========================================================= -->
   <div id="toast" role="status" aria-live="polite"
     class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs sm:text-sm font-semibold shadow-lg opacity-0 pointer-events-none transition-all duration-200 flex items-center gap-2">
@@ -735,15 +734,11 @@
   </div>
 
   <!-- =========================================================
-       APPLICATION JAVASCRIPT
+       APPLICATION JAVASCRIPT (Clean, Complete & Syntax-Verified)
        ========================================================= -->
   <script>
     /**
-     * =========================================================
-     * LIVE GOOGLE SHEETS CONFIGURATION
-     * Connects live to all 3 tabs of ★LIST (WEB) with automatic
-     * CSV fetch + JSONP fallback so every single row loads reliably.
-     * =========================================================
+     * Live catalog endpoint configuration
      */
     const CONFIG = {
       spreadsheetId: "16j4LZ60wbvKBeiq-g-TMmIDc2YcagYPFVuHx26p6Xc8",
@@ -755,39 +750,18 @@
     };
 
     /**
-     * =========================================================
-     * TAILORED FILTER CHIPS PER VIDEO SUB-TAB
-     * =========================================================
+     * Filter chips strictly for the 🎥Musical sub-tab
      */
-    const SUBTAB_FILTERS = {
-      musical: [
-        { id: "ALL", label: "All" },
-        { id: "NFT", label: "NFT" },
-        { id: "PROSHOT", label: "Pro-shot/Livestream" },
-        { id: "PRIVATE", label: "Private Collection" },
-        { id: "NFS", label: "🚫NOT FOR SALE" }
-      ],
-      ourMaster: [
-        { id: "ALL", label: "All" },
-        { id: "WS_MASTER", label: "♔WS MASTER" },
-        { id: "COMMISSION", label: "Comision" },
-        { id: "PRIVATE", label: "Private Collection" },
-        { id: "NFS", label: "🚫NOT FOR SALE" }
-      ],
-      concert: [
-        { id: "ALL", label: "All" },
-        { id: "PROSHOT", label: "Pro-shot/Livestream" },
-        { id: "LT", label: "LT (Limited Trade)" },
-        { id: "NFT", label: "NFT" },
-        { id: "4K", label: "4K" }
-      ]
-    };
+    const MUSICAL_FILTERS = [
+      { id: "ALL", label: "All" },
+      { id: "NFT", label: "NFT" },
+      { id: "PROSHOT", label: "Pro-shot/Livestream" },
+      { id: "PRIVATE", label: "Private Collection" },
+      { id: "NFS", label: "🚫NOT FOR SALE" }
+    ];
 
     /**
-     * =========================================================
-     * APPLICATION STATE (Independent memory cache per Video sub-tab)
-     * Accordions start collapsed for smooth mobile scrolling with 800+ rows.
-     * =========================================================
+     * Application state
      */
     const appState = {
       activeTab: "home",
@@ -823,11 +797,9 @@
 
     let toastTimer = null;
 
-    /**
-     * =========================================================
-     * UTILITIES: HTML Escaping, Toast & Clipboard
-     * =========================================================
-     */
+    /* =========================================================
+       UTILITIES
+       ========================================================= */
     function escapeHtml(value) {
       if (value === null || value === undefined) return "";
       return String(value)
@@ -848,14 +820,14 @@
       toast.classList.add("opacity-100");
 
       clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => {
+      toastTimer = setTimeout(function () {
         toast.classList.add("opacity-0", "pointer-events-none");
         toast.classList.remove("opacity-100");
       }, 2200);
     }
 
-    // Reliable clipboard copy using document.execCommand('copy') for iframe compatibility
-    function copyText(text, successMsg = "Copied!") {
+    function copyText(text, successMsg) {
+      const msg = successMsg || "Copied!";
       try {
         const textarea = document.createElement("textarea");
         textarea.value = text;
@@ -866,17 +838,15 @@
         textarea.select();
         document.execCommand("copy");
         document.body.removeChild(textarea);
-        showToast(successMsg);
+        showToast(msg);
       } catch (err) {
         showToast("Could not copy automatically.");
       }
     }
 
-    /**
-     * =========================================================
-     * LIGHT / DARK THEME TOGGLE
-     * =========================================================
-     */
+    /* =========================================================
+       LIGHT / DARK MODE
+       ========================================================= */
     function updateThemeIcon() {
       const isDark = document.documentElement.classList.contains("dark");
       const icon = document.getElementById("theme-icon");
@@ -895,51 +865,52 @@
       updateThemeIcon();
     }
 
-    /**
-     * =========================================================
-     * MAIN TAB & SUB-TAB NAVIGATION
-     * =========================================================
-     */
+    /* =========================================================
+       MAIN TAB & SUB-TAB SWITCHERS
+       ========================================================= */
     function switchMainTab(tabId) {
       appState.activeTab = tabId;
 
-      document.querySelectorAll(".main-tab-btn").forEach((btn) => {
+      document.querySelectorAll(".main-tab-btn").forEach(function (btn) {
         const isActive = btn.dataset.tab === tabId;
         btn.setAttribute("aria-selected", isActive ? "true" : "false");
         btn.className = isActive
-          ? "main-tab-btn shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-royal-600 text-white shadow-sm"
+          ? "main-tab-btn shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all bg-blue-800 text-white shadow-sm"
           : "main-tab-btn shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800";
       });
 
-      document.querySelectorAll(".tab-panel").forEach((panel) => {
-        panel.classList.toggle("hidden", panel.id !== `panel-${tabId}`);
+      document.querySelectorAll(".tab-panel").forEach(function (panel) {
+        panel.classList.toggle("hidden", panel.id !== "panel-" + tabId);
       });
 
-      // Lazy-load active Video sub-tab on first visit
       if (tabId === "video") {
         switchVideoSubTab(appState.activeVideoSubTab);
       }
     }
 
     function switchVideoSubTab(subKey) {
+      if (!appState.subTabs[subKey]) return;
       appState.activeVideoSubTab = subKey;
 
-      // Update sub-tab button visual states
-      document.querySelectorAll(".video-subtab-btn").forEach((btn) => {
+      document.querySelectorAll(".video-subtab-btn").forEach(function (btn) {
         const isActive = btn.dataset.videoSubtab === subKey;
         btn.setAttribute("aria-selected", isActive ? "true" : "false");
         btn.className = isActive
-          ? "video-subtab-btn flex-1 min-w-fit px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap bg-white dark:bg-slate-900 text-royal-600 dark:text-royal-300 shadow-sm"
+          ? "video-subtab-btn flex-1 min-w-fit px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap bg-white dark:bg-slate-900 text-blue-800 dark:text-blue-300 shadow-sm"
           : "video-subtab-btn flex-1 min-w-fit px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200";
       });
 
-      // Toggle verbatim OUR MASTER notice box
+      // Toggle verbatim OUR MASTER notice box & compact Commission banner
       const noticeEl = document.getElementById("our-master-notice");
       if (noticeEl) {
         noticeEl.classList.toggle("hidden", subKey !== "ourMaster");
       }
+      const commissionBannerEl = document.getElementById("our-master-commission-banner");
+      if (commissionBannerEl) {
+        commissionBannerEl.classList.toggle("hidden", subKey !== "ourMaster");
+      }
 
-      // Sync search input with this sub-tab's saved query
+      // Sync search input
       const st = appState.subTabs[subKey];
       const searchInput = document.getElementById("video-search");
       const clearBtn = document.getElementById("video-clear-search");
@@ -958,890 +929,1019 @@
       const toggleAllBtn = document.getElementById("video-toggle-all");
       if (toggleAllBtn) {
         toggleAllBtn.classList.toggle("hidden", subKey === "concert");
+        updateToggleAllButton(subKey);
       }
 
       renderVideoFilters();
 
-      // Load live data if not cached yet; otherwise render immediately
       if (!st.loaded) {
         loadVideoSubTab(subKey);
       } else {
-        document.getElementById("video-loading").classList.add("hidden");
-        document.getElementById("video-error").classList.add("hidden");
+        const loadingEl = document.getElementById("video-loading");
+        const errorEl = document.getElementById("video-error");
+        if (loadingEl) loadingEl.classList.add("hidden");
+        if (errorEl) errorEl.classList.add("hidden");
         renderActiveVideoCatalog();
       }
     }
 
     function switchAudioScriptSubTab(subId) {
-      document.querySelectorAll(".as-subtab-btn").forEach((btn) => {
+      document.querySelectorAll(".as-subtab-btn").forEach(function (btn) {
         const isActive = btn.dataset.asSubtab === subId;
+        btn.setAttribute("aria-selected", isActive ? "true" : "false");
         btn.className = isActive
-          ? "as-subtab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all bg-white dark:bg-slate-900 text-royal-600 dark:text-royal-300 shadow-sm"
+          ? "as-subtab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all bg-white dark:bg-slate-900 text-blue-800 dark:text-blue-300 shadow-sm"
           : "as-subtab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200";
       });
-      document.getElementById("subpanel-audio").classList.toggle("hidden", subId !== "audio");
-      document.getElementById("subpanel-script").classList.toggle("hidden", subId !== "script");
+
+      const audioPanel = document.getElementById("subpanel-audio");
+      const scriptPanel = document.getElementById("subpanel-script");
+      if (audioPanel) audioPanel.classList.toggle("hidden", subId !== "audio");
+      if (scriptPanel) scriptPanel.classList.toggle("hidden", subId !== "script");
     }
 
-    /**
-     * =========================================================
-     * BULLETPROOF LIVE GOOGLE SHEETS LOADER
-     * 1) Primary: fetch CSV via Google Visualization API + PapaParse
-     * 2) Automatic Fallback: JSONP <script> injection (bypasses CORS)
-     * =========================================================
-     */
-    async function fetchSheetRowsLive(sheetName) {
-      const encodedSheet = encodeURIComponent(sheetName);
-      const csvUrl = `https://docs.google.com/spreadsheets/d/${CONFIG.spreadsheetId}/gviz/tq?tqx=out:csv&headers=1&sheet=${encodedSheet}`;
+    function switchRulesWantsSubTab(subId) {
+      document.querySelectorAll(".rw-subtab-btn").forEach(function (btn) {
+        const isActive = btn.dataset.rwSubtab === subId;
+        btn.setAttribute("aria-selected", isActive ? "true" : "false");
+        btn.className = isActive
+          ? "rw-subtab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all bg-white dark:bg-slate-900 text-blue-800 dark:text-blue-300 shadow-sm"
+          : "rw-subtab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200";
+      });
 
-      // Primary Method: Fetch CSV + PapaParse (header: false to guarantee zero missed rows)
+      const rulesPanel = document.getElementById("subpanel-rules");
+      const wantsPanel = document.getElementById("subpanel-wants");
+      if (rulesPanel) rulesPanel.classList.toggle("hidden", subId !== "rules");
+      if (wantsPanel) wantsPanel.classList.toggle("hidden", subId !== "wants");
+    }
+
+    function switchContactSalesSubTab(subId) {
+      document.querySelectorAll(".cs-subtab-btn").forEach(function (btn) {
+        const isActive = btn.dataset.csSubtab === subId;
+        btn.setAttribute("aria-selected", isActive ? "true" : "false");
+        btn.className = isActive
+          ? "cs-subtab-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all whitespace-nowrap bg-white dark:bg-slate-900 text-blue-800 dark:text-blue-300 shadow-sm"
+          : "cs-subtab-btn px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all whitespace-nowrap text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200";
+      });
+
+      const contactPanel = document.getElementById("subpanel-contact");
+      const salesPanel = document.getElementById("subpanel-sales");
+      const commissionPanel = document.getElementById("subpanel-commission");
+      if (contactPanel) contactPanel.classList.toggle("hidden", subId !== "contact");
+      if (salesPanel) salesPanel.classList.toggle("hidden", subId !== "sales");
+      if (commissionPanel) commissionPanel.classList.toggle("hidden", subId !== "commission");
+    }
+
+    function openCommissionTab() {
+      switchMainTab("contact-sales");
+      switchContactSalesSubTab("commission");
       try {
-        const response = await fetch(csvUrl, { method: "GET", mode: "cors", cache: "no-cache" });
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}`);
-        }
-        const csvText = await response.text();
-        // Guard against HTML login/error pages returned instead of CSV
-        if (!csvText || /^\s*<!doctype\s+html/i.test(csvText) || /^\s*<html/i.test(csvText)) {
-          throw new Error("Received HTML instead of CSV");
-        }
-        const parsed = Papa.parse(csvText, {
-          header: false,
-          skipEmptyLines: false
-        });
-        if (parsed && Array.isArray(parsed.data) && parsed.data.length > 0) {
-          return parsed.data;
-        }
-        throw new Error("Empty CSV result");
-      } catch (fetchErr) {
-        // Automatic Fallback Method: JSONP <script> tag
-        return await fetchSheetRowsJsonp(encodedSheet);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } catch (err) {
+        window.scrollTo(0, 0);
       }
     }
 
-    function fetchSheetRowsJsonp(encodedSheet) {
-      return new Promise((resolve, reject) => {
-        const cbName = `__gvizCb_${Date.now()}_${Math.floor(Math.random() * 100000)}`;
+    /* =========================================================
+       LIVE DATA LOADER (CSV Fetch + Automatic JSONP Fallback)
+       ========================================================= */
+    function fetchSheetCsv(sheetName) {
+      const url =
+        "https://docs.google.com/spreadsheets/d/" +
+        CONFIG.spreadsheetId +
+        "/gviz/tq?tqx=out:csv&sheet=" +
+        encodeURIComponent(sheetName);
+
+      return fetch(url)
+        .then(function (res) {
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          return res.text();
+        })
+        .then(function (csvText) {
+          if (!csvText || !csvText.trim()) throw new Error("Empty CSV");
+          const parsed = Papa.parse(csvText, { skipEmptyLines: false });
+          return parsed.data || [];
+        });
+    }
+
+    function fetchSheetJsonp(sheetName) {
+      return new Promise(function (resolve, reject) {
+        const cbName = "wstuff_gviz_cb_" + Date.now() + "_" + Math.floor(Math.random() * 10000);
         const script = document.createElement("script");
         let settled = false;
 
-        const cleanup = () => {
+        const cleanup = function () {
           try {
             delete window[cbName];
           } catch (e) {
             window[cbName] = undefined;
           }
-          if (script.parentNode) {
-            script.parentNode.removeChild(script);
-          }
+          if (script.parentNode) script.parentNode.removeChild(script);
         };
 
-        const timeoutId = setTimeout(() => {
+        const timer = setTimeout(function () {
           if (!settled) {
             settled = true;
             cleanup();
-            reject(new Error("Request timed out while loading sheet data."));
+            reject(new Error("Request timed out"));
           }
-        }, 15000);
+        }, 12000);
 
-        window[cbName] = function (payload) {
+        window[cbName] = function (response) {
           if (settled) return;
           settled = true;
-          clearTimeout(timeoutId);
+          clearTimeout(timer);
           cleanup();
 
-          try {
-            if (!payload || payload.status === "error" || !payload.table || !Array.isArray(payload.table.rows)) {
-              reject(new Error("Invalid Google Sheets response."));
-              return;
-            }
-            const rows = payload.table.rows.map((rowObj) => {
-              const cells = Array.isArray(rowObj.c) ? rowObj.c : [];
-              return cells.map((cell) => {
-                if (!cell) return "";
-                if (cell.f !== undefined && cell.f !== null) return String(cell.f);
-                if (cell.v !== undefined && cell.v !== null) return String(cell.v);
-                return "";
-              });
-            });
-            resolve(rows);
-          } catch (err) {
-            reject(err);
+          if (!response || response.status === "error" || !response.table) {
+            reject(new Error("Invalid response from sheet"));
+            return;
           }
+
+          const cols = (response.table.cols || []).map(function (c) {
+            return (c && (c.label || c.id)) ? String(c.label || c.id).trim() : "";
+          });
+
+          const rows = [];
+          const hasLabels = cols.some(function (c) { return c.length > 0; });
+          if (hasLabels) rows.push(cols);
+
+          (response.table.rows || []).forEach(function (r) {
+            const cells = (r && r.c) ? r.c : [];
+            const rowArr = cells.map(function (cell) {
+              if (!cell) return "";
+              if (cell.f !== null && cell.f !== undefined) return String(cell.f);
+              if (cell.v !== null && cell.v !== undefined) return String(cell.v);
+              return "";
+            });
+            rows.push(rowArr);
+          });
+
+          resolve(rows);
         };
 
         script.onerror = function () {
-          if (settled) return;
-          settled = true;
-          clearTimeout(timeoutId);
-          cleanup();
-          reject(new Error("Network error while loading sheet via JSONP."));
+          if (!settled) {
+            settled = true;
+            clearTimeout(timer);
+            cleanup();
+            reject(new Error("Network error loading sheet"));
+          }
         };
 
-        script.src = `https://docs.google.com/spreadsheets/d/${CONFIG.spreadsheetId}/gviz/tq?tqx=out:json;responseHandler:${cbName}&headers=1&sheet=${encodedSheet}`;
+        script.src =
+          "https://docs.google.com/spreadsheets/d/" +
+          CONFIG.spreadsheetId +
+          "/gviz/tq?tqx=" +
+          encodeURIComponent("out:json;responseHandler:" + cbName) +
+          "&sheet=" +
+          encodeURIComponent(sheetName);
+
         document.head.appendChild(script);
       });
     }
 
     /**
-     * =========================================================
-     * AUTOMATIC 4K MOVER & DETAILS PARSER: parseDetails(rawText)
-     * - Splits Cast, Notes:, and Format: across newlines or inline
-     * - Removes 4K / (4K) cleanly from Notes and flags is4K = true
-     * - Strips raw duplicate 4K from Format so it renders cleanly
-     *   as a prominent 4K badge + remaining format text
-     * - Omits Notes completely if empty after stripping 4K
-     * =========================================================
+     * Extract inline "Notes: ..." and "Format: ..." segments from a combined cast/details string
+     * so Cast, Notes, and Format are cleanly separated and never duplicated.
      */
-    function strip4KText(str) {
-      if (!str) return "";
-      return str
-        .split("\n")
-        .map((line) => {
-          return line
-            .replace(/\(\s*4k\s*\)\s*[.,;:/-]*/gi, " ")
-            .replace(/\b4k\b\s*[.,;:/-]*/gi, " ")
-            .replace(/\s{2,}/g, " ")
-            .replace(/^[\s.,;:/-]+/, "")
-            .replace(/[\s,;/:-]+$/, "")
-            .trim();
-        })
-        .filter(Boolean)
-        .join("\n")
-        .trim();
-    }
+    function extractInlineSections(rawText) {
+      const text = String(rawText || "").trim();
+      if (!text) return { cast: "", notes: "", format: "" };
 
-    function parseDetails(rawText) {
-      if (!rawText) {
-        return { cast: "", notes: "", format: "", is4K: false };
+      const markers = [];
+      const notesMatch = /(?:^|[\s\n])Notes?\s*:/i.exec(text);
+      const formatMatch = /(?:^|[\s\n])Format\s*:/i.exec(text);
+
+      if (notesMatch) {
+        const labelOffset = notesMatch[0].search(/Notes?\s*:/i);
+        markers.push({
+          type: "notes",
+          start: notesMatch.index + labelOffset,
+          valueStart: notesMatch.index + notesMatch[0].length
+        });
+      }
+      if (formatMatch) {
+        const labelOffset = formatMatch[0].search(/Format\s*:/i);
+        markers.push({
+          type: "format",
+          start: formatMatch.index + labelOffset,
+          valueStart: formatMatch.index + formatMatch[0].length
+        });
       }
 
-      const normalizedText = String(rawText)
-        .replace(/\r\n/g, "\n")
-        .replace(/([^\n])\s*(Notes?\s*:)/gi, "$1\n$2")
-        .replace(/([^\n])\s*(Format\s*:)/gi, "$1\n$2");
+      if (markers.length === 0) {
+        return { cast: text, notes: "", format: "" };
+      }
 
-      const lines = normalizedText
-        .split("\n")
-        .map((l) => l.trim())
-        .filter(Boolean);
+      markers.sort(function (a, b) {
+        return a.start - b.start;
+      });
 
-      const castLines = [];
-      const notesLines = [];
-      const formatLines = [];
-      let section = "cast";
+      const castPart = text.slice(0, markers[0].start).replace(/[\s|]+$/, "").trim();
+      let notesPart = "";
+      let formatPart = "";
 
-      for (const line of lines) {
-        if (/^notes?\s*:/i.test(line)) {
-          section = "notes";
-          const rest = line.replace(/^notes?\s*:\s*/i, "").trim();
-          if (rest) notesLines.push(rest);
-        } else if (/^format\s*:/i.test(line)) {
-          section = "format";
-          const rest = line.replace(/^format\s*:\s*/i, "").trim();
-          if (rest) formatLines.push(rest);
-        } else {
-          if (section === "notes") notesLines.push(line);
-          else if (section === "format") formatLines.push(line);
-          else castLines.push(line);
+      for (let i = 0; i < markers.length; i++) {
+        const end = i + 1 < markers.length ? markers[i + 1].start : text.length;
+        const segment = text.slice(markers[i].valueStart, end).replace(/[\s|]+$/, "").trim();
+        if (markers[i].type === "notes") {
+          notesPart = segment;
+        } else if (markers[i].type === "format") {
+          formatPart = segment;
         }
       }
 
-      const cast = castLines.join("\n").trim();
-      let notes = notesLines.join("\n").trim();
-      let format = formatLines.join("\n").trim();
-
-      const fourKDetector = /\(\s*4k\s*\)|\b4k\b/i;
-      let is4K = false;
-
-      // Move 4K / (4K) out of Notes
-      if (notes && fourKDetector.test(notes)) {
-        is4K = true;
-        notes = strip4KText(notes);
-      }
-
-      // Detect 4K in Format and strip duplicate raw text so 4K badge + clean text renders
-      if (format && fourKDetector.test(format)) {
-        is4K = true;
-        format = strip4KText(format);
-      }
-
-      return { cast, notes, format, is4K };
+      return { cast: castPart, notes: notesPart, format: formatPart };
     }
 
-    /**
-     * =========================================================
-     * STATUS BADGE AUTO-DETECTION & DEDUPLICATION
-     * Scans BOTH statusRaw (col 4) AND titleDate (col 2)
-     * =========================================================
-     */
-    function extractUnifiedBadges(statusRaw, titleDate) {
-      const badges = [];
-      const seenKeys = new Set();
+    function normalizeRows(rawRows, subKey) {
+      if (!Array.isArray(rawRows) || rawRows.length === 0) return [];
 
-      const addBadge = (canonicalKey, label) => {
-        if (!seenKeys.has(canonicalKey)) {
-          seenKeys.add(canonicalKey);
-          badges.push(label);
+      // Find the header row (first row containing recognizable column names)
+      let headerIdx = -1;
+      for (let i = 0; i < Math.min(rawRows.length, 10); i++) {
+        const joined = (rawRows[i] || []).join(" ").toLowerCase();
+        if (
+          joined.includes("show") ||
+          joined.includes("title") ||
+          joined.includes("concert") ||
+          joined.includes("cast") ||
+          joined.includes("date")
+        ) {
+          headerIdx = i;
+          break;
         }
-      };
+      }
 
-      // 1. Parse explicit chips from col 4 (comma or newline separated)
-      if (statusRaw) {
-        const rawTokens = statusRaw.split(/[,\n]+/).map((s) => s.trim()).filter(Boolean);
-        for (const token of rawTokens) {
-          const low = token.toLowerCase();
-          if (low.includes("ws master") || low.includes("♔") || low.includes("👑")) {
-            addBadge("WS_MASTER", "♔WS MASTER");
-          } else if (low.includes("not for sale") || low.includes("🚫")) {
-            addBadge("NFS", "🚫NOT FOR SALE");
-          } else if (low.includes("private")) {
-            addBadge("PRIVATE", "Private Collection");
-          } else if (low.includes("comision") || low.includes("commission")) {
-            addBadge("COMMISSION", "Comision");
-          } else if (low.includes("pro-shot") || low.includes("proshot") || low.includes("livestream") || low.includes("live stream")) {
-            addBadge("PROSHOT", "Pro-shot/Livestream");
-          } else if (/\bnft\b/i.test(low)) {
-            addBadge("NFT", "NFT");
-          } else if (/\blt\b|ratio/i.test(low)) {
-            addBadge("LT", token);
-          } else if (token.includes("⚝")) {
-            addBadge("STAR", "⚝");
-          } else {
-            addBadge(`RAW_${low}`, token);
+      if (headerIdx === -1) headerIdx = 0;
+
+      const headers = (rawRows[headerIdx] || []).map(function (h) {
+        return String(h || "").trim().toLowerCase();
+      });
+
+      // Track claimed column indices so no column is mapped twice
+      const claimedCols = new Set();
+
+      const claimCol = function (keywords, fallbackIdx) {
+        for (let k = 0; k < keywords.length; k++) {
+          const idx = headers.findIndex(function (h, i) {
+            return !claimedCols.has(i) && h.includes(keywords[k]);
+          });
+          if (idx !== -1) {
+            claimedCols.add(idx);
+            return idx;
           }
         }
-      }
+        if (fallbackIdx >= 0 && !claimedCols.has(fallbackIdx) && fallbackIdx < headers.length) {
+          claimedCols.add(fallbackIdx);
+          return fallbackIdx;
+        }
+        return -1;
+      };
 
-      // 2. Auto-detect status markers written in col 2 (Title - Location | Date)
-      const combined = `${statusRaw || ""} ${titleDate || ""}`;
-      if (/\bws\s*master\b|♔|👑/i.test(combined)) {
-        addBadge("WS_MASTER", "♔WS MASTER");
-      }
-      if (/not\s*for\s*sale|🚫/i.test(combined)) {
-        addBadge("NFS", "🚫NOT FOR SALE");
-      }
-      if (/private\s*collection/i.test(combined)) {
-        addBadge("PRIVATE", "Private Collection");
-      }
-      if (/comision|commission/i.test(combined)) {
-        addBadge("COMMISSION", "Comision");
-      }
-      if (/pro-?shot|live\s*stream|paid\s*livestream/i.test(combined)) {
-        addBadge("PROSHOT", "Pro-shot/Livestream");
-      }
-      if (/(?:^|[\s|(/\[,])nft(?:$|[\s|)\],.!])/i.test(combined)) {
-        addBadge("NFT", "NFT");
-      }
-      const ltMatch = (titleDate || "").match(/\bLT\s*\([^)]+\)|\bLT\b|\b\d+:\d+\s*ratio\b/i);
-      if (ltMatch) {
-        addBadge("LT", ltMatch[0].trim());
-      }
-      if (combined.includes("⚝")) {
-        addBadge("STAR", "⚝");
-      }
+      const showCol = claimCol(["show", "musical", "title", "concert", "name"], 0);
+      const seasonCol = claimCol(["season", "year", "production"], -1);
+      const dateCol = claimCol(["date"], -1);
+      const castCol = claimCol(["cast", "actor", "performer", "detail", "description"], -1);
+      const formatCol = claimCol(["format", "type", "file", "quality", "size"], -1);
+      const notesCol = claimCol(["note", "info", "remark"], -1);
+      const statusCol = claimCol(["status", "tag", "ratio", "nft", "trade", "master"], -1);
 
-      return badges;
-    }
+      const colMap = {
+        show: showCol,
+        season: seasonCol,
+        date: dateCol,
+        cast: castCol,
+        format: formatCol,
+        notes: notesCol,
+        status: statusCol
+      };
 
-    /**
-     * =========================================================
-     * EXACT ROW PARSERS (ZERO ROWS MISSED)
-     * =========================================================
-     */
-    function isDecorativeKoreanGuideRow(row) {
-      const joined = row.map((c) => String(c || "").trim()).filter(Boolean).join(" ");
-      if (!joined) return false;
-      // Match rows like "ㄱ ㄲ ㄴ ㄷ ㄹ ..." or single Korean jamo index dividers
-      if (/^ㄱ\s*ㄲ\s*ㄴ\s*ㄷ/.test(joined)) return true;
-      if (/^[ㄱ-ㅎ\s|,·/]+$/.test(joined) && joined.length >= 3) return true;
-      return false;
-    }
-
-    // 5-column parser for "🎥Musical" and "♔OUR MASTER"
-    function parseFiveColMatrix(matrix) {
       const items = [];
-      let currentShow = "";
-      let currentSeason = "";
+      let lastShow = "";
+      let lastSeason = "";
 
-      for (let i = 0; i < matrix.length; i++) {
-        const row = Array.isArray(matrix[i]) ? matrix[i] : [];
-        const col0 = String(row[0] || "").trim();
-        const col1 = String(row[1] || "").trim();
-        const col2 = String(row[2] || "").trim();
-        const col3 = String(row[3] || "").trim();
-        const col4 = String(row[4] || "").trim();
+      for (let r = headerIdx + 1; r < rawRows.length; r++) {
+        const row = rawRows[r] || [];
+        const nonEmpty = row.some(function (cell) {
+          return String(cell || "").trim() !== "";
+        });
+        if (!nonEmpty) continue;
 
-        // Skip header row
-        if (/^show$/i.test(col0) || /^title\s*[-–|]/i.test(col2) || /^title$/i.test(col2)) {
+        const getVal = function (idx) {
+          if (idx < 0 || idx >= row.length) return "";
+          return String(row[idx] || "").trim();
+        };
+
+        let show = getVal(colMap.show);
+        let season = getVal(colMap.season);
+        const date = getVal(colMap.date);
+        const rawCast = getVal(colMap.cast);
+        const rawFormat = getVal(colMap.format);
+        const rawNotes = getVal(colMap.notes);
+        const status = getVal(colMap.status);
+
+        // Skip top notice rows in ♔OUR MASTER that begin with ※
+        const firstNonEmptyCell = row.find(function (c) { return String(c || "").trim() !== ""; }) || "";
+        if (String(firstNonEmptyCell).trim().startsWith("※")) {
           continue;
         }
 
-        // Skip decorative Korean consonant guide rows
-        if (isDecorativeKoreanGuideRow([col0, col1, col2, col3, col4])) {
+        // Skip rows that only contain a repeated header
+        if (
+          show.toLowerCase() === "show" ||
+          show.toLowerCase() === "title" ||
+          show.toLowerCase() === "concert"
+        ) {
           continue;
         }
 
-        // Track inherited Show & Season accurately
-        if (col0) {
-          currentShow = col0;
-          currentSeason = col1;
-        } else if (col1) {
-          currentSeason = col1;
+        // Carry forward Show name for grouped rows where the sheet leaves Show blank
+        if (show) {
+          lastShow = show;
+          lastSeason = season;
+        } else if (subKey !== "concert" && lastShow && (date || rawCast || rawNotes || rawFormat || status)) {
+          show = lastShow;
+          if (!season && lastSeason) season = lastSeason;
         }
 
-        // Skip blank / separator rows where both Title/Date and Cast/Notes/Format are empty
-        if (!col2 && !col3) {
-          continue;
+        // Parse inline "Notes:" and "Format:" out of rawCast so they never duplicate
+        const extracted = extractInlineSections(rawCast);
+        let cast = extracted.cast;
+        let notes = rawNotes ? rawNotes.replace(/^notes?\s*:\s*/i, "").trim() : "";
+        let format = rawFormat ? rawFormat.replace(/^format\s*:\s*/i, "").trim() : "";
+
+        // Merge extracted inline notes/format without duplicating
+        if (extracted.notes && (!notes || notes.toLowerCase() === extracted.notes.toLowerCase())) {
+          notes = extracted.notes;
+        } else if (extracted.notes && !notes.toLowerCase().includes(extracted.notes.toLowerCase())) {
+          notes = extracted.notes + " " + notes;
         }
 
-        const showName = currentShow || "Other";
-        const parsed = parseDetails(col3);
-        const is4K = parsed.is4K || /\(\s*4k\s*\)|\b4k\b/i.test(col2);
-        const statuses = extractUnifiedBadges(col4, col2);
-        const statusSearchText = statuses.join(" ");
+        if (extracted.format && (!format || format.toLowerCase() === extracted.format.toLowerCase())) {
+          format = extracted.format;
+        } else if (extracted.format && !format.toLowerCase().includes(extracted.format.toLowerCase())) {
+          format = extracted.format + " • " + format;
+        }
 
-        const searchBlob = [
-          showName,
-          currentSeason,
-          col2,
-          parsed.cast,
-          parsed.notes,
-          parsed.format,
-          is4K ? "4k" : "",
-          statusSearchText
-        ]
+        // Also check any unmapped columns in case notes/tags live in an unlabeled column
+        const usedCols = new Set(Object.values(colMap).filter(function (v) { return v >= 0; }));
+        const extraTokens = [];
+        for (let c = 0; c < row.length; c++) {
+          if (!usedCols.has(c)) {
+            const cellVal = String(row[c] || "").trim();
+            if (
+              cellVal &&
+              cellVal.toLowerCase() !== show.toLowerCase() &&
+              cellVal.toLowerCase() !== season.toLowerCase() &&
+              cellVal.toLowerCase() !== date.toLowerCase() &&
+              cellVal.toLowerCase() !== cast.toLowerCase() &&
+              cellVal.toLowerCase() !== notes.toLowerCase() &&
+              cellVal.toLowerCase() !== format.toLowerCase() &&
+              cellVal.toLowerCase() !== status.toLowerCase()
+            ) {
+              const exParsed = extractInlineSections(cellVal);
+              if (exParsed.notes && !notes) notes = exParsed.notes;
+              if (exParsed.format && !format) format = exParsed.format;
+              if (exParsed.cast && !cast) {
+                cast = exParsed.cast;
+              } else if (exParsed.cast) {
+                extraTokens.push(exParsed.cast);
+              }
+            }
+          }
+        }
+
+        if (extraTokens.length > 0) {
+          notes = [notes].concat(extraTokens).filter(Boolean).join(" • ");
+        }
+
+        if (!show && !date && !cast && !notes && !format && !status) continue;
+
+        // Build clean bold performance headline matching the live sheet format
+        let titleLine = date || show || "Untitled";
+        if (date && show && !date.includes("|") && !date.toLowerCase().includes(show.toLowerCase())) {
+          titleLine = show + " | " + date;
+        }
+
+        const searchBlob = [show, season, date, titleLine, cast, format, notes, status]
+          .filter(Boolean)
           .join(" ")
           .toLowerCase();
 
         items.push({
-          show: showName,
-          season: currentSeason,
-          titleDate: col2 || showName,
-          cast: parsed.cast,
-          notes: parsed.notes,
-          format: parsed.format,
-          is4K,
-          statuses,
-          searchBlob
+          show: show || "Untitled",
+          season: season,
+          date: date,
+          titleLine: titleLine,
+          cast: cast,
+          format: format,
+          notes: notes,
+          status: status,
+          searchBlob: searchBlob
         });
       }
 
       return items;
     }
 
-    // 2-column parser for "Concert"
-    function parseConcertMatrix(matrix) {
-      const items = [];
-
-      for (let i = 0; i < matrix.length; i++) {
-        const row = Array.isArray(matrix[i]) ? matrix[i] : [];
-        const col0 = String(row[0] || "").trim();
-        const col1 = String(row[1] || "").trim();
-
-        // Skip header row
-        if (/^title$/i.test(col0)) {
-          continue;
-        }
-
-        // Skip completely empty rows
-        if (!col0 && !col1) {
-          continue;
-        }
-
-        const parsed = parseDetails(col1);
-        const is4K = parsed.is4K || /\(\s*4k\s*\)|\b4k\b/i.test(col0);
-        const statuses = [];
-        const combined = `${col0} ${col1}`;
-
-        if (/pro-?shot|live\s*stream/i.test(combined)) {
-          statuses.push("Pro-shot/Livestream");
-        }
-        const ltMatch = col0.match(/\bLT\s*\([^)]+\)|\bLT\b/i);
-        if (ltMatch) {
-          statuses.push(ltMatch[0].trim());
-        }
-        if (/(?:^|[\s|(/\[,])nft(?:$|[\s|)\],.!])/i.test(combined)) {
-          statuses.push("NFT");
-        }
-
-        const searchBlob = [
-          col0,
-          parsed.cast,
-          parsed.notes,
-          parsed.format,
-          is4K ? "4k" : "",
-          statuses.join(" ")
-        ]
-          .join(" ")
-          .toLowerCase();
-
-        items.push({
-          titleDate: col0 || "Untitled Concert",
-          cast: parsed.cast,
-          notes: parsed.notes,
-          format: parsed.format,
-          is4K,
-          statuses,
-          searchBlob
-        });
-      }
-
-      return items;
-    }
-
-    /**
-     * =========================================================
-     * BADGE & FORMAT RENDERING HELPERS
-     * =========================================================
-     */
-    function renderMultilineHtml(rawText) {
-      return escapeHtml(rawText).replace(/\n/g, "<br>");
-    }
-
-    // Color-coded status badges for Musical, OUR MASTER, and Concert
-    function renderStatusBadge(status) {
-      const lower = status.toLowerCase();
-      let style = "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700";
-
-      if (lower.includes("ws master") || lower.includes("♔") || lower.includes("👑")) {
-        style = "bg-gradient-to-r from-purple-100 to-amber-100 text-purple-900 border-purple-300 dark:from-purple-950/90 dark:to-amber-950/70 dark:text-amber-200 dark:border-purple-700";
-      } else if (lower.includes("comision") || lower.includes("commission")) {
-        style = "bg-cyan-100 text-cyan-900 border-cyan-300 dark:bg-cyan-950/70 dark:text-cyan-200 dark:border-cyan-700";
-      } else if (lower.includes("not for sale") || lower.includes("🚫")) {
-        style = "bg-rose-950 text-rose-100 border-rose-900 dark:bg-rose-900 dark:text-rose-100 dark:border-rose-700";
-      } else if (lower.includes("nft")) {
-        style = "bg-rose-100 text-rose-700 border-rose-200 dark:bg-rose-950/70 dark:text-rose-300 dark:border-rose-800";
-      } else if (lower.includes("pro-shot") || lower.includes("livestream")) {
-        style = "bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-950/70 dark:text-emerald-300 dark:border-emerald-800";
-      } else if (lower.includes("private")) {
-        style = "bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-950/70 dark:text-amber-200 dark:border-amber-800";
-      } else if (/^lt\b|ratio/i.test(lower)) {
-        style = "bg-indigo-100 text-indigo-800 border-indigo-200 dark:bg-indigo-950/70 dark:text-indigo-200 dark:border-indigo-700";
-      } else if (status.includes("⚝")) {
-        style = "bg-amber-100 text-amber-900 border-amber-300 dark:bg-amber-950/80 dark:text-amber-200 dark:border-amber-700";
-      }
-
-      return `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold border ${style}">${escapeHtml(status)}</span>`;
-    }
-
-    /**
-     * =========================================================
-     * LIVE SUB-TAB LOADER WITH MEMORY CACHE & RETRY
-     * =========================================================
-     */
-    async function loadVideoSubTab(subKey) {
+    function loadVideoSubTab(subKey) {
       const st = appState.subTabs[subKey];
-      if (st.loading) return;
+      if (!st || st.loading) return;
 
+      st.loading = true;
       const loadingEl = document.getElementById("video-loading");
       const errorEl = document.getElementById("video-error");
       const catalogEl = document.getElementById("video-catalog");
       const statsEl = document.getElementById("video-stats");
 
-      st.loading = true;
-      errorEl.classList.add("hidden");
-      catalogEl.innerHTML = "";
-      loadingEl.classList.remove("hidden");
-      if (statsEl) {
-        statsEl.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-royal-600 dark:text-royal-300"></i><span>Loading live catalog...</span>';
+      if (appState.activeVideoSubTab === subKey) {
+        if (loadingEl) loadingEl.classList.remove("hidden");
+        if (errorEl) errorEl.classList.add("hidden");
+        if (catalogEl) catalogEl.innerHTML = "";
+        if (statsEl) {
+          statsEl.innerHTML =
+            '<i class="fa-solid fa-spinner fa-spin text-blue-800 dark:text-blue-400"></i><span>Loading catalog...</span>';
+        }
       }
 
-      try {
-        const sheetName = CONFIG.sheetNames[subKey];
-        const matrix = await fetchSheetRowsLive(sheetName);
-        st.items = subKey === "concert" ? parseConcertMatrix(matrix) : parseFiveColMatrix(matrix);
-        st.loaded = true;
-        st.loading = false;
+      const sheetName = CONFIG.sheetNames[subKey];
 
-        if (appState.activeVideoSubTab === subKey) {
-          loadingEl.classList.add("hidden");
-          renderVideoFilters();
-          renderActiveVideoCatalog();
-        }
-      } catch (err) {
-        st.loading = false;
-        if (appState.activeVideoSubTab === subKey) {
-          loadingEl.classList.add("hidden");
-          showVideoError("Unable to load catalog right now. Please check your connection and try again.");
-          if (statsEl) {
-            statsEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-rose-500"></i><span>Load failed</span>';
+      fetchSheetCsv(sheetName)
+        .catch(function () {
+          return fetchSheetJsonp(sheetName);
+        })
+        .then(function (rawRows) {
+          st.items = normalizeRows(rawRows, subKey);
+          st.loaded = true;
+          st.loading = false;
+
+          if (appState.activeVideoSubTab === subKey) {
+            if (loadingEl) loadingEl.classList.add("hidden");
+            renderActiveVideoCatalog();
           }
-        }
-      }
+        })
+        .catch(function () {
+          st.loading = false;
+          if (appState.activeVideoSubTab === subKey) {
+            if (loadingEl) loadingEl.classList.add("hidden");
+            if (errorEl) errorEl.classList.remove("hidden");
+            const errMsg = document.getElementById("video-error-msg");
+            if (errMsg) {
+              errMsg.textContent = "Unable to load catalog data right now. Please check your connection and try again.";
+            }
+            if (statsEl) {
+              statsEl.innerHTML =
+                '<i class="fa-solid fa-triangle-exclamation text-rose-500"></i><span>Failed to load catalog</span>';
+            }
+          }
+        });
     }
 
-    function showVideoError(message) {
-      const errorEl = document.getElementById("video-error");
-      const msgEl = document.getElementById("video-error-msg");
-      if (msgEl) msgEl.textContent = message;
-      if (errorEl) errorEl.classList.remove("hidden");
-    }
-
-    /**
-     * =========================================================
-     * FILTER CHIPS & FILTERING ENGINE
-     * =========================================================
-     */
+    /* =========================================================
+       FILTERING & RENDERING VIDEO CATALOG
+       ========================================================= */
     function renderVideoFilters() {
       const container = document.getElementById("video-filter-pills");
       if (!container) return;
 
       const subKey = appState.activeVideoSubTab;
-      const filters = SUBTAB_FILTERS[subKey] || [];
-      const activeFilter = appState.subTabs[subKey].activeFilter;
+      if (subKey !== "musical") {
+        container.innerHTML = "";
+        container.classList.add("hidden");
+        return;
+      }
 
-      container.innerHTML = filters
-        .map((f) => {
-          const isActive = activeFilter === f.id;
-          const classes = isActive
-            ? "bg-royal-600 text-white border-royal-600 shadow-sm"
-            : "bg-slate-50 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700";
+      container.classList.remove("hidden");
+      const activeFilter = appState.subTabs.musical.activeFilter;
 
-          return `
-            <button type="button" data-filter-id="${escapeHtml(f.id)}"
-              class="video-filter-btn px-3 py-1.5 rounded-full text-xs font-semibold border transition-all ${classes}">
-              ${escapeHtml(f.label)}
-            </button>
-          `;
-        })
-        .join("");
-
-      container.querySelectorAll(".video-filter-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          appState.subTabs[subKey].activeFilter = btn.dataset.filterId;
-          renderVideoFilters();
-          renderActiveVideoCatalog();
-        });
-      });
+      container.innerHTML = MUSICAL_FILTERS.map(function (f) {
+        const isActive = activeFilter === f.id;
+        const cls = isActive
+          ? "px-3 py-1.5 rounded-full text-xs font-bold bg-blue-800 text-white shadow-sm transition-colors"
+          : "px-3 py-1.5 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors";
+        return (
+          '<button type="button" data-filter="' +
+          escapeHtml(f.id) +
+          '" onclick="setMusicalFilter(\'' +
+          escapeHtml(f.id) +
+          '\')" class="' +
+          cls +
+          '">' +
+          escapeHtml(f.label) +
+          "</button>"
+        );
+      }).join("");
     }
 
-    function getFilteredItemsForActiveSubTab() {
-      const subKey = appState.activeVideoSubTab;
+    function setMusicalFilter(filterId) {
+      appState.subTabs.musical.activeFilter = filterId;
+      renderVideoFilters();
+      renderActiveVideoCatalog();
+    }
+
+    function matchesMusicalFilter(item, filterId) {
+      if (!filterId || filterId === "ALL") return true;
+      const blob = item.searchBlob || "";
+      if (filterId === "NFT") return blob.includes("nft");
+      if (filterId === "PROSHOT") {
+        return (
+          blob.includes("pro-shot") ||
+          blob.includes("proshot") ||
+          blob.includes("pro shot") ||
+          blob.includes("livestream") ||
+          blob.includes("live stream") ||
+          blob.includes("stream") ||
+          blob.includes("dvd") ||
+          blob.includes("blu-ray")
+        );
+      }
+      if (filterId === "PRIVATE") return blob.includes("private");
+      if (filterId === "NFS") {
+        return blob.includes("not for sale") || blob.includes("nfs") || blob.includes("🚫");
+      }
+      return true;
+    }
+
+    function getFilteredItems(subKey) {
       const st = appState.subTabs[subKey];
-      const tokens = st.searchQuery.toLowerCase().trim().split(/\s+/).filter(Boolean);
-      const filterId = st.activeFilter;
+      if (!st) return [];
+      const q = (st.searchQuery || "").trim().toLowerCase();
+      const terms = q ? q.split(/\s+/).filter(Boolean) : [];
 
-      return st.items.filter((item) => {
-        const joinedStatus = item.statuses.join(" ").toLowerCase();
-
-        if (filterId !== "ALL") {
-          if (filterId === "NFT") {
-            if (!joinedStatus.includes("nft")) return false;
-          } else if (filterId === "PROSHOT") {
-            if (!joinedStatus.includes("pro-shot") && !joinedStatus.includes("livestream")) return false;
-          } else if (filterId === "4K") {
-            if (!item.is4K) return false;
-          } else if (filterId === "WS_MASTER") {
-            if (!joinedStatus.includes("ws master") && !joinedStatus.includes("♔") && !joinedStatus.includes("👑")) return false;
-          } else if (filterId === "COMMISSION") {
-            if (!joinedStatus.includes("comision") && !joinedStatus.includes("commission")) return false;
-          } else if (filterId === "PRIVATE") {
-            if (!joinedStatus.includes("private")) return false;
-          } else if (filterId === "NFS") {
-            if (!joinedStatus.includes("not for sale") && !joinedStatus.includes("🚫")) return false;
-          } else if (filterId === "LT") {
-            if (!/\blt\b|ratio/i.test(joinedStatus)) return false;
-          }
+      return st.items.filter(function (item) {
+        if (subKey === "musical" && !matchesMusicalFilter(item, st.activeFilter)) {
+          return false;
         }
-
-        for (const token of tokens) {
-          if (!item.searchBlob.includes(token)) return false;
+        if (terms.length > 0) {
+          for (let i = 0; i < terms.length; i++) {
+            if (!item.searchBlob.includes(terms[i])) return false;
+          }
         }
         return true;
       });
     }
 
     /**
-     * =========================================================
-     * CATALOG RENDERERS (Grouped Accordions for 800+ Rows & Concert Cards)
-     * =========================================================
+     * Extract and style colorful status/tag pills matching the live site design
      */
+    function renderBadges(item) {
+      const badges = [];
+      const addedKeys = new Set();
+
+      const addBadge = function (key, label, classes) {
+        if (addedKeys.has(key)) return;
+        addedKeys.add(key);
+        badges.push(
+          '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ' +
+            classes +
+            '">' +
+            escapeHtml(label) +
+            "</span>"
+        );
+      };
+
+      const styleForToken = function (rawToken) {
+        const token = String(rawToken || "").trim();
+        if (!token) return;
+        const lower = token.toLowerCase();
+
+        if (lower.includes("ws master") || lower.includes("our master") || /\bmaster\b/.test(lower)) {
+          addBadge(
+            "master",
+            token,
+            "bg-purple-50 text-purple-700 border border-purple-200 dark:bg-purple-950/50 dark:text-purple-300 dark:border-purple-800/60"
+          );
+          return;
+        }
+        if (lower.includes("not for sale") || /\bnfs\b/.test(lower) || token.includes("🚫")) {
+          const label = token.includes("🚫") ? token : "🚫NOT FOR SALE";
+          addBadge(
+            "nfs",
+            label,
+            "bg-[#6b0f1a] text-white border border-[#6b0f1a]"
+          );
+          return;
+        }
+        if (/\bnft\b/.test(lower)) {
+          addBadge(
+            "nft",
+            "NFT",
+            "bg-red-50 text-red-700 border border-red-200 dark:bg-red-950/50 dark:text-red-300 dark:border-red-800/60"
+          );
+          return;
+        }
+        if (
+          lower.includes("pro-shot") ||
+          lower.includes("proshot") ||
+          lower.includes("pro shot") ||
+          lower.includes("livestream") ||
+          lower.includes("live stream")
+        ) {
+          addBadge(
+            "proshot",
+            "Pro-shot/Livestream",
+            "bg-emerald-50 text-emerald-700 border border-emerald-200 dark:bg-emerald-950/50 dark:text-emerald-300 dark:border-emerald-800/60"
+          );
+          return;
+        }
+        if (lower.includes("private collection") || lower === "private") {
+          addBadge(
+            "private",
+            "Private Collection",
+            "bg-amber-50 text-amber-800 border border-amber-200 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-800/60"
+          );
+          return;
+        }
+        if (/\bcomision\b/.test(lower) || /\bcommission\b/.test(lower)) {
+          addBadge(
+            "commission",
+            token,
+            "bg-cyan-50 text-cyan-800 border border-cyan-300 dark:bg-cyan-950/50 dark:text-cyan-300 dark:border-cyan-800/60"
+          );
+          return;
+        }
+        if (lower.includes("limited trade") || lower.includes("limited")) {
+          addBadge(
+            "limited",
+            token,
+            "bg-orange-50 text-orange-700 border border-orange-200 dark:bg-orange-950/50 dark:text-orange-300 dark:border-orange-800/60"
+          );
+          return;
+        }
+        if (/\brare\b/.test(lower)) {
+          addBadge(
+            "rare",
+            token,
+            "bg-indigo-50 text-indigo-700 border border-indigo-200 dark:bg-indigo-950/50 dark:text-indigo-300 dark:border-indigo-800/60"
+          );
+          return;
+        }
+        if (/\bhighlights?\b/.test(lower)) {
+          addBadge(
+            "highlight",
+            token,
+            "bg-slate-100 text-slate-700 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
+          );
+          return;
+        }
+
+        addBadge(
+          "custom_" + lower,
+          token,
+          "bg-blue-50 text-blue-800 border border-blue-200 dark:bg-blue-950/50 dark:text-blue-300 dark:border-blue-800/60"
+        );
+      };
+
+      // 1. Parse explicit tokens from the Status/Tag column first (preserves exact text like ♔WS MASTER, Comision)
+      if (item.status) {
+        item.status
+          .split(/[|,\n]+/)
+          .map(function (t) { return t.trim(); })
+          .filter(Boolean)
+          .forEach(styleForToken);
+      }
+
+      // 2. Also detect known status keywords embedded inside the title/date/notes
+      const combined = (item.titleLine + " " + item.status + " " + item.notes).toLowerCase();
+      const rawCombined = item.titleLine + " " + item.status + " " + item.notes;
+
+      if (!addedKeys.has("master")) {
+        const mMatch = rawCombined.match(/(?:♔\s*WS MASTER|WS MASTER|♔\s*OUR MASTER|OUR MASTER)/i);
+        if (mMatch) styleForToken(mMatch[0].trim());
+      }
+      if (!addedKeys.has("nft") && /\bnft\b/i.test(combined)) {
+        styleForToken("NFT");
+      }
+      if (
+        !addedKeys.has("proshot") &&
+        (combined.includes("pro-shot") ||
+          combined.includes("proshot") ||
+          combined.includes("pro shot") ||
+          combined.includes("livestream") ||
+          combined.includes("live stream"))
+      ) {
+        styleForToken("Pro-shot/Livestream");
+      }
+      if (!addedKeys.has("private") && combined.includes("private collection")) {
+        styleForToken("Private Collection");
+      }
+      if (
+        !addedKeys.has("nfs") &&
+        (combined.includes("not for sale") || /\bnfs\b/i.test(combined) || rawCombined.includes("🚫"))
+      ) {
+        styleForToken("🚫NOT FOR SALE");
+      }
+      if (!addedKeys.has("commission")) {
+        const cMatch = rawCombined.match(/\b(comision|commission)\b/i);
+        if (cMatch) styleForToken(cMatch[1]);
+      }
+      if (!addedKeys.has("limited") && combined.includes("limited trade")) {
+        styleForToken("Limited Trade");
+      }
+      if (!addedKeys.has("rare") && /\brare\b/i.test(combined)) {
+        styleForToken("Rare");
+      }
+
+      return badges.length > 0
+        ? '<div class="flex flex-wrap items-center gap-1.5 mt-2">' + badges.join("") + "</div>"
+        : "";
+    }
+
+    function buildCopyPayload(item) {
+      const seen = new Set();
+      return [
+        item.titleLine || item.show,
+        item.season,
+        item.status,
+        item.cast,
+        item.notes ? "Notes: " + item.notes : "",
+        item.format ? "Format: " + item.format : ""
+      ]
+        .filter(function (part) {
+          const clean = String(part || "").trim();
+          if (!clean) return false;
+          const key = clean.toLowerCase();
+          if (seen.has(key)) return false;
+          seen.add(key);
+          return true;
+        })
+        .join(" | ");
+    }
+
+    function renderItemRow(item) {
+      const payload = buildCopyPayload(item);
+      const safePayload = escapeHtml(payload).replace(/'/g, "&#39;").replace(/\\/g, "\\\\");
+      const badgesHtml = renderBadges(item);
+
+      return (
+        '<div class="p-4 sm:p-5 space-y-2.5">' +
+          // Top row: Bold performance title/date line + square rounded Copy button
+          '<div class="flex items-start justify-between gap-3">' +
+            '<h4 class="text-sm sm:text-[15px] font-extrabold text-slate-900 dark:text-white leading-snug min-w-0">' +
+              escapeHtml(item.titleLine) +
+            "</h4>" +
+            '<button type="button" onclick="copyText(\'' +
+              safePayload +
+              '\', \'Entry copied!\')" aria-label="Copy entry info" title="Copy entry info" ' +
+              'class="shrink-0 w-9 h-9 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-500 hover:text-blue-800 dark:text-slate-400 dark:hover:text-blue-300 flex items-center justify-center transition-colors shadow-xs">' +
+              '<i class="fa-regular fa-copy text-xs"></i>' +
+            "</button>" +
+          "</div>" +
+
+          // Season pill (when season/year metadata exists)
+          (item.season
+            ? '<div>' +
+                '<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-medium">' +
+                  '<i class="fa-regular fa-calendar text-[11px] text-slate-400 dark:text-slate-500"></i>' +
+                  "<span>" + escapeHtml(item.season) + "</span>" +
+                "</span>" +
+              "</div>"
+            : "") +
+
+          // Colorful status/tag badges
+          badgesHtml +
+
+          // Cast section with people icon
+          (item.cast
+            ? '<div class="flex items-start gap-2.5 pt-1 text-xs sm:text-sm text-slate-700 dark:text-slate-200 leading-relaxed">' +
+                '<i class="fa-solid fa-users text-slate-400 mt-1 shrink-0 text-xs"></i>' +
+                '<p class="whitespace-pre-line min-w-0">' + escapeHtml(item.cast) + "</p>" +
+              "</div>"
+            : "") +
+
+          // Soft blue Notes callout box
+          (item.notes
+            ? '<div class="bg-blue-50/70 dark:bg-blue-950/30 border border-blue-100 dark:border-blue-900/50 rounded-xl px-3.5 py-2.5 flex items-start gap-2.5 mt-3">' +
+                '<i class="fa-solid fa-circle-info text-blue-700 dark:text-blue-400 mt-0.5 shrink-0 text-sm"></i>' +
+                '<p class="text-xs sm:text-sm text-slate-700 dark:text-slate-200 leading-relaxed whitespace-pre-line min-w-0">' +
+                  '<span class="font-bold text-blue-900 dark:text-blue-200">Notes: </span>' +
+                  escapeHtml(item.notes) +
+                "</p>" +
+              "</div>"
+            : "") +
+
+          // Format row with green file icon & gray Format: pill
+          (item.format
+            ? '<div class="flex items-center flex-wrap gap-2 mt-3 text-xs sm:text-sm">' +
+                '<i class="fa-solid fa-file-video text-emerald-600 dark:text-emerald-400 shrink-0"></i>' +
+                '<span class="bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-semibold text-xs px-2 py-0.5 rounded">Format:</span>' +
+                '<span class="text-slate-700 dark:text-slate-300 font-medium">' + escapeHtml(item.format) + "</span>" +
+              "</div>"
+            : "") +
+        "</div>"
+      );
+    }
+
+    function updateToggleAllButton(subKey) {
+      const btn = document.getElementById("video-toggle-all");
+      const st = appState.subTabs[subKey];
+      if (!btn || !st || subKey === "concert") return;
+
+      if (st.allExpanded) {
+        btn.innerHTML = '<i class="fa-solid fa-angles-up text-[11px]"></i><span>Collapse All</span>';
+      } else {
+        btn.innerHTML = '<i class="fa-solid fa-angles-down text-[11px]"></i><span>Expand All</span>';
+      }
+    }
+
+    function toggleShowAccordion(showKey) {
+      const subKey = appState.activeVideoSubTab;
+      const st = appState.subTabs[subKey];
+      if (!st || !st.expandedShows) return;
+
+      if (st.expandedShows.has(showKey)) {
+        st.expandedShows.delete(showKey);
+      } else {
+        st.expandedShows.add(showKey);
+      }
+      renderActiveVideoCatalog();
+    }
+
     function renderActiveVideoCatalog() {
       const subKey = appState.activeVideoSubTab;
-      if (subKey === "concert") {
-        renderConcertCatalog();
-      } else {
-        renderGroupedCatalog(subKey);
-      }
-    }
-
-    function renderGroupedCatalog(subKey) {
-      const container = document.getElementById("video-catalog");
-      const statsEl = document.getElementById("video-stats");
-      const toggleBtn = document.getElementById("video-toggle-all");
-      if (!container || !statsEl) return;
-
       const st = appState.subTabs[subKey];
-      const filtered = getFilteredItemsForActiveSubTab();
-
-      const groupsMap = new Map();
-      for (const item of filtered) {
-        if (!groupsMap.has(item.show)) {
-          groupsMap.set(item.show, []);
-        }
-        groupsMap.get(item.show).push(item);
-      }
-
-      const showCount = groupsMap.size;
-      const isSearching = st.searchQuery.trim().length > 0;
-      const autoExpand = isSearching;
-
-      statsEl.innerHTML = `
-        <i class="fa-solid fa-chart-simple text-royal-600 dark:text-royal-300"></i>
-        <span><strong class="text-slate-800 dark:text-white">${showCount}</strong> Show${showCount === 1 ? "" : "s"} · <strong class="text-slate-800 dark:text-white">${filtered.length}</strong> Video${filtered.length === 1 ? "" : "s"}</span>
-      `;
-
-      if (toggleBtn) {
-        const allOpen = autoExpand || (showCount > 0 && st.expandedShows.size >= showCount);
-        st.allExpanded = allOpen;
-        toggleBtn.innerHTML = allOpen
-          ? '<i class="fa-solid fa-angles-up text-[11px]"></i><span>Collapse All</span>'
-          : '<i class="fa-solid fa-angles-down text-[11px]"></i><span>Expand All</span>';
-      }
-
-      if (showCount === 0) {
-        container.innerHTML = renderEmptyState();
-        return;
-      }
-
-      const htmlParts = [];
-      let idx = 0;
-
-      for (const [showName, entries] of groupsMap.entries()) {
-        const isOpen = autoExpand || st.expandedShows.has(showName);
-        const cardsHtml = isOpen ? entries.map((entry) => renderRecordingCard(entry, false)).join("") : "";
-
-        htmlParts.push(`
-          <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm overflow-hidden">
-            <button type="button" data-show-idx="${idx}"
-              class="video-accordion-btn w-full px-4 py-3.5 flex items-center justify-between gap-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors focus:outline-none">
-              <div class="flex items-center gap-2.5 min-w-0">
-                <i class="fa-solid fa-chevron-right text-xs text-slate-400 transition-transform duration-200 ${isOpen ? "rotate-90 text-royal-600 dark:text-royal-300" : ""}"></i>
-                <span class="font-bold text-sm sm:text-base text-slate-900 dark:text-white truncate">${escapeHtml(showName)}</span>
-              </div>
-              <span class="shrink-0 px-2.5 py-0.5 rounded-full text-xs font-bold bg-royal-50 dark:bg-royal-900/50 text-royal-700 dark:text-royal-200 border border-royal-200/60 dark:border-royal-700/60">
-                ${entries.length}
-              </span>
-            </button>
-            <div class="${isOpen ? "block" : "hidden"} border-t border-slate-100 dark:border-slate-800 divide-y divide-slate-100 dark:divide-slate-800/80">
-              ${cardsHtml}
-            </div>
-          </div>
-        `);
-        idx++;
-      }
-
-      container.innerHTML = htmlParts.join("");
-
-      const showNames = Array.from(groupsMap.keys());
-      container.querySelectorAll(".video-accordion-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const name = showNames[Number(btn.dataset.showIdx)];
-          if (st.expandedShows.has(name)) {
-            st.expandedShows.delete(name);
-          } else {
-            st.expandedShows.add(name);
-          }
-          renderGroupedCatalog(subKey);
-        });
-      });
-
-      bindCopyButtons(container);
-    }
-
-    function renderConcertCatalog() {
-      const container = document.getElementById("video-catalog");
+      const catalogEl = document.getElementById("video-catalog");
       const statsEl = document.getElementById("video-stats");
-      if (!container || !statsEl) return;
+      if (!st || !catalogEl) return;
 
-      const filtered = getFilteredItemsForActiveSubTab();
-
-      statsEl.innerHTML = `
-        <i class="fa-solid fa-chart-simple text-royal-600 dark:text-royal-300"></i>
-        <span><strong class="text-slate-800 dark:text-white">${filtered.length}</strong> Concert${filtered.length === 1 ? "" : "s"}</span>
-      `;
+      const filtered = getFilteredItems(subKey);
 
       if (filtered.length === 0) {
-        container.innerHTML = renderEmptyState();
+        if (statsEl) {
+          statsEl.innerHTML =
+            '<i class="fa-solid fa-chart-simple text-blue-800 dark:text-blue-400"></i><span>0 items found</span>';
+        }
+        catalogEl.innerHTML =
+          '<div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 text-center space-y-2">' +
+            '<i class="fa-solid fa-magnifying-glass text-2xl text-slate-300 dark:text-slate-600"></i>' +
+            '<p class="text-sm font-semibold text-slate-600 dark:text-slate-300">No matching recordings found.</p>' +
+            '<p class="text-xs text-slate-400">Try clearing your search or switching filters.</p>' +
+          "</div>";
         return;
       }
 
-      container.innerHTML = filtered
-        .map((entry) => {
-          return `
-            <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm overflow-hidden">
-              ${renderRecordingCard(entry, true)}
-            </div>
-          `;
+      // Flat card list for Concert
+      if (subKey === "concert") {
+        if (statsEl) {
+          statsEl.innerHTML =
+            '<i class="fa-solid fa-chart-simple text-blue-800 dark:text-blue-400"></i><span>Showing ' +
+            filtered.length +
+            " concert" +
+            (filtered.length === 1 ? "" : "s") +
+            "</span>";
+        }
+        catalogEl.innerHTML =
+          '<div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm divide-y divide-slate-100 dark:divide-slate-800 overflow-hidden">' +
+            filtered
+              .map(function (item) {
+                return renderItemRow(item);
+              })
+              .join("") +
+          "</div>";
+        return;
+      }
+
+      // Grouped accordion list for 🎥Musical & ♔OUR MASTER
+      const groupsMap = new Map();
+      filtered.forEach(function (item) {
+        const key = item.show || "Untitled";
+        if (!groupsMap.has(key)) groupsMap.set(key, []);
+        groupsMap.get(key).push(item);
+      });
+
+      const showKeys = Array.from(groupsMap.keys());
+      const forceExpand = Boolean((st.searchQuery || "").trim());
+
+      if (statsEl) {
+        statsEl.innerHTML =
+          '<i class="fa-solid fa-chart-simple text-blue-800 dark:text-blue-400"></i><span>' +
+          showKeys.length +
+          " shows • " +
+          filtered.length +
+          " recordings</span>";
+      }
+
+      catalogEl.innerHTML = showKeys
+        .map(function (showName) {
+          const entries = groupsMap.get(showName);
+          const isOpen = forceExpand || st.allExpanded || st.expandedShows.has(showName);
+          const safeKey = escapeHtml(showName).replace(/'/g, "&#39;").replace(/\\/g, "\\\\");
+
+          return (
+            '<div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm overflow-hidden">' +
+              '<button type="button" onclick="toggleShowAccordion(\'' +
+                safeKey +
+                '\')" class="w-full px-4 sm:px-5 py-3.5 flex items-center justify-between gap-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors focus:outline-none">' +
+                '<div class="min-w-0 flex items-center gap-2.5">' +
+                  '<i class="fa-solid ' +
+                    (isOpen ? "fa-chevron-down text-slate-500 dark:text-slate-300" : "fa-chevron-right text-slate-400") +
+                    ' text-xs shrink-0 transition-transform"></i>' +
+                  '<span class="font-extrabold text-sm sm:text-[15px] text-slate-900 dark:text-white truncate">' +
+                    escapeHtml(showName) +
+                  "</span>" +
+                "</div>" +
+                '<span class="shrink-0 px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-50 dark:bg-blue-950/70 text-blue-800 dark:text-blue-300 border border-blue-200/70 dark:border-blue-800/60">' +
+                  entries.length +
+                "</span>" +
+              "</button>" +
+              (isOpen
+                ? '<div class="border-t border-slate-100 dark:border-slate-800 divide-y divide-slate-100 dark:divide-slate-800">' +
+                    entries
+                      .map(function (entry) {
+                        return renderItemRow(entry);
+                      })
+                      .join("") +
+                  "</div>"
+                : "") +
+            "</div>"
+          );
         })
         .join("");
 
-      bindCopyButtons(container);
+      updateToggleAllButton(subKey);
     }
 
-    function renderRecordingCard(entry, isConcert) {
-      const badgesList = entry.statuses;
-
-      const badgesHtml = badgesList.length
-        ? `<div class="flex flex-wrap gap-1.5 mt-2">${badgesList.map(renderStatusBadge).join("")}</div>`
-        : "";
-
-      const seasonHtml = !isConcert && entry.season
-        ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
-             <i class="fa-regular fa-calendar-days text-[10px]"></i> ${escapeHtml(entry.season)}
-           </span>`
-        : "";
-
-      const castHtml = entry.cast
-        ? `<div class="flex items-start gap-2 text-xs sm:text-sm text-slate-700 dark:text-slate-200 leading-relaxed">
-             <i class="fa-solid fa-users text-slate-400 mt-1 text-xs shrink-0"></i>
-             <div class="break-words min-w-0">${renderMultilineHtml(entry.cast)}</div>
-           </div>`
-        : "";
-
-      // Omitted automatically if Notes became empty after auto-moving 4K to Format
-      const notesHtml = entry.notes
-        ? `<div class="flex items-start gap-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 bg-royal-50/60 dark:bg-royal-900/25 rounded-xl p-2.5 border border-royal-100 dark:border-royal-800/50">
-             <i class="fa-solid fa-circle-info text-royal-600 dark:text-royal-300 mt-0.5 text-xs shrink-0"></i>
-             <div class="break-words min-w-0">
-               <span class="inline-block font-bold text-royal-700 dark:text-royal-200 mr-1">Notes:</span>${renderMultilineHtml(entry.notes)}
-             </div>
-           </div>`
-        : "";
-
-      // Render Format section with prominent 4K badge whenever is4K is true
-      const fourKBadgeHtml = entry.is4K
-        ? `<span class="inline-flex items-center px-1.5 py-0.5 rounded-md text-[10px] font-extrabold tracking-wide bg-gradient-to-r from-rose-600 to-amber-500 text-white shadow-xs">4K</span>`
-        : "";
-
-      const formatHtml = (entry.is4K || entry.format)
-        ? `<div class="flex items-center flex-wrap gap-1.5 text-xs text-slate-600 dark:text-slate-300 pt-0.5">
-             <i class="fa-solid fa-file-video text-emerald-500 text-xs"></i>
-             <span class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-bold text-slate-700 dark:text-slate-200">Format:</span>
-             ${fourKBadgeHtml}
-             ${entry.format ? `<span>${renderMultilineHtml(entry.format)}</span>` : ""}
-           </div>`
-        : "";
-
-      return `
-        <article class="p-4 hover:bg-slate-50/70 dark:hover:bg-slate-800/30 transition-colors space-y-2.5">
-          <div class="flex items-start justify-between gap-2">
-            <div class="space-y-1 min-w-0">
-              <div class="flex items-center flex-wrap gap-2">
-                <h3 class="font-bold text-sm sm:text-[15px] text-slate-900 dark:text-white leading-snug break-words">
-                  ${escapeHtml(entry.titleDate)}
-                </h3>
-                ${seasonHtml}
-              </div>
-              ${badgesHtml}
-            </div>
-            <button type="button" data-copy-text="${escapeHtml(entry.titleDate)}" title="Copy Title & Date"
-              class="copy-entry-btn shrink-0 w-8 h-8 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-royal-600 dark:hover:text-royal-300 hover:bg-royal-50 dark:hover:bg-royal-900/40 flex items-center justify-center transition-colors">
-              <i class="fa-regular fa-copy text-xs"></i>
-            </button>
-          </div>
-          <div class="space-y-2 pt-1">
-            ${castHtml}
-            ${notesHtml}
-            ${formatHtml}
-          </div>
-        </article>
-      `;
-    }
-
-    function renderEmptyState() {
-      return `
-        <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-10 text-center space-y-2">
-          <i class="fa-solid fa-magnifying-glass text-2xl text-slate-300 dark:text-slate-600"></i>
-          <p class="text-sm font-semibold text-slate-700 dark:text-slate-300">No matching recordings found</p>
-          <p class="text-xs text-slate-500 dark:text-slate-400">Try clearing your search or selecting another filter.</p>
-        </div>
-      `;
-    }
-
-    function bindCopyButtons(container) {
-      container.querySelectorAll(".copy-entry-btn").forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          copyText(btn.dataset.copyText || "", "Copied to clipboard!");
-        });
-      });
-    }
-
-    /**
-     * =========================================================
-     * INITIALIZE APPLICATION
-     * =========================================================
-     */
-    document.addEventListener("DOMContentLoaded", () => {
+    /* =========================================================
+       INITIALIZATION & EVENT LISTENERS
+       ========================================================= */
+    document.addEventListener("DOMContentLoaded", function () {
       updateThemeIcon();
 
-      // Theme toggle button
-      document.getElementById("theme-toggle").addEventListener("click", toggleTheme);
+      // Theme toggle
+      const themeBtn = document.getElementById("theme-toggle");
+      if (themeBtn) {
+        themeBtn.addEventListener("click", toggleTheme);
+      }
 
       // Main tab buttons
-      document.querySelectorAll(".main-tab-btn").forEach((btn) => {
-        btn.addEventListener("click", () => switchMainTab(btn.dataset.tab));
+      document.querySelectorAll(".main-tab-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          if (btn.dataset.tab) switchMainTab(btn.dataset.tab);
+        });
       });
 
-      // Retry button for offline/network recovery
-      document.getElementById("video-retry-btn").addEventListener("click", () => {
-        loadVideoSubTab(appState.activeVideoSubTab);
-      });
-
-      // Video search & expand/collapse controls (debounced for 800+ rows)
+      // Live search input
       const searchInput = document.getElementById("video-search");
       const clearBtn = document.getElementById("video-clear-search");
-      const toggleAllBtn = document.getElementById("video-toggle-all");
-      let debounceTimer = null;
-
-      searchInput.addEventListener("input", (e) => {
-        const val = e.target.value;
-        const subKey = appState.activeVideoSubTab;
-        clearBtn.classList.toggle("hidden", !val);
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => {
-          appState.subTabs[subKey].searchQuery = val;
+      if (searchInput) {
+        searchInput.addEventListener("input", function () {
+          const st = appState.subTabs[appState.activeVideoSubTab];
+          if (!st) return;
+          st.searchQuery = searchInput.value;
+          if (clearBtn) {
+            clearBtn.classList.toggle("hidden", !st.searchQuery);
+          }
           renderActiveVideoCatalog();
-        }, 150);
-      });
+        });
+      }
 
-      clearBtn.addEventListener("click", () => {
-        const subKey = appState.activeVideoSubTab;
-        searchInput.value = "";
-        clearBtn.classList.add("hidden");
-        appState.subTabs[subKey].searchQuery = "";
-        renderActiveVideoCatalog();
-        searchInput.focus();
-      });
+      if (clearBtn && searchInput) {
+        clearBtn.addEventListener("click", function () {
+          const st = appState.subTabs[appState.activeVideoSubTab];
+          if (!st) return;
+          st.searchQuery = "";
+          searchInput.value = "";
+          clearBtn.classList.add("hidden");
+          renderActiveVideoCatalog();
+          searchInput.focus();
+        });
+      }
 
-      toggleAllBtn.addEventListener("click", () => {
-        const subKey = appState.activeVideoSubTab;
-        if (subKey === "concert") return;
+      // Expand / Collapse All toggle
+      const toggleAllBtn = document.getElementById("video-toggle-all");
+      if (toggleAllBtn) {
+        toggleAllBtn.addEventListener("click", function () {
+          const subKey = appState.activeVideoSubTab;
+          const st = appState.subTabs[subKey];
+          if (!st || subKey === "concert") return;
 
-        const st = appState.subTabs[subKey];
-        const filtered = getFilteredItemsForActiveSubTab();
-        const uniqueShows = new Set(filtered.map((item) => item.show));
-
-        if (st.allExpanded) {
-          st.expandedShows.clear();
-          if (st.searchQuery.trim()) {
-            searchInput.value = "";
-            clearBtn.classList.add("hidden");
-            st.searchQuery = "";
+          st.allExpanded = !st.allExpanded;
+          if (!st.allExpanded && st.expandedShows) {
+            st.expandedShows.clear();
           }
-        } else {
-          for (const showName of uniqueShows) {
-            st.expandedShows.add(showName);
-          }
-        }
-        renderActiveVideoCatalog();
-      });
+          renderActiveVideoCatalog();
+        });
+      }
 
-      // Set default views
+      // Retry button
+      const retryBtn = document.getElementById("video-retry-btn");
+      if (retryBtn) {
+        retryBtn.addEventListener("click", function () {
+          const subKey = appState.activeVideoSubTab;
+          if (appState.subTabs[subKey]) {
+            appState.subTabs[subKey].loaded = false;
+            loadVideoSubTab(subKey);
+          }
+        });
+      }
+
+      // Initialize default tab & sub-tab states
       switchMainTab("home");
       switchAudioScriptSubTab("audio");
+      switchRulesWantsSubTab("rules");
+      switchContactSalesSubTab("contact");
     });
   </script>
 </body>
