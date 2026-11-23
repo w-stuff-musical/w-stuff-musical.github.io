@@ -1773,7 +1773,7 @@
             <div class="space-y-1 min-w-0">
               <div class="flex items-center flex-wrap gap-2">
                 <h3 class="font-bold text-sm sm:text-[15px] text-slate-900 dark:text-white leading-snug break-words">
-                  ${escapeHtml(entry.titleDate.replace(/\s*\|\s*(?:V?LT|NFT|NFS)\b[^|]*/gi, '').trim())}
+                  ${escapeHtml(entry.titleDate.replace(/\s*\|\s*(?:(?:V?LT|NFT|NFS)\b[^|]*|[^|]*(?:pro[\s-]?shot|live[\s-]?stream)[^|]*)/gi, '').trim())}
                 </h3>
                 ${seasonHtml}
               </div>
