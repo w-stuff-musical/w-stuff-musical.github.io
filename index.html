@@ -1746,7 +1746,7 @@
       // Omitted automatically if Notes became empty after auto-moving 4K to Format
       const notesHtml = entry.notes
         ? `<div class="flex items-start gap-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 bg-royal-50/60 dark:bg-royal-900/25 rounded-xl p-2.5 border border-royal-100 dark:border-royal-800/50">
-             <i class="fa-solid fa-circle-info text-royal-600 dark:text-royal-300 mt-0.5 text-xs shrink-0"></i>
+             <i class="fa-solid fa-note-sticky text-royal-600 dark:text-royal-300 mt-0.5 text-xs shrink-0"></i>
              <div class="break-words min-w-0">
                <span class="inline-block font-bold text-royal-700 dark:text-royal-200 mr-1">Notes:</span>${renderMultilineHtml(entry.notes)}
              </div>
@@ -1773,7 +1773,7 @@
             <div class="space-y-1 min-w-0">
               <div class="flex items-center flex-wrap gap-2">
                 <h3 class="font-bold text-sm sm:text-[15px] text-slate-900 dark:text-white leading-snug break-words">
-                  ${escapeHtml(entry.titleDate)}
+                  ${escapeHtml(entry.titleDate.replace(/\s*\|\s*(?:V?LT|NFT|NFS)\b[^|]*/gi, '').trim())}
                 </h3>
                 ${seasonHtml}
               </div>
