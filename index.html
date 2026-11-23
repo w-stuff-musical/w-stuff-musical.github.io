@@ -1234,7 +1234,7 @@
         const rawTokens = statusRaw.split(/[,\n]+/).map((s) => s.trim()).filter(Boolean);
         for (const token of rawTokens) {
           const low = token.toLowerCase();
-          if (low.includes("ws master") || low.includes("♔") || low.includes("👑")) {
+          if (low.includes("ws master") || low.includes("♔")) {
             addBadge("WS_MASTER", "♔WS MASTER");
           } else if (low.includes("not for sale") || low.includes("🚫")) {
             addBadge("NFS", "🚫NOT FOR SALE");
@@ -1249,7 +1249,6 @@
           } else if (/\blt\b|ratio/i.test(low)) {
             addBadge("LT", token);
           } else if (token.includes("⚝")) {
-            addBadge("STAR", "⚝");
           } else {
             addBadge(`RAW_${low}`, token);
           }
@@ -1258,7 +1257,7 @@
 
       // 2. Auto-detect status markers written in col 2 (Title - Location | Date)
       const combined = `${statusRaw || ""} ${titleDate || ""}`;
-      if (/\bws\s*master\b|♔|👑/i.test(combined)) {
+      if (/\bws\s*master\b|♔/i.test(combined)) {
         addBadge("WS_MASTER", "♔WS MASTER");
       }
       if (/not\s*for\s*sale|🚫/i.test(combined)) {
@@ -1280,10 +1279,6 @@
       if (ltMatch) {
         addBadge("LT", ltMatch[0].trim());
       }
-      if (combined.includes("⚝")) {
-        addBadge("STAR", "⚝");
-      }
-
       return badges;
     }
 
