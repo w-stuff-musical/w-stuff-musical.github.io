@@ -353,7 +353,7 @@
         <details open class="group rounded-2xl bg-indigo-50/80 dark:bg-indigo-950/30 border border-indigo-200/90 dark:border-indigo-800/70 shadow-sm overflow-hidden">
           <summary class="cursor-pointer select-none px-4 sm:px-5 py-3.5 flex items-center justify-between gap-2 text-indigo-900 dark:text-indigo-200 font-extrabold text-xs sm:text-sm uppercase tracking-wider hover:bg-indigo-100/60 dark:hover:bg-indigo-900/30 transition-colors list-none">
             <span class="flex items-center gap-2">
-              <i class="fa-solid fa-note-sticky text-indigo-600 dark:text-indigo-300"></i>
+              <i class="fa-solid fa-list-check text-indigo-600 dark:text-indigo-300"></i>
               <span>Audio Trading Rules &amp; Ratio</span>
             </span>
             <i class="fa-solid fa-chevron-down text-xs text-indigo-500 transition-transform duration-200 group-open:rotate-180"></i>
@@ -489,7 +489,7 @@
           <div class="relative">
             <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
             <input id="script-search" type="text" autocomplete="off"
-              placeholder="Search Script Title (English or Korean), Scan, Typing..."
+              placeholder="Search Script Title (English or Korean), Notes, Scan, Typing..."
               class="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-royal-600 focus:border-transparent transition">
             <button id="script-clear-search" type="button" aria-label="Clear script search"
               class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-slate-700 flex items-center justify-center">
@@ -1738,7 +1738,9 @@
         style = "bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-950/70 dark:text-emerald-300 dark:border-emerald-800";
       } else if (lower.includes("private")) {
         style = "bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-950/70 dark:text-amber-200 dark:border-amber-800";
-      } else if (/^lt\b|ratio|\(\d+:\d+\)|^\d+:\d+$/i.test(lower)) {
+      } else if (/\(\d+:\d+\)|^\d+:\d+$/.test(lower)) {
+        style = "bg-teal-100 text-teal-800 border-teal-300 dark:bg-teal-950/70 dark:text-teal-200 dark:border-teal-700";
+      } else if (/^lt\b|ratio/i.test(lower)) {
         style = "bg-indigo-100 text-indigo-800 border-indigo-200 dark:bg-indigo-950/70 dark:text-indigo-200 dark:border-indigo-700";
       } else if (status.includes("⚝")) {
         style = "bg-amber-100 text-amber-900 border-amber-300 dark:bg-amber-950/80 dark:text-amber-200 dark:border-amber-700";
@@ -2250,16 +2252,57 @@
           continue;
         }
 
-        const cleanText = rowText.replace(/^★\s*/, "").trim();
+        const fullText = rowText.replace(/^★\s*/, "").trim();
         const badges = [];
-        if (/\bscan\b/i.test(cleanText)) badges.push("Scan");
-        if (/\btyping\b/i.test(cleanText)) badges.push("Typing");
-        if (/lyric\s*book/i.test(cleanText)) badges.push("Lyric Book");
+        if (/\bscan\b/i.test(fullText)) badges.push("Scan");
+        if (/\btyping\b/i.test(fullText)) badges.push("Typing");
+        if (/lyric\s*book/i.test(fullText)) badges.push("Lyric Book");
+
+        // Separate parenthetical content from the main title (supports nested parentheses)
+        let cleanTitle = fullText;
+        let notes = "";
+        const firstParen = fullText.indexOf("(");
+        if (firstParen !== -1) {
+          let depth = 0;
+          let closeParen = -1;
+          for (let j = firstParen; j < fullText.length; j++) {
+            if (fullText[j] === "(") depth++;
+            else if (fullText[j] === ")") {
+              depth--;
+              if (depth === 0) {
+                closeParen = j;
+                break;
+              }
+            }
+          }
+          if (closeParen !== -1) {
+            const inside = fullText.slice(firstParen + 1, closeParen).trim();
+            const before = fullText.slice(0, firstParen).trim();
+            const after = fullText.slice(closeParen + 1).trim();
+            cleanTitle = [before, after].filter(Boolean).join(" ").trim();
+
+            // Strip standalone scan/typing keywords so only actual notes (e.g. Dracula, Rebecca, X-Calibur) go into Notes
+            const noteClean = inside
+              .replace(/\(\s*(?:scan|typing)\s*\)/gi, "")
+              .replace(/(?:^|,\s*|;\s*|\s+and\s+)\b(?:scan|typing)\b(?=\s*(?:,|;|$))/gi, "")
+              .replace(/^[\s,;:-]+|[\s,;:-]+$/g, "")
+              .replace(/\s{2,}/g, " ")
+              .trim();
+
+            if (noteClean && !/^(?:scan|typing)$/i.test(noteClean)) {
+              notes = noteClean;
+            }
+          }
+        }
+
+        // Remove standalone "lyric book" from title since it already has a Lyric Book chip
+        cleanTitle = cleanTitle.replace(/\s*\blyric\s*book\b\s*/gi, " ").replace(/\s{2,}/g, " ").trim();
 
         items.push({
-          raw: cleanText,
+          title: cleanTitle,
+          notes,
           badges,
-          searchBlob: `${cleanText} ${badges.join(" ")}`.toLowerCase()
+          searchBlob: `${cleanTitle} ${notes} ${badges.join(" ")}`.toLowerCase()
         });
       }
 
@@ -2696,7 +2739,7 @@
       container.innerHTML = filtered
         .map((item) => {
           const badgesHtml = item.badges.length
-            ? `<div class="flex flex-wrap gap-1.5 mt-1.5">${item.badges
+            ? `<div class="flex flex-wrap gap-1.5 mt-2">${item.badges
                 .map((b) => {
                   const style =
                     b === "Scan"
@@ -2709,21 +2752,33 @@
                 .join("")}</div>`
             : "";
 
+          const notesHtml = item.notes
+            ? `<div class="flex items-start gap-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 bg-royal-50/60 dark:bg-royal-900/25 rounded-xl p-2.5 mt-2.5 border border-royal-100 dark:border-royal-800/50">
+                 <i class="fa-solid fa-note-sticky text-royal-600 dark:text-royal-300 mt-0.5 text-xs shrink-0"></i>
+                 <div class="break-words min-w-0">
+                   <span class="inline-block font-bold text-royal-700 dark:text-royal-200 mr-1">Notes:</span>${escapeHtml(item.notes)}
+                 </div>
+               </div>`
+            : "";
+
           return `
-            <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm px-4 py-3.5 flex items-start justify-between gap-3 hover:bg-slate-50/70 dark:hover:bg-slate-800/30 transition-colors">
-              <div class="min-w-0">
-                <div class="flex items-start gap-2">
-                  <span class="text-royal-600 dark:text-royal-300 font-bold text-sm leading-snug shrink-0">★</span>
-                  <h3 class="font-bold text-sm sm:text-[15px] text-slate-900 dark:text-white leading-snug break-words">
-                    ${escapeHtml(item.raw)}
-                  </h3>
+            <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm p-4 hover:bg-slate-50/70 dark:hover:bg-slate-800/30 transition-colors">
+              <div class="flex items-start justify-between gap-3">
+                <div class="min-w-0 flex-1">
+                  <div class="flex items-start gap-2">
+                    <span class="text-royal-600 dark:text-royal-300 font-bold text-sm leading-snug shrink-0">★</span>
+                    <h3 class="font-bold text-sm sm:text-[15px] text-slate-900 dark:text-white leading-snug break-words">
+                      ${escapeHtml(item.title)}
+                    </h3>
+                  </div>
+                  ${badgesHtml}
+                  ${notesHtml}
                 </div>
-                ${badgesHtml}
+                <button type="button" data-copy-text="${escapeHtml(item.title)}" title="Copy Script Title"
+                  class="copy-entry-btn shrink-0 w-8 h-8 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-royal-600 dark:hover:text-royal-300 hover:bg-royal-50 dark:hover:bg-royal-900/40 flex items-center justify-center transition-colors">
+                  <i class="fa-regular fa-copy text-xs"></i>
+                </button>
               </div>
-              <button type="button" data-copy-text="${escapeHtml(item.raw)}" title="Copy Script Title"
-                class="copy-entry-btn shrink-0 w-8 h-8 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-royal-600 dark:hover:text-royal-300 hover:bg-royal-50 dark:hover:bg-royal-900/40 flex items-center justify-center transition-colors">
-                <i class="fa-regular fa-copy text-xs"></i>
-              </button>
             </div>
           `;
         })
