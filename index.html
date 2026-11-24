@@ -2261,25 +2261,22 @@
         // Separate parenthetical content from the main title (supports nested parentheses)
         let cleanTitle = fullText;
         let notes = "";
-        const firstParen = fullText.indexOf("(");
-        if (firstParen !== -1) {
+        if (fullText.endsWith(")")) {
           let depth = 0;
-          let closeParen = -1;
-          for (let j = firstParen; j < fullText.length; j++) {
-            if (fullText[j] === "(") depth++;
-            else if (fullText[j] === ")") {
+          let openParen = -1;
+          for (let j = fullText.length - 1; j >= 0; j--) {
+            if (fullText[j] === ")") depth++;
+            else if (fullText[j] === "(") {
               depth--;
               if (depth === 0) {
-                closeParen = j;
+                openParen = j;
                 break;
               }
             }
           }
-          if (closeParen !== -1) {
-            const inside = fullText.slice(firstParen + 1, closeParen).trim();
-            const before = fullText.slice(0, firstParen).trim();
-            const after = fullText.slice(closeParen + 1).trim();
-            cleanTitle = [before, after].filter(Boolean).join(" ").trim();
+          if (openParen !== -1) {
+            const inside = fullText.slice(openParen + 1, -1).trim();
+            cleanTitle = fullText.slice(0, openParen).trim();
 
             // Strip standalone scan/typing keywords so only actual notes (e.g. Dracula, Rebecca, X-Calibur) go into Notes
             const noteClean = inside
