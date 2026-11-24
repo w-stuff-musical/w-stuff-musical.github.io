@@ -332,51 +332,200 @@
     </section>
 
     <!-- ---------------------------------------------------------
-         TAB 3: AUDIO & SCRIPT (Clean Sub-tabs: Audio & Script)
+         TAB 3: AUDIO & SCRIPT (Live Google Sheets Catalog)
          --------------------------------------------------------- -->
     <section id="panel-audio-script" class="tab-panel hidden space-y-4">
-      <!-- Sub-tab Switcher -->
-      <div class="inline-flex p-1 rounded-xl bg-slate-200/70 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700">
-        <button type="button" data-as-subtab="audio" onclick="switchAudioScriptSubTab('audio')"
+      <!-- Sub-tab Switcher: Audio | Script -->
+      <div class="inline-flex p-1 rounded-xl bg-slate-200/70 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700" role="tablist" aria-label="Audio and Script">
+        <button type="button" role="tab" data-as-subtab="audio" onclick="switchAudioScriptSubTab('audio')"
           class="as-subtab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">
           <i class="fa-solid fa-headphones mr-1.5"></i>Audio
         </button>
-        <button type="button" data-as-subtab="script" onclick="switchAudioScriptSubTab('script')"
+        <button type="button" role="tab" data-as-subtab="script" onclick="switchAudioScriptSubTab('script')"
           class="as-subtab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all">
           <i class="fa-solid fa-file-lines mr-1.5"></i>Script
         </button>
       </div>
 
-      <!-- Sub-panel: Audio -->
-      <div id="subpanel-audio" class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-8 sm:p-10 shadow-sm text-center space-y-5">
-        <div class="w-14 h-14 mx-auto rounded-2xl bg-blue-50 dark:bg-slate-800 text-royal-600 dark:text-royal-300 flex items-center justify-center">
-          <i class="fa-solid fa-headphones text-2xl"></i>
+      <!-- SUB-PANEL: AUDIO -->
+      <div id="subpanel-audio" class="space-y-4">
+        <!-- Audio Trading Rules & Ratio Box (Collapsible, open by default) -->
+        <details open class="group rounded-2xl bg-indigo-50/80 dark:bg-indigo-950/30 border border-indigo-200/90 dark:border-indigo-800/70 shadow-sm overflow-hidden">
+          <summary class="cursor-pointer select-none px-4 sm:px-5 py-3.5 flex items-center justify-between gap-2 text-indigo-900 dark:text-indigo-200 font-extrabold text-xs sm:text-sm uppercase tracking-wider hover:bg-indigo-100/60 dark:hover:bg-indigo-900/30 transition-colors list-none">
+            <span class="flex items-center gap-2">
+              <i class="fa-solid fa-note-sticky text-indigo-600 dark:text-indigo-300"></i>
+              <span>Audio Trading Rules &amp; Ratio</span>
+            </span>
+            <i class="fa-solid fa-chevron-down text-xs text-indigo-500 transition-transform duration-200 group-open:rotate-180"></i>
+          </summary>
+          <div class="px-4 sm:px-5 pb-4 sm:pb-5 pt-2 border-t border-indigo-200/70 dark:border-indigo-800/60 space-y-4 text-xs sm:text-sm leading-relaxed text-slate-700 dark:text-slate-200">
+            <div class="space-y-2">
+              <h3 class="inline-block px-2.5 py-0.5 rounded-md bg-indigo-600 text-white text-[11px] font-extrabold uppercase tracking-wider">
+                TRADING RULES:
+              </h3>
+              <ul class="list-disc pl-5 space-y-1.5">
+                <li>We only trade <strong class="text-slate-900 dark:text-white">Korean productions for other Korean productions.</strong></li>
+                <li>Most of our audios are kept on <strong class="text-royal-600 dark:text-royal-300">Google Drive</strong>. Please do not ask us to re-upload files to different platforms!</li>
+                <li>All audio <strong class="text-royal-600 dark:text-royal-300">OPEN</strong> for sales.</li>
+                <li>We may include free audios as a gift if you purchase <strong class="text-slate-900 dark:text-white">more than 3 videos :)</strong></li>
+                <li>Contact us for trade or sales inquiries. We usually respond within <strong class="text-slate-900 dark:text-white">24 hours</strong></li>
+                <li>Please send a follow-up email if you don't receive a response after <strong class="text-slate-900 dark:text-white">2 days</strong></li>
+                <li>Make sure to include your <strong class="text-slate-900 dark:text-white">wants</strong> in your first email.</li>
+                <li>If you're emailing directly, in subject line use <strong class="italic text-indigo-700 dark:text-indigo-300">"W Stuff"</strong></li>
+                <li><strong class="text-slate-900 dark:text-white">We will send links once payment is confirmed.</strong> <span class="italic font-semibold text-indigo-700 dark:text-indigo-300">[Please download your files as soon as possible after receiving links!]</span></li>
+              </ul>
+            </div>
+
+            <div class="pt-3 border-t border-indigo-200/60 dark:border-indigo-800/50 space-y-2">
+              <h3 class="inline-block px-2.5 py-0.5 rounded-md bg-indigo-600 text-white text-[11px] font-extrabold uppercase tracking-wider">
+                Trading Ratio:
+              </h3>
+              <ul class="list-disc pl-5 space-y-1.5">
+                <li>1:1 for standard items.</li>
+                <li><span class="italic font-semibold text-teal-700 dark:text-teal-300">(2:1), (3:1)</span> for high-audio quality master copies or recordings with stage greetings or based on original trade ratio when trading.</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+
+        <!-- 3 Audio Category Sub-tabs -->
+        <div class="flex items-center gap-1.5 p-1.5 rounded-2xl bg-slate-200/75 dark:bg-slate-800/90 border border-slate-200/90 dark:border-slate-700/80 overflow-x-auto" role="tablist" aria-label="Audio Categories">
+          <button type="button" role="tab" data-audio-subtab="musical" onclick="switchAudioCategorySubTab('musical')"
+            class="audio-subtab-btn flex-1 min-w-fit px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap">
+            🎭Musical
+          </button>
+          <button type="button" role="tab" data-audio-subtab="concert" onclick="switchAudioCategorySubTab('concert')"
+            class="audio-subtab-btn flex-1 min-w-fit px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap">
+            🎤Concert
+          </button>
+          <button type="button" role="tab" data-audio-subtab="ost" onclick="switchAudioCategorySubTab('ost')"
+            class="audio-subtab-btn flex-1 min-w-fit px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap">
+            💿OST
+          </button>
         </div>
-        <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">Audio List</h2>
-        <div>
-          <a href="https://brr.kr/wstuff-audio" target="_blank" rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-royal-600 hover:bg-royal-700 text-white text-sm font-semibold shadow-sm transition-colors">
-            <i class="fa-solid fa-headphones"></i>
-            <span>Open Audio List</span>
-            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-          </a>
+
+        <!-- OST Notice Banner (ONLY shown on OST sub-tab) -->
+        <div id="audio-ost-notice" class="hidden rounded-2xl bg-royal-50/90 dark:bg-royal-950/35 border border-royal-200/90 dark:border-royal-800/70 px-4 py-3 shadow-sm flex items-center gap-2.5">
+          <i class="fa-solid fa-compact-disc text-royal-600 dark:text-royal-300 text-sm shrink-0"></i>
+          <p class="text-xs sm:text-sm font-bold text-royal-800 dark:text-royal-200">
+            ※ OST All tracked
+          </p>
         </div>
+
+        <!-- Audio Search, Filters & Stats Card -->
+        <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-4 shadow-sm space-y-3">
+          <div class="relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+            <input id="audio-search" type="text" autocomplete="off"
+              placeholder="Search by Show, Season, Date, Cast, Notes, or Status..."
+              class="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-royal-600 focus:border-transparent transition">
+            <button id="audio-clear-search" type="button" aria-label="Clear audio search"
+              class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-slate-700 flex items-center justify-center">
+              <i class="fa-solid fa-xmark text-xs"></i>
+            </button>
+          </div>
+
+          <div id="audio-filter-pills" class="flex items-center gap-1.5 flex-wrap"></div>
+
+          <div class="pt-2.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between flex-wrap gap-2 text-xs text-slate-500 dark:text-slate-400">
+            <div id="audio-stats" class="font-medium flex items-center gap-1.5">
+              <i class="fa-solid fa-database text-royal-600 dark:text-royal-300"></i>
+              <span>Loading audio catalog...</span>
+            </div>
+            <button id="audio-toggle-all" type="button"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-semibold transition-colors">
+              <i class="fa-solid fa-angles-down text-[11px]"></i>
+              <span>Expand All</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Audio Loading State -->
+        <div id="audio-loading" class="hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-10 text-center">
+          <i class="fa-solid fa-spinner fa-spin text-2xl text-royal-600 dark:text-royal-300 mb-3"></i>
+          <p class="text-sm font-medium text-slate-600 dark:text-slate-300">Loading audio catalog...</p>
+        </div>
+
+        <!-- Audio Error State -->
+        <div id="audio-error" class="hidden rounded-2xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800 p-5 text-center space-y-3">
+          <i class="fa-solid fa-circle-exclamation text-2xl text-rose-500"></i>
+          <p id="audio-error-msg" class="text-sm font-semibold text-rose-800 dark:text-rose-200">Failed to load audio catalog.</p>
+          <button id="audio-retry-btn" type="button"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs sm:text-sm font-semibold shadow-sm transition-colors">
+            <i class="fa-solid fa-rotate-right"></i>
+            <span>Retry</span>
+          </button>
+        </div>
+
+        <!-- Audio Catalog Container -->
+        <div id="audio-catalog" class="space-y-2.5"></div>
       </div>
 
-      <!-- Sub-panel: Script -->
-      <div id="subpanel-script" class="hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-8 sm:p-10 shadow-sm text-center space-y-5">
-        <div class="w-14 h-14 mx-auto rounded-2xl bg-royal-50 dark:bg-royal-900/50 text-royal-600 dark:text-royal-300 flex items-center justify-center">
-          <i class="fa-solid fa-file-lines text-2xl"></i>
+      <!-- SUB-PANEL: SCRIPT -->
+      <div id="subpanel-script" class="hidden space-y-4">
+        <!-- Script Notice Box (Matches OUR MASTER Notice Style) -->
+        <div class="rounded-2xl bg-rose-50/90 dark:bg-rose-950/35 border border-rose-200/90 dark:border-rose-800/70 p-4 sm:p-5 shadow-sm space-y-3">
+          <div class="space-y-1.5">
+            <p class="text-sm sm:text-[15px] leading-relaxed font-semibold text-[#c62828] dark:text-[#ff6b6b]">
+              ※ Our stuff is not for gifting! Don't ask us to share for free! (If you are kind, we don't mind sharing)
+            </p>
+            <p class="text-sm sm:text-[15px] leading-relaxed font-bold text-slate-900 dark:text-white">
+              ※ All script NFT please don't ask for trade!
+            </p>
+          </div>
+
+          <div class="pt-3 border-t border-rose-200/80 dark:border-rose-800/60 space-y-1.5 text-xs sm:text-sm leading-relaxed text-slate-700 dark:text-slate-200">
+            <p class="font-bold text-slate-900 dark:text-white">Please note that these scripts may not reflect:</p>
+            <ul class="list-disc pl-5 space-y-1 italic">
+              <li>Specific line changes, minor updates, or variations depending on the production year and specific run of the show</li>
+              <li>Actors' ad-libs or improvisations that occur during live performances</li>
+              <li>Some scripts are manually transcribed by carefully listening to audio recordings or watching bootleg footage. While every effort is made to ensure high accuracy, minor discrepancies may occur due to the nature of live audio.</li>
+            </ul>
+          </div>
         </div>
-        <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">Script List</h2>
-        <div>
-          <a href="https://brr.kr/wstuff-sript" target="_blank" rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-royal-600 hover:bg-royal-700 text-white text-sm font-semibold shadow-sm transition-colors">
-            <i class="fa-solid fa-book-open"></i>
-            <span>Open Script List</span>
-            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-          </a>
+
+        <!-- Script Search, Filters & Stats Card -->
+        <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-4 shadow-sm space-y-3">
+          <div class="relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+            <input id="script-search" type="text" autocomplete="off"
+              placeholder="Search Script Title (English or Korean), Scan, Typing..."
+              class="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-royal-600 focus:border-transparent transition">
+            <button id="script-clear-search" type="button" aria-label="Clear script search"
+              class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 w-7 h-7 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-slate-700 flex items-center justify-center">
+              <i class="fa-solid fa-xmark text-xs"></i>
+            </button>
+          </div>
+
+          <div id="script-filter-pills" class="flex items-center gap-1.5 flex-wrap"></div>
+
+          <div class="pt-2.5 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between flex-wrap gap-2 text-xs text-slate-500 dark:text-slate-400">
+            <div id="script-stats" class="font-medium flex items-center gap-1.5">
+              <i class="fa-solid fa-database text-royal-600 dark:text-royal-300"></i>
+              <span>Loading script catalog...</span>
+            </div>
+          </div>
         </div>
+
+        <!-- Script Loading State -->
+        <div id="script-loading" class="hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-10 text-center">
+          <i class="fa-solid fa-spinner fa-spin text-2xl text-royal-600 dark:text-royal-300 mb-3"></i>
+          <p class="text-sm font-medium text-slate-600 dark:text-slate-300">Loading script catalog...</p>
+        </div>
+
+        <!-- Script Error State -->
+        <div id="script-error" class="hidden rounded-2xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800 p-5 text-center space-y-3">
+          <i class="fa-solid fa-circle-exclamation text-2xl text-rose-500"></i>
+          <p id="script-error-msg" class="text-sm font-semibold text-rose-800 dark:text-rose-200">Failed to load script catalog.</p>
+          <button id="script-retry-btn" type="button"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs sm:text-sm font-semibold shadow-sm transition-colors">
+            <i class="fa-solid fa-rotate-right"></i>
+            <span>Retry</span>
+          </button>
+        </div>
+
+        <!-- Script Catalog Container -->
+        <div id="script-catalog" class="space-y-2"></div>
       </div>
     </section>
 
@@ -738,8 +887,39 @@
         musical: "🎥Musical",
         ourMaster: "♔OUR MASTER",
         concert: "Concert"
+      },
+      audioScriptSpreadsheetId: "1D3kYAjm4W-unshwK8njH9m-ERsiG2dPxixlXfEI7DfU",
+      audioScriptSheetNames: {
+        musical: "Musical",
+        concert: "Concert",
+        ost: "Ost",
+        script: "Script"
       }
     };
+
+    const AUDIO_SUBTAB_FILTERS = {
+      musical: [
+        { id: "ALL", label: "All" },
+        { id: "WS_MASTER", label: "♔WS Master" },
+        { id: "FHP_MASTER", label: "✦FHP Master" },
+        { id: "NFT", label: "NFT" },
+        { id: "RATIO", label: "Ratio (2:1 / 3:1)" }
+      ],
+      concert: [
+        { id: "ALL", label: "All" },
+        { id: "WS_MASTER", label: "♔WS Master" },
+        { id: "FHP_MASTER", label: "✦FHP Master" },
+        { id: "NFT", label: "NFT" },
+        { id: "RATIO", label: "Ratio (2:1 / 3:1)" }
+      ],
+      ost: []
+    };
+
+    const SCRIPT_FILTERS = [
+      { id: "ALL", label: "All" },
+      { id: "SCAN", label: "Scan" },
+      { id: "TYPING", label: "Typing" }
+    ];
 
     /**
      * =========================================================
@@ -779,6 +959,8 @@
     const appState = {
       activeTab: "home",
       activeVideoSubTab: "musical",
+      activeAudioScriptSubTab: "audio",
+      activeAudioSubTab: "musical",
       subTabs: {
         musical: {
           loaded: false,
@@ -805,6 +987,40 @@
           searchQuery: "",
           activeFilter: "ALL"
         }
+      },
+      audioSubTabs: {
+        musical: {
+          loaded: false,
+          loading: false,
+          items: [],
+          searchQuery: "",
+          activeFilter: "ALL",
+          expandedShows: new Set(),
+          allExpanded: false
+        },
+        concert: {
+          loaded: false,
+          loading: false,
+          items: [],
+          searchQuery: "",
+          activeFilter: "ALL",
+          expandedShows: new Set(),
+          allExpanded: false
+        },
+        ost: {
+          loaded: false,
+          loading: false,
+          items: [],
+          searchQuery: "",
+          activeFilter: "ALL"
+        }
+      },
+      scriptTab: {
+        loaded: false,
+        loading: false,
+        items: [],
+        searchQuery: "",
+        activeFilter: "ALL"
       }
     };
 
@@ -902,9 +1118,11 @@
         panel.classList.toggle("hidden", panel.id !== `panel-${tabId}`);
       });
 
-      // Lazy-load active Video sub-tab on first visit
+      // Lazy-load active Video or Audio & Script sub-tab on first visit
       if (tabId === "video") {
         switchVideoSubTab(appState.activeVideoSubTab);
+      } else if (tabId === "audio-script") {
+        switchAudioScriptSubTab(appState.activeAudioScriptSubTab);
       }
     }
 
@@ -966,14 +1184,78 @@
     }
 
     function switchAudioScriptSubTab(subId) {
+      appState.activeAudioScriptSubTab = subId;
       document.querySelectorAll(".as-subtab-btn").forEach((btn) => {
         const isActive = btn.dataset.asSubtab === subId;
+        btn.setAttribute("aria-selected", isActive ? "true" : "false");
         btn.className = isActive
           ? "as-subtab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all bg-white dark:bg-slate-900 text-royal-600 dark:text-royal-300 shadow-sm"
           : "as-subtab-btn px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200";
       });
       document.getElementById("subpanel-audio").classList.toggle("hidden", subId !== "audio");
       document.getElementById("subpanel-script").classList.toggle("hidden", subId !== "script");
+
+      if (appState.activeTab === "audio-script") {
+        if (subId === "audio") {
+          switchAudioCategorySubTab(appState.activeAudioSubTab);
+        } else if (subId === "script") {
+          renderScriptFilters();
+          if (!appState.scriptTab.loaded) {
+            loadScriptCatalog();
+          } else {
+            document.getElementById("script-loading").classList.add("hidden");
+            document.getElementById("script-error").classList.add("hidden");
+            renderScriptCatalog();
+          }
+        }
+      }
+    }
+
+    function switchAudioCategorySubTab(subKey) {
+      if (!appState.audioSubTabs[subKey]) return;
+      appState.activeAudioSubTab = subKey;
+
+      document.querySelectorAll(".audio-subtab-btn").forEach((btn) => {
+        const isActive = btn.dataset.audioSubtab === subKey;
+        btn.setAttribute("aria-selected", isActive ? "true" : "false");
+        btn.className = isActive
+          ? "audio-subtab-btn flex-1 min-w-fit px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap bg-white dark:bg-slate-900 text-royal-600 dark:text-royal-300 shadow-sm"
+          : "audio-subtab-btn flex-1 min-w-fit px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200";
+      });
+
+      const ostNoticeEl = document.getElementById("audio-ost-notice");
+      if (ostNoticeEl) {
+        ostNoticeEl.classList.toggle("hidden", subKey !== "ost");
+      }
+
+      const st = appState.audioSubTabs[subKey];
+      const searchInput = document.getElementById("audio-search");
+      const clearBtn = document.getElementById("audio-clear-search");
+      if (searchInput) {
+        searchInput.value = st.searchQuery;
+        searchInput.placeholder =
+          subKey === "ost"
+            ? "Search by Year, OST Title, Cast, or Format..."
+            : "Search by Show, Season, Date, Cast, Notes, or Status...";
+      }
+      if (clearBtn) {
+        clearBtn.classList.toggle("hidden", !st.searchQuery);
+      }
+
+      const toggleAllBtn = document.getElementById("audio-toggle-all");
+      if (toggleAllBtn) {
+        toggleAllBtn.classList.toggle("hidden", subKey === "ost");
+      }
+
+      renderAudioFilters();
+
+      if (!st.loaded) {
+        loadAudioSubTab(subKey);
+      } else {
+        document.getElementById("audio-loading").classList.add("hidden");
+        document.getElementById("audio-error").classList.add("hidden");
+        renderActiveAudioCatalog();
+      }
     }
 
     function switchRulesWantsSubTab(subId) {
@@ -1033,9 +1315,9 @@
      * 2) Automatic Fallback: JSONP <script> injection (bypasses CORS)
      * =========================================================
      */
-    async function fetchSheetRowsLive(sheetName) {
+    async function fetchSheetRowsLive(sheetName, spreadsheetId = CONFIG.spreadsheetId) {
       const encodedSheet = encodeURIComponent(sheetName);
-      const csvUrl = `https://docs.google.com/spreadsheets/d/${CONFIG.spreadsheetId}/gviz/tq?tqx=out:csv&headers=1&sheet=${encodedSheet}`;
+      const csvUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:csv&headers=1&sheet=${encodedSheet}`;
 
       // Primary Method: Fetch CSV + PapaParse (header: false to guarantee zero missed rows)
       try {
@@ -1058,11 +1340,11 @@
         throw new Error("Empty CSV result");
       } catch (fetchErr) {
         // Automatic Fallback Method: JSONP <script> tag
-        return await fetchSheetRowsJsonp(encodedSheet);
+        return await fetchSheetRowsJsonp(encodedSheet, spreadsheetId);
       }
     }
 
-    function fetchSheetRowsJsonp(encodedSheet) {
+    function fetchSheetRowsJsonp(encodedSheet, spreadsheetId = CONFIG.spreadsheetId) {
       return new Promise((resolve, reject) => {
         const cbName = `__gvizCb_${Date.now()}_${Math.floor(Math.random() * 100000)}`;
         const script = document.createElement("script");
@@ -1121,7 +1403,7 @@
           reject(new Error("Network error while loading sheet via JSONP."));
         };
 
-        script.src = `https://docs.google.com/spreadsheets/d/${CONFIG.spreadsheetId}/gviz/tq?tqx=out:json;responseHandler:${cbName}&headers=1&sheet=${encodedSheet}`;
+        script.src = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:json;responseHandler:${cbName}&headers=1&sheet=${encodedSheet}`;
         document.head.appendChild(script);
       });
     }
@@ -1442,8 +1724,10 @@
       const lower = status.toLowerCase();
       let style = "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700";
 
-      if (lower.includes("ws master") || lower.includes("♔") || lower.includes("👑")) {
+      if (lower.includes("ws master") || lower.includes("wonderful master") || lower.includes("♔") || lower.includes("👑")) {
         style = "bg-gradient-to-r from-purple-100 to-amber-100 text-purple-900 border-purple-300 dark:from-purple-950/90 dark:to-amber-950/70 dark:text-amber-200 dark:border-purple-700";
+      } else if (lower.includes("fhp master") || lower.includes("✦fhp")) {
+        style = "bg-blue-100 text-blue-800 border-blue-300 dark:bg-blue-950/80 dark:text-blue-200 dark:border-blue-700";
       } else if (lower.includes("comision") || lower.includes("commission")) {
         style = "bg-cyan-100 text-cyan-900 border-cyan-300 dark:bg-cyan-950/70 dark:text-cyan-200 dark:border-cyan-700";
       } else if (lower.includes("not for sale") || lower.includes("🚫")) {
@@ -1454,7 +1738,7 @@
         style = "bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-950/70 dark:text-emerald-300 dark:border-emerald-800";
       } else if (lower.includes("private")) {
         style = "bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-950/70 dark:text-amber-200 dark:border-amber-800";
-      } else if (/^lt\b|ratio/i.test(lower)) {
+      } else if (/^lt\b|ratio|\(\d+:\d+\)|^\d+:\d+$/i.test(lower)) {
         style = "bg-indigo-100 text-indigo-800 border-indigo-200 dark:bg-indigo-950/70 dark:text-indigo-200 dark:border-indigo-700";
       } else if (status.includes("⚝")) {
         style = "bg-amber-100 text-amber-900 border-amber-300 dark:bg-amber-950/80 dark:text-amber-200 dark:border-amber-700";
@@ -1807,6 +2091,647 @@
       });
     }
 
+
+    /**
+     * =========================================================
+     * AUDIO & SCRIPT PARSERS, LOADERS & RENDERERS
+     * =========================================================
+     */
+    function extractAudioBadges(statusRaw, titleDate) {
+      const badges = [];
+      const seenKeys = new Set();
+
+      const addBadge = (canonicalKey, label) => {
+        if (!seenKeys.has(canonicalKey)) {
+          seenKeys.add(canonicalKey);
+          badges.push(label);
+        }
+      };
+
+      if (statusRaw) {
+        const rawTokens = statusRaw.split(/[,\n]+/).map((s) => s.trim()).filter(Boolean);
+        for (const token of rawTokens) {
+          const low = token.toLowerCase();
+          if (low.includes("ws master") || low.includes("wonderful master") || token.includes("♔")) {
+            addBadge("WS_MASTER", low.includes("wonderful") ? "♔wonderful master" : "♔WS Master");
+          } else if (low.includes("fhp") || token.includes("✦")) {
+            addBadge("FHP_MASTER", "✦FHP Master");
+          } else if (low.includes("not for sale") || low.includes("🚫")) {
+            addBadge("NFS", "🚫NOT FOR SALE");
+          } else if (low.includes("private")) {
+            addBadge("PRIVATE", "Private Collection");
+          } else if (/\bnft\b/i.test(low)) {
+            addBadge("NFT", "NFT");
+          } else if (/\blt\b|ratio|\(\d+:\d+\)|\b\d+:\d+\b/i.test(low)) {
+            addBadge("RATIO", token);
+          } else {
+            addBadge(`RAW_${low}`, token);
+          }
+        }
+      }
+
+      const combined = `${statusRaw || ""} ${titleDate || ""}`;
+      if (/\bws\s*master\b|wonderful\s*master|♔/i.test(combined)) {
+        addBadge("WS_MASTER", /wonderful\s*master/i.test(combined) ? "♔wonderful master" : "♔WS Master");
+      }
+      if (/fhp\s*master|✦/i.test(combined)) {
+        addBadge("FHP_MASTER", "✦FHP Master");
+      }
+      if (/(?:^|[\s|(/\[,])nft(?:$|[\s|)\],.!])/i.test(combined)) {
+        addBadge("NFT", "NFT");
+      }
+      const ratioMatch = (titleDate || "").match(/\(\d+:\d+\)|\bLT\s*\([^)]+\)|\b\d+:\d+\s*ratio\b/i);
+      if (ratioMatch) {
+        addBadge("RATIO", ratioMatch[0].trim());
+      }
+
+      return badges;
+    }
+
+    function parseAudioFourColMatrix(matrix) {
+      const items = [];
+      let currentShow = "";
+      let currentSeason = "";
+
+      for (let i = 0; i < matrix.length; i++) {
+        const row = Array.isArray(matrix[i]) ? matrix[i] : [];
+        const col0 = String(row[0] || "").trim();
+        const col1 = String(row[1] || "").trim();
+        const col2 = String(row[2] || "").trim();
+        const col3 = String(row[3] || "").trim();
+
+        if (/^show$/i.test(col0) || /^title\s*[-–|]/i.test(col2) || /^title$/i.test(col2)) {
+          continue;
+        }
+        if (isDecorativeKoreanGuideRow([col0, col1, col2, col3])) {
+          continue;
+        }
+
+        if (col0) {
+          currentShow = col0.replace(/\r?\n+/g, " · ");
+          currentSeason = col1;
+        } else if (col1) {
+          currentSeason = col1;
+        }
+
+        if (!col2) {
+          continue;
+        }
+
+        const lines = col2.replace(/\r\n/g, "\n").split("\n").map((l) => l.trim()).filter(Boolean);
+        const titleDate = lines[0] || currentShow || "Untitled Audio";
+        const detailsRaw = lines.slice(1).join("\n");
+        const parsed = parseDetails(detailsRaw);
+        const statuses = extractAudioBadges(col3, titleDate);
+
+        const searchBlob = [
+          currentShow,
+          currentSeason,
+          titleDate,
+          parsed.cast,
+          parsed.notes,
+          parsed.format,
+          statuses.join(" ")
+        ].join(" ").toLowerCase();
+
+        items.push({
+          show: currentShow || "Other",
+          season: currentSeason,
+          titleDate,
+          cast: parsed.cast,
+          notes: parsed.notes,
+          format: parsed.format,
+          is4K: false,
+          statuses,
+          searchBlob
+        });
+      }
+
+      return items;
+    }
+
+    function parseOstMatrix(matrix) {
+      const items = [];
+
+      for (let i = 0; i < matrix.length; i++) {
+        const row = Array.isArray(matrix[i]) ? matrix[i] : [];
+        const year = String(row[0] || "").trim();
+        const title = String(row[1] || "").trim();
+        const cast = String(row[2] || "").trim();
+        const formatNotes = String(row[3] || "").trim();
+
+        if (/^year$/i.test(year) || /^title$/i.test(title)) {
+          continue;
+        }
+        if (!year && !title && !cast) {
+          continue;
+        }
+
+        const searchBlob = [year, title, cast, formatNotes].join(" ").toLowerCase();
+        items.push({
+          year,
+          title: title || "Untitled OST",
+          cast,
+          formatNotes,
+          searchBlob
+        });
+      }
+
+      return items;
+    }
+
+    function parseScriptMatrix(matrix) {
+      const items = [];
+
+      for (let i = 0; i < matrix.length; i++) {
+        const row = Array.isArray(matrix[i]) ? matrix[i] : [];
+        const rowText = row.map((c) => String(c || "").trim()).filter(Boolean).join(" ").trim();
+        if (!rowText || !rowText.startsWith("★")) {
+          continue;
+        }
+
+        const cleanText = rowText.replace(/^★\s*/, "").trim();
+        const badges = [];
+        if (/\bscan\b/i.test(cleanText)) badges.push("Scan");
+        if (/\btyping\b/i.test(cleanText)) badges.push("Typing");
+        if (/lyric\s*book/i.test(cleanText)) badges.push("Lyric Book");
+
+        items.push({
+          raw: cleanText,
+          badges,
+          searchBlob: `${cleanText} ${badges.join(" ")}`.toLowerCase()
+        });
+      }
+
+      return items;
+    }
+
+    async function loadAudioSubTab(subKey) {
+      const st = appState.audioSubTabs[subKey];
+      if (st.loading) return;
+
+      const loadingEl = document.getElementById("audio-loading");
+      const errorEl = document.getElementById("audio-error");
+      const catalogEl = document.getElementById("audio-catalog");
+      const statsEl = document.getElementById("audio-stats");
+
+      st.loading = true;
+      errorEl.classList.add("hidden");
+      catalogEl.innerHTML = "";
+      loadingEl.classList.remove("hidden");
+      if (statsEl) {
+        statsEl.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-royal-600 dark:text-royal-300"></i><span>Loading audio catalog...</span>';
+      }
+
+      try {
+        const sheetName = CONFIG.audioScriptSheetNames[subKey];
+        const matrix = await fetchSheetRowsLive(sheetName, CONFIG.audioScriptSpreadsheetId);
+        st.items = subKey === "ost" ? parseOstMatrix(matrix) : parseAudioFourColMatrix(matrix);
+        st.loaded = true;
+        st.loading = false;
+
+        if (appState.activeAudioSubTab === subKey) {
+          loadingEl.classList.add("hidden");
+          renderAudioFilters();
+          renderActiveAudioCatalog();
+        }
+      } catch (err) {
+        st.loading = false;
+        if (appState.activeAudioSubTab === subKey) {
+          loadingEl.classList.add("hidden");
+          const msgEl = document.getElementById("audio-error-msg");
+          if (msgEl) msgEl.textContent = "Unable to load audio catalog right now. Please check your connection and try again.";
+          errorEl.classList.remove("hidden");
+          if (statsEl) {
+            statsEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-rose-500"></i><span>Load failed</span>';
+          }
+        }
+      }
+    }
+
+    function renderAudioFilters() {
+      const container = document.getElementById("audio-filter-pills");
+      if (!container) return;
+
+      const subKey = appState.activeAudioSubTab;
+      const filters = AUDIO_SUBTAB_FILTERS[subKey] || [];
+      const activeFilter = appState.audioSubTabs[subKey].activeFilter;
+
+      if (filters.length === 0) {
+        container.innerHTML = "";
+        container.classList.add("hidden");
+        return;
+      }
+
+      container.classList.remove("hidden");
+      container.innerHTML = filters
+        .map((f) => {
+          const isActive = activeFilter === f.id;
+          const classes = isActive
+            ? "bg-royal-600 text-white border-royal-600 shadow-sm"
+            : "bg-slate-50 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700";
+          return `
+            <button type="button" data-audio-filter-id="${escapeHtml(f.id)}"
+              class="audio-filter-btn px-3 py-1.5 rounded-full text-xs font-semibold border transition-all ${classes}">
+              ${escapeHtml(f.label)}
+            </button>
+          `;
+        })
+        .join("");
+
+      container.querySelectorAll(".audio-filter-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          appState.audioSubTabs[subKey].activeFilter = btn.dataset.audioFilterId;
+          renderAudioFilters();
+          renderActiveAudioCatalog();
+        });
+      });
+    }
+
+    function getFilteredAudioItems() {
+      const subKey = appState.activeAudioSubTab;
+      const st = appState.audioSubTabs[subKey];
+      const tokens = st.searchQuery.toLowerCase().trim().split(/\s+/).filter(Boolean);
+      const filterId = st.activeFilter;
+
+      return st.items.filter((item) => {
+        if (subKey !== "ost" && filterId !== "ALL") {
+          const joinedStatus = item.statuses.join(" ").toLowerCase();
+          if (filterId === "WS_MASTER") {
+            if (!joinedStatus.includes("ws master") && !joinedStatus.includes("wonderful master") && !joinedStatus.includes("♔")) return false;
+          } else if (filterId === "FHP_MASTER") {
+            if (!joinedStatus.includes("fhp") && !joinedStatus.includes("✦")) return false;
+          } else if (filterId === "NFT") {
+            if (!joinedStatus.includes("nft")) return false;
+          } else if (filterId === "RATIO") {
+            if (!/\blt\b|ratio|\(\d+:\d+\)|\b\d+:\d+\b/i.test(joinedStatus)) return false;
+          }
+        }
+
+        for (const token of tokens) {
+          if (!item.searchBlob.includes(token)) return false;
+        }
+        return true;
+      });
+    }
+
+    function renderActiveAudioCatalog() {
+      const subKey = appState.activeAudioSubTab;
+      if (subKey === "ost") {
+        renderOstCatalog();
+      } else {
+        renderGroupedAudioCatalog(subKey);
+      }
+    }
+
+    function renderAudioCard(entry) {
+      const badgesHtml = entry.statuses.length
+        ? `<div class="flex flex-wrap gap-1.5 mt-2">${entry.statuses.map(renderStatusBadge).join("")}</div>`
+        : "";
+
+      const seasonHtml = entry.season
+        ? `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+             <i class="fa-regular fa-calendar-days text-[10px]"></i> ${escapeHtml(entry.season)}
+           </span>`
+        : "";
+
+      const castHtml = entry.cast
+        ? `<div class="flex items-start gap-2 text-xs sm:text-sm text-slate-700 dark:text-slate-200 leading-relaxed">
+             <i class="fa-solid fa-users text-slate-400 mt-1 text-xs shrink-0"></i>
+             <div class="break-words min-w-0">${renderMultilineHtml(entry.cast)}</div>
+           </div>`
+        : "";
+
+      const notesHtml = entry.notes
+        ? `<div class="flex items-start gap-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 bg-royal-50/60 dark:bg-royal-900/25 rounded-xl p-2.5 border border-royal-100 dark:border-royal-800/50">
+             <i class="fa-solid fa-note-sticky text-royal-600 dark:text-royal-300 mt-0.5 text-xs shrink-0"></i>
+             <div class="break-words min-w-0">
+               <span class="inline-block font-bold text-royal-700 dark:text-royal-200 mr-1">Notes:</span>${renderMultilineHtml(entry.notes)}
+             </div>
+           </div>`
+        : "";
+
+      const formatHtml = entry.format
+        ? `<div class="flex items-center flex-wrap gap-1.5 text-xs text-slate-600 dark:text-slate-300 pt-0.5">
+             <i class="fa-solid fa-file-audio text-emerald-500 text-xs"></i>
+             <span class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-bold text-slate-700 dark:text-slate-200">Format:</span>
+             <span>${renderMultilineHtml(entry.format)}</span>
+           </div>`
+        : "";
+
+      const cleanTitle = entry.titleDate
+        .replace(/\s*\|\s*(?:(?:V?LT|NFT|NFS)\b[^|]*|(?:♔|✦)?(?:ws|wonderful|fhp)\s*master[^|]*)/gi, "")
+        .trim();
+
+      return `
+        <article class="p-4 hover:bg-slate-50/70 dark:hover:bg-slate-800/30 transition-colors space-y-2.5">
+          <div class="flex items-start justify-between gap-2">
+            <div class="space-y-1 min-w-0">
+              <div class="flex items-center flex-wrap gap-2">
+                <h3 class="font-bold text-sm sm:text-[15px] text-slate-900 dark:text-white leading-snug break-words">
+                  ${escapeHtml(cleanTitle)}
+                </h3>
+                ${seasonHtml}
+              </div>
+              ${badgesHtml}
+            </div>
+            <button type="button" data-copy-text="${escapeHtml(cleanTitle)}" title="Copy Title & Date"
+              class="copy-entry-btn shrink-0 w-8 h-8 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-royal-600 dark:hover:text-royal-300 hover:bg-royal-50 dark:hover:bg-royal-900/40 flex items-center justify-center transition-colors">
+              <i class="fa-regular fa-copy text-xs"></i>
+            </button>
+          </div>
+          <div class="space-y-2 pt-1">
+            ${castHtml}
+            ${notesHtml}
+            ${formatHtml}
+          </div>
+        </article>
+      `;
+    }
+
+    function renderGroupedAudioCatalog(subKey) {
+      const container = document.getElementById("audio-catalog");
+      const statsEl = document.getElementById("audio-stats");
+      const toggleBtn = document.getElementById("audio-toggle-all");
+      if (!container || !statsEl) return;
+
+      const st = appState.audioSubTabs[subKey];
+      const filtered = getFilteredAudioItems();
+
+      const groupsMap = new Map();
+      for (const item of filtered) {
+        if (!groupsMap.has(item.show)) {
+          groupsMap.set(item.show, []);
+        }
+        groupsMap.get(item.show).push(item);
+      }
+
+      const showCount = groupsMap.size;
+      const autoExpand = st.searchQuery.trim().length > 0;
+
+      statsEl.innerHTML = `
+        <i class="fa-solid fa-database text-royal-600 dark:text-royal-300"></i>
+        <span><strong class="text-slate-800 dark:text-white">${showCount}</strong> Show${showCount === 1 ? "" : "s"} · <strong class="text-slate-800 dark:text-white">${filtered.length}</strong> Audio${filtered.length === 1 ? "" : "s"}</span>
+      `;
+
+      if (toggleBtn) {
+        const allOpen = autoExpand || (showCount > 0 && st.expandedShows.size >= showCount);
+        st.allExpanded = allOpen;
+        toggleBtn.innerHTML = allOpen
+          ? '<i class="fa-solid fa-angles-up text-[11px]"></i><span>Collapse All</span>'
+          : '<i class="fa-solid fa-angles-down text-[11px]"></i><span>Expand All</span>';
+      }
+
+      if (showCount === 0) {
+        container.innerHTML = renderEmptyState();
+        return;
+      }
+
+      const htmlParts = [];
+      let idx = 0;
+
+      for (const [showName, entries] of groupsMap.entries()) {
+        const isOpen = autoExpand || st.expandedShows.has(showName);
+        const cardsHtml = isOpen ? entries.map((entry) => renderAudioCard(entry)).join("") : "";
+
+        htmlParts.push(`
+          <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm overflow-hidden">
+            <button type="button" data-audio-show-idx="${idx}"
+              class="audio-accordion-btn w-full px-4 py-3.5 flex items-center justify-between gap-3 text-left hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors focus:outline-none">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <i class="fa-solid fa-chevron-right text-xs text-slate-400 transition-transform duration-200 ${isOpen ? "rotate-90 text-royal-600 dark:text-royal-300" : ""}"></i>
+                <span class="font-bold text-sm sm:text-base text-slate-900 dark:text-white truncate">${escapeHtml(showName)}</span>
+              </div>
+              <span class="shrink-0 px-2.5 py-0.5 rounded-full text-xs font-bold bg-royal-50 dark:bg-royal-900/50 text-royal-700 dark:text-royal-200 border border-royal-200/60 dark:border-royal-700/60">
+                ${entries.length}
+              </span>
+            </button>
+            <div class="${isOpen ? "block" : "hidden"} border-t border-slate-100 dark:border-slate-800 divide-y divide-slate-100 dark:divide-slate-800/80">
+              ${cardsHtml}
+            </div>
+          </div>
+        `);
+        idx++;
+      }
+
+      container.innerHTML = htmlParts.join("");
+
+      const showNames = Array.from(groupsMap.keys());
+      container.querySelectorAll(".audio-accordion-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const name = showNames[Number(btn.dataset.audioShowIdx)];
+          if (st.expandedShows.has(name)) {
+            st.expandedShows.delete(name);
+          } else {
+            st.expandedShows.add(name);
+          }
+          renderGroupedAudioCatalog(subKey);
+        });
+      });
+
+      bindCopyButtons(container);
+    }
+
+    function renderOstCatalog() {
+      const container = document.getElementById("audio-catalog");
+      const statsEl = document.getElementById("audio-stats");
+      if (!container || !statsEl) return;
+
+      const filtered = getFilteredAudioItems();
+
+      statsEl.innerHTML = `
+        <i class="fa-solid fa-database text-royal-600 dark:text-royal-300"></i>
+        <span><strong class="text-slate-800 dark:text-white">${filtered.length}</strong> OST${filtered.length === 1 ? "" : "s"}</span>
+      `;
+
+      if (filtered.length === 0) {
+        container.innerHTML = renderEmptyState();
+        return;
+      }
+
+      container.innerHTML = filtered
+        .map((entry) => {
+          const yearHtml = entry.year
+            ? `<span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-extrabold bg-royal-50 dark:bg-royal-900/60 text-royal-700 dark:text-royal-200 border border-royal-200/70 dark:border-royal-700/60 shrink-0">${escapeHtml(entry.year)}</span>`
+            : "";
+
+          const castHtml = entry.cast
+            ? `<div class="flex items-start gap-2 text-xs sm:text-sm text-slate-700 dark:text-slate-200 leading-relaxed">
+                 <i class="fa-solid fa-users text-slate-400 mt-1 text-xs shrink-0"></i>
+                 <div class="break-words min-w-0">${renderMultilineHtml(entry.cast)}</div>
+               </div>`
+            : "";
+
+          const formatNotesHtml = entry.formatNotes
+            ? `<div class="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800/60 rounded-xl p-2.5 border border-slate-200/70 dark:border-slate-700/60">
+                 <i class="fa-solid fa-compact-disc text-emerald-500 mt-0.5 text-xs shrink-0"></i>
+                 <div class="break-words min-w-0">${renderMultilineHtml(entry.formatNotes)}</div>
+               </div>`
+            : "";
+
+          const copyLabel = entry.year ? `${entry.year} ${entry.title}` : entry.title;
+
+          return `
+            <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm p-4 space-y-2.5">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center flex-wrap gap-2 min-w-0">
+                  ${yearHtml}
+                  <h3 class="font-bold text-sm sm:text-[15px] text-slate-900 dark:text-white leading-snug break-words">
+                    ${escapeHtml(entry.title)}
+                  </h3>
+                </div>
+                <button type="button" data-copy-text="${escapeHtml(copyLabel)}" title="Copy OST Title"
+                  class="copy-entry-btn shrink-0 w-8 h-8 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-royal-600 dark:hover:text-royal-300 hover:bg-royal-50 dark:hover:bg-royal-900/40 flex items-center justify-center transition-colors">
+                  <i class="fa-regular fa-copy text-xs"></i>
+                </button>
+              </div>
+              <div class="space-y-2">
+                ${castHtml}
+                ${formatNotesHtml}
+              </div>
+            </div>
+          `;
+        })
+        .join("");
+
+      bindCopyButtons(container);
+    }
+
+    async function loadScriptCatalog() {
+      const st = appState.scriptTab;
+      if (st.loading) return;
+
+      const loadingEl = document.getElementById("script-loading");
+      const errorEl = document.getElementById("script-error");
+      const catalogEl = document.getElementById("script-catalog");
+      const statsEl = document.getElementById("script-stats");
+
+      st.loading = true;
+      errorEl.classList.add("hidden");
+      catalogEl.innerHTML = "";
+      loadingEl.classList.remove("hidden");
+      if (statsEl) {
+        statsEl.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-royal-600 dark:text-royal-300"></i><span>Loading script catalog...</span>';
+      }
+
+      try {
+        const sheetName = CONFIG.audioScriptSheetNames.script;
+        const matrix = await fetchSheetRowsLive(sheetName, CONFIG.audioScriptSpreadsheetId);
+        st.items = parseScriptMatrix(matrix);
+        st.loaded = true;
+        st.loading = false;
+
+        loadingEl.classList.add("hidden");
+        renderScriptFilters();
+        renderScriptCatalog();
+      } catch (err) {
+        st.loading = false;
+        loadingEl.classList.add("hidden");
+        const msgEl = document.getElementById("script-error-msg");
+        if (msgEl) msgEl.textContent = "Unable to load script catalog right now. Please check your connection and try again.";
+        errorEl.classList.remove("hidden");
+        if (statsEl) {
+          statsEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation text-rose-500"></i><span>Load failed</span>';
+        }
+      }
+    }
+
+    function renderScriptFilters() {
+      const container = document.getElementById("script-filter-pills");
+      if (!container) return;
+
+      const activeFilter = appState.scriptTab.activeFilter;
+      container.innerHTML = SCRIPT_FILTERS
+        .map((f) => {
+          const isActive = activeFilter === f.id;
+          const classes = isActive
+            ? "bg-royal-600 text-white border-royal-600 shadow-sm"
+            : "bg-slate-50 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700";
+          return `
+            <button type="button" data-script-filter-id="${escapeHtml(f.id)}"
+              class="script-filter-btn px-3 py-1.5 rounded-full text-xs font-semibold border transition-all ${classes}">
+              ${escapeHtml(f.label)}
+            </button>
+          `;
+        })
+        .join("");
+
+      container.querySelectorAll(".script-filter-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          appState.scriptTab.activeFilter = btn.dataset.scriptFilterId;
+          renderScriptFilters();
+          renderScriptCatalog();
+        });
+      });
+    }
+
+    function renderScriptCatalog() {
+      const container = document.getElementById("script-catalog");
+      const statsEl = document.getElementById("script-stats");
+      if (!container || !statsEl) return;
+
+      const st = appState.scriptTab;
+      const tokens = st.searchQuery.toLowerCase().trim().split(/\s+/).filter(Boolean);
+      const filterId = st.activeFilter;
+
+      const filtered = st.items.filter((item) => {
+        if (filterId === "SCAN" && !item.badges.includes("Scan")) return false;
+        if (filterId === "TYPING" && !item.badges.includes("Typing")) return false;
+        for (const token of tokens) {
+          if (!item.searchBlob.includes(token)) return false;
+        }
+        return true;
+      });
+
+      statsEl.innerHTML = `
+        <i class="fa-solid fa-database text-royal-600 dark:text-royal-300"></i>
+        <span><strong class="text-slate-800 dark:text-white">${filtered.length}</strong> Script${filtered.length === 1 ? "" : "s"}</span>
+      `;
+
+      if (filtered.length === 0) {
+        container.innerHTML = renderEmptyState();
+        return;
+      }
+
+      container.innerHTML = filtered
+        .map((item) => {
+          const badgesHtml = item.badges.length
+            ? `<div class="flex flex-wrap gap-1.5 mt-1.5">${item.badges
+                .map((b) => {
+                  const style =
+                    b === "Scan"
+                      ? "bg-emerald-100 text-emerald-700 border-emerald-200 dark:bg-emerald-950/70 dark:text-emerald-300 dark:border-emerald-800"
+                      : b === "Typing"
+                        ? "bg-sky-100 text-sky-700 border-sky-200 dark:bg-sky-950/70 dark:text-sky-300 dark:border-sky-800"
+                        : "bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-950/70 dark:text-amber-200 dark:border-amber-800";
+                  return `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold border ${style}">${escapeHtml(b)}</span>`;
+                })
+                .join("")}</div>`
+            : "";
+
+          return `
+            <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-sm px-4 py-3.5 flex items-start justify-between gap-3 hover:bg-slate-50/70 dark:hover:bg-slate-800/30 transition-colors">
+              <div class="min-w-0">
+                <div class="flex items-start gap-2">
+                  <span class="text-royal-600 dark:text-royal-300 font-bold text-sm leading-snug shrink-0">★</span>
+                  <h3 class="font-bold text-sm sm:text-[15px] text-slate-900 dark:text-white leading-snug break-words">
+                    ${escapeHtml(item.raw)}
+                  </h3>
+                </div>
+                ${badgesHtml}
+              </div>
+              <button type="button" data-copy-text="${escapeHtml(item.raw)}" title="Copy Script Title"
+                class="copy-entry-btn shrink-0 w-8 h-8 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-400 hover:text-royal-600 dark:hover:text-royal-300 hover:bg-royal-50 dark:hover:bg-royal-900/40 flex items-center justify-center transition-colors">
+                <i class="fa-regular fa-copy text-xs"></i>
+              </button>
+            </div>
+          `;
+        })
+        .join("");
+
+      bindCopyButtons(container);
+    }
+
     /**
      * =========================================================
      * INITIALIZE APPLICATION
@@ -1875,6 +2800,86 @@
           }
         }
         renderActiveVideoCatalog();
+      });
+
+      // Audio retry, search & expand/collapse controls
+      document.getElementById("audio-retry-btn").addEventListener("click", () => {
+        loadAudioSubTab(appState.activeAudioSubTab);
+      });
+
+      const audioSearchInput = document.getElementById("audio-search");
+      const audioClearBtn = document.getElementById("audio-clear-search");
+      const audioToggleAllBtn = document.getElementById("audio-toggle-all");
+      let audioDebounceTimer = null;
+
+      audioSearchInput.addEventListener("input", (e) => {
+        const val = e.target.value;
+        const subKey = appState.activeAudioSubTab;
+        audioClearBtn.classList.toggle("hidden", !val);
+        clearTimeout(audioDebounceTimer);
+        audioDebounceTimer = setTimeout(() => {
+          appState.audioSubTabs[subKey].searchQuery = val;
+          renderActiveAudioCatalog();
+        }, 150);
+      });
+
+      audioClearBtn.addEventListener("click", () => {
+        const subKey = appState.activeAudioSubTab;
+        audioSearchInput.value = "";
+        audioClearBtn.classList.add("hidden");
+        appState.audioSubTabs[subKey].searchQuery = "";
+        renderActiveAudioCatalog();
+        audioSearchInput.focus();
+      });
+
+      audioToggleAllBtn.addEventListener("click", () => {
+        const subKey = appState.activeAudioSubTab;
+        if (subKey === "ost") return;
+
+        const st = appState.audioSubTabs[subKey];
+        const filtered = getFilteredAudioItems();
+        const uniqueShows = new Set(filtered.map((item) => item.show));
+
+        if (st.allExpanded) {
+          st.expandedShows.clear();
+          if (st.searchQuery.trim()) {
+            audioSearchInput.value = "";
+            audioClearBtn.classList.add("hidden");
+            st.searchQuery = "";
+          }
+        } else {
+          for (const showName of uniqueShows) {
+            st.expandedShows.add(showName);
+          }
+        }
+        renderActiveAudioCatalog();
+      });
+
+      // Script retry & search controls
+      document.getElementById("script-retry-btn").addEventListener("click", () => {
+        loadScriptCatalog();
+      });
+
+      const scriptSearchInput = document.getElementById("script-search");
+      const scriptClearBtn = document.getElementById("script-clear-search");
+      let scriptDebounceTimer = null;
+
+      scriptSearchInput.addEventListener("input", (e) => {
+        const val = e.target.value;
+        scriptClearBtn.classList.toggle("hidden", !val);
+        clearTimeout(scriptDebounceTimer);
+        scriptDebounceTimer = setTimeout(() => {
+          appState.scriptTab.searchQuery = val;
+          renderScriptCatalog();
+        }, 150);
+      });
+
+      scriptClearBtn.addEventListener("click", () => {
+        scriptSearchInput.value = "";
+        scriptClearBtn.classList.add("hidden");
+        appState.scriptTab.searchQuery = "";
+        renderScriptCatalog();
+        scriptSearchInput.focus();
       });
 
       // Set default views
