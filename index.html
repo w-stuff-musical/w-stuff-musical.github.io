@@ -60,6 +60,17 @@
       }
     })();
   </script>
+    <style>
+    /* Disable text selection on Video & Audio catalogs */
+    #video-catalog,
+    #audio-catalog {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased min-h-screen flex flex-col overflow-x-hidden selection:bg-royal-600 selection:text-white transition-colors duration-200">
 
@@ -2938,5 +2949,17 @@
       switchContactSalesSubTab("contact");
     });
   </script>
+    <script>
+    (function () {
+      const protectedIds = ["video-catalog", "audio-catalog"];
+      protectedIds.forEach((id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener("copy", (e) => e.preventDefault());
+        el.addEventListener("cut", (e) => e.preventDefault());
+        el.addEventListener("contextmenu", (e) => e.preventDefault());
+      });
+    })();
+    </script>
 </body>
 </html>
