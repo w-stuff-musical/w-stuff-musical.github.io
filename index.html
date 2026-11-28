@@ -1731,11 +1731,10 @@
     function renderStatusBadge(status) {
       const lower = status.toLowerCase();
       let style = "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700";
-
       if (lower.includes("ws master") || lower.includes("wonderful master") || lower.includes("♔") || lower.includes("👑")) {
         style = "bg-gradient-to-r from-purple-100 to-amber-100 text-purple-900 border-purple-300 dark:from-purple-950/90 dark:to-amber-950/70 dark:text-amber-200 dark:border-purple-700";
       } else if (lower.includes("fhp master") || lower.includes("✦fhp")) {
-        style = "bg-blue-100 text-blue-800 border-blue-300 dark:bg-blue-950/80 dark:text-blue-200 dark:border-blue-700";
+                style = "bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-900 border-blue-300 dark:from-blue-950/90 dark:to-cyan-950/75 dark:text-cyan-200 dark:border-blue-700"
       } else if (lower.includes("comision") || lower.includes("commission")) {
         style = "bg-cyan-100 text-cyan-900 border-cyan-300 dark:bg-cyan-950/70 dark:text-cyan-200 dark:border-cyan-700";
       } else if (lower.includes("not for sale") || lower.includes("🚫")) {
